@@ -9,28 +9,29 @@ importers:
   .:
     dependencies:
       '@astrojs/check':
-        specifier: ^0.9.4
+        specifier: 0.9.4
         version: 0.9.4(typescript@5.7.2)
       '@astrojs/mdx':
-        specifier: ^3.1.9
+        specifier: 3.1.9
         version: 3.1.9(astro@4.16.14(rollup@4.27.4)(typescript@5.7.2))
       '@astrojs/rss':
-        specifier: ^4.0.9
+        specifier: 4.0.9
         version: 4.0.9
       '@astrojs/sitemap':
-        specifier: ^3.2.1
+        specifier: 3.2.1
         version: 3.2.1
       astro:
-        specifier: ^4.16.13
+        specifier: 4.16.14
         version: 4.16.14(rollup@4.27.4)(typescript@5.7.2)
+    devDependencies:
       stylelint:
-        specifier: ^16.10.0
+        specifier: 16.10.0
         version: 16.10.0(typescript@5.7.2)
       stylelint-config-htmlacademy:
-        specifier: ^4.2.3
+        specifier: 4.2.3
         version: 4.2.3(postcss@8.4.49)(stylelint@16.10.0(typescript@5.7.2))
       typescript:
-        specifier: ^5.7.2
+        specifier: 5.7.2
         version: 5.7.2
 
 packages:

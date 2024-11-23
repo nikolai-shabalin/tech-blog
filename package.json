@@ -11,14 +11,16 @@
     "lint": "npm run lint:styles",
     "lint:styles": "stylelint src/styles/**.*css"
   },
+  "devDependencies": {
+    "stylelint": "16.10.0",
+    "stylelint-config-htmlacademy": "4.2.3",
+    "typescript": "5.7.2"
+  },
   "dependencies": {
-    "@astrojs/check": "^0.9.4",
-    "@astrojs/mdx": "^3.1.9",
-    "@astrojs/rss": "^4.0.9",
-    "@astrojs/sitemap": "^3.2.1",
-    "astro": "^4.16.13",
-    "stylelint": "^16.10.0",
-    "stylelint-config-htmlacademy": "^4.2.3",
-    "typescript": "^5.7.2"
+    "@astrojs/check": "0.9.4",
+    "@astrojs/mdx": "3.1.9",
+    "@astrojs/rss": "4.0.9",
+    "@astrojs/sitemap": "3.2.1",
+    "astro": "4.16.14"
   }
 }
