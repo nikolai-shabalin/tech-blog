@@ -3,8 +3,8 @@
 - [x] astro
 - [x] проверить версии
 - [x] gitignore
-- [] editorConfig
-- [] stylelint
+- [x] editorConfig
+- [x] stylelint
 - [] eslint
 - [] typescript
 ### package.json
