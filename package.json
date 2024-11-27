@@ -20,7 +20,7 @@
     "@astrojs/rss": "4.0.9",
     "@astrojs/sitemap": "3.2.1",
     "@eslint/js": "9.15.0",
-    "astro": "4.16.14",
+    "astro": "4.16.16",
     "eslint": "9.15.0",
     "gh-pages": "6.2.0",
     "stylelint": "16.10.0",
@@ -28,6 +28,6 @@
     "typescript": "5.7.2"
   },
   "engines": {
-    "node": ">20"
+    "node": ">=20"
   }
 }
