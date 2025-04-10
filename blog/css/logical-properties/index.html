@@ -1,0 +1,203 @@
+<!DOCTYPE html><html lang="ru" data-astro-cid-bvzihdzo> <head><!-- Global Metadata --><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="generator" content="Astro v5.6.1"><!-- Google Fonts --><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@500;600;700;800&display=swap" rel="stylesheet"><!-- Font preloads --><link rel="preload" href="/fonts/atkinson-regular.woff" as="font" type="font/woff" crossorigin><link rel="preload" href="/fonts/atkinson-bold.woff" as="font" type="font/woff" crossorigin><!-- Canonical URL --><link rel="canonical" href="https://shabalin.online/blog/css/logical-properties/"><!-- Primary Meta Tags --><title>CSS Logical Properties: Введение</title><meta name="title" content="CSS Logical Properties: Введение"><meta name="description" content="Разбираемся с логическими свойствами CSS - что это такое, как их использовать и почему они важны для современной вёрстки"><!-- Open Graph / Facebook --><meta property="og:type" content="website"><meta property="og:url" content="https://shabalin.online/blog/css/logical-properties/"><meta property="og:title" content="CSS Logical Properties: Введение"><meta property="og:description" content="Разбираемся с логическими свойствами CSS - что это такое, как их использовать и почему они важны для современной вёрстки"><!-- Twitter --><meta property="twitter:card" content="summary_large_image"><meta property="twitter:url" content="https://shabalin.online/blog/css/logical-properties/"><meta property="twitter:title" content="CSS Logical Properties: Введение"><meta property="twitter:description" content="Разбираемся с логическими свойствами CSS - что это такое, как их использовать и почему они важны для современной вёрстки"><!-- Yandex.Metrika counter --><script type="text/javascript">
+  (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+    m[i].l=1*new Date();
+    for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+    k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+  (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
+  ym(99027716, "init", {
+    clickmap:true,
+    trackLinks:true,
+    accurateTrackBounce:true
+  });
+</script><!-- /Yandex.Metrika counter --><link rel="stylesheet" href="/_astro/_slug_.D63rCN10.css">
+<style>.post-header[data-astro-cid-bvzihdzo]{margin:var(--space-3xl) 0 var(--space-2xl) 0;text-align:center}.post-title[data-astro-cid-bvzihdzo]{font-size:var(--text-4xl);line-height:1.1;margin:0 0 var(--space-lg) 0;position:relative;display:inline-block}.post-meta[data-astro-cid-bvzihdzo]{margin-bottom:var(--space-xl);color:rgb(var(--gray));font-style:italic;font-size:var(--text-sm);letter-spacing:.05em}.post-meta[data-astro-cid-bvzihdzo] time[data-astro-cid-bvzihdzo]{margin-right:var(--space-xs)}.post-updated[data-astro-cid-bvzihdzo]{font-style:italic;font-size:var(--text-xs);color:rgb(var(--gray));margin-top:var(--space-sm)}.divider[data-astro-cid-bvzihdzo]{height:1px;background:rgba(var(--gray),.2);margin:var(--space-2xl) auto;width:60%;max-width:400px}.content[data-astro-cid-bvzihdzo]{margin:0 auto;max-width:var(--content-width)}.content[data-astro-cid-bvzihdzo] h2{margin-top:var(--space-3xl);margin-bottom:var(--space-lg);font-size:var(--text-3xl);position:relative}.content[data-astro-cid-bvzihdzo] h2:before{content:"";width:30px;height:3px;background:var(--accent);position:absolute;top:-10px;left:0}.content[data-astro-cid-bvzihdzo] h3{margin-top:var(--space-2xl);margin-bottom:var(--space-md);font-size:var(--text-2xl)}.content[data-astro-cid-bvzihdzo] ul{margin-bottom:var(--space-xl)}.content[data-astro-cid-bvzihdzo] p{margin-bottom:var(--space-lg);font-size:var(--text-lg);line-height:1.8}.content[data-astro-cid-bvzihdzo] code{font-size:.9em}.content[data-astro-cid-bvzihdzo] pre{margin:var(--space-xl) 0}.content[data-astro-cid-bvzihdzo] blockquote{font-size:var(--text-lg);line-height:1.6;font-style:italic;color:rgb(var(--gray-dark));background:rgba(var(--gray-light),.5);padding:var(--space-lg);border-radius:4px;border-left:4px solid var(--accent);margin:var(--space-xl) 0}.content[data-astro-cid-bvzihdzo] figure{margin:var(--space-xl) 0}.content[data-astro-cid-bvzihdzo] figcaption{font-size:var(--text-sm);color:rgb(var(--gray));text-align:center;margin-top:var(--space-sm)}.content[data-astro-cid-bvzihdzo] img{border-radius:8px;box-shadow:0 5px 20px #0000001a}.content[data-astro-cid-bvzihdzo] blockquote p:last-child{margin-bottom:0}@media (max-width: 720px){.post-title[data-astro-cid-bvzihdzo]{font-size:var(--text-3xl)}.content[data-astro-cid-bvzihdzo] h2{font-size:var(--text-2xl)}.content[data-astro-cid-bvzihdzo] h3{font-size:var(--text-xl)}}
+</style></head> <body data-astro-cid-bvzihdzo> <main data-astro-cid-bvzihdzo> <article data-astro-cid-bvzihdzo> <div class="post-header" data-astro-cid-bvzihdzo> <h1 class="post-title" data-astro-cid-bvzihdzo>CSS Logical Properties: Введение</h1> <div class="post-meta" data-astro-cid-bvzihdzo> <time datetime="2025-03-29T21:00:00.000Z" data-astro-cid-bvzihdzo> <time datetime="2025-03-29T21:00:00.000Z"> 30 марта 2025 г. </time> </time>  </div> </div> <div class="divider" data-astro-cid-bvzihdzo></div> <div class="content" data-astro-cid-bvzihdzo>  <p>Привет! Это статья для общего понимания логических свойств в CSS, без глубокого разбора.</p>
+<h2 id="что-такое-логические-свойства">Что такое логические свойства?</h2>
+<p>Представь, что ты пишешь текст на бумаге. В зависимости от языка, текст может идти слева направо (как в русском или английском) или справа налево (как в арабском). Логические свойства в CSS учитывают это направление текста и автоматически адаптируются под него.</p>
+<h3 id="концепция-block-и-inline-направлений">Концепция Block и Inline направлений</h3>
+<p>В CSS логические свойства основаны на двух основных направлениях:</p>
+<ul>
+<li><strong>Inline</strong> - направление, в котором течёт текст (горизонтально в большинстве языков)</li>
+<li><strong>Block</strong> - направление, перпендикулярное потоку текста (вертикально в большинстве языков)</li>
+</ul>
+<p>Вместо использования жёстко заданных координат (верх, низ, лево, право), которые не учитывают направление письма, мы используем логические понятия:</p>
+<ul>
+<li><code>inline-start</code> - начало строки (слева в LTR, справа в RTL)</li>
+<li><code>inline-end</code> - конец строки (справа в LTR, слева в RTL)</li>
+<li><code>block-start</code> - начало блока (обычно сверху)</li>
+<li><code>block-end</code> - конец блока (обычно снизу)</li>
+</ul>
+<p><img alt="Иллюстрация концепций block и inline направлений" width="460" height="280" loading="lazy" decoding="async" src="/_astro/sizing-ltr-tb.B8bshN_8_10LGqu.svg" >
+<em>Направление в английском языке</em></p>
+<p><img alt="Иллюстрация концепций block и inline направлений" width="460" height="280" loading="lazy" decoding="async" src="/_astro/sizing-ttb-rl.DHAJiNZZ_Z1eU0G1.svg" >
+<em>Направление в китайском языке</em></p>
+<h2 id="основные-логические-свойства">Основные логические свойства</h2>
+<p>Вместо привычных <code>margin-left</code> и <code>margin-right</code> мы используем:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="css"><code><span class="line"><span style="color:#B392F0">.element</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#79B8FF">  margin-inline-start</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">20</span><span style="color:#F97583">px</span><span style="color:#E1E4E8">;  </span><span style="color:#6A737D">/* Слева для LTR, справа для RTL */</span></span>
+<span class="line"><span style="color:#79B8FF">  margin-inline-end</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">20</span><span style="color:#F97583">px</span><span style="color:#E1E4E8">;    </span><span style="color:#6A737D">/* Справа для LTR, слева для RTL */</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+<p>Вместо <code>margin-top</code> и <code>margin-bottom</code>:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="css"><code><span class="line"><span style="color:#B392F0">.element</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#79B8FF">  margin-block-start</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">20</span><span style="color:#F97583">px</span><span style="color:#E1E4E8">;   </span><span style="color:#6A737D">/* Сверху */</span></span>
+<span class="line"><span style="color:#79B8FF">  margin-block-end</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">20</span><span style="color:#F97583">px</span><span style="color:#E1E4E8">;     </span><span style="color:#6A737D">/* Снизу */</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+<h2 id="логические-свойства-для-border">Логические свойства для border</h2>
+<p>Для границ тоже есть логические свойства. Вместо привычных <code>border-left</code> и <code>border-right</code>:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="css"><code><span class="line"><span style="color:#B392F0">.element</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#79B8FF">  border-inline-start</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">2</span><span style="color:#F97583">px</span><span style="color:#79B8FF"> solid</span><span style="color:#79B8FF"> black</span><span style="color:#E1E4E8">;  </span><span style="color:#6A737D">/* Слева для LTR, справа для RTL */</span></span>
+<span class="line"><span style="color:#79B8FF">  border-inline-end</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">2</span><span style="color:#F97583">px</span><span style="color:#79B8FF"> solid</span><span style="color:#79B8FF"> black</span><span style="color:#E1E4E8">;    </span><span style="color:#6A737D">/* Справа для LTR, слева для RTL */</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+<p>И вместо <code>border-top</code> и <code>border-bottom</code>:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="css"><code><span class="line"><span style="color:#B392F0">.element</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#79B8FF">  border-block-start</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">2</span><span style="color:#F97583">px</span><span style="color:#79B8FF"> solid</span><span style="color:#79B8FF"> black</span><span style="color:#E1E4E8">;   </span><span style="color:#6A737D">/* Сверху */</span></span>
+<span class="line"><span style="color:#79B8FF">  border-block-end</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">2</span><span style="color:#F97583">px</span><span style="color:#79B8FF"> solid</span><span style="color:#79B8FF"> black</span><span style="color:#E1E4E8">;     </span><span style="color:#6A737D">/* Снизу */</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+<p>Также доступны логические свойства для отдельных характеристик границы:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="css"><code><span class="line"><span style="color:#B392F0">.element</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#6A737D">  /* Для толщины границы */</span></span>
+<span class="line"><span style="color:#79B8FF">  border-inline-start-width</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">2</span><span style="color:#F97583">px</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#79B8FF">  border-block-start-width</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">2</span><span style="color:#F97583">px</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">  /* Для стиля границы */</span></span>
+<span class="line"><span style="color:#79B8FF">  border-inline-start-style</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">solid</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#79B8FF">  border-block-start-style</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">solid</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">  /* Для цвета границы */</span></span>
+<span class="line"><span style="color:#79B8FF">  border-inline-start-color</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">black</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#79B8FF">  border-block-start-color</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">black</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+<h2 id="логические-свойства-для-размеров">Логические свойства для размеров</h2>
+<p>Для размеров элемента тоже есть логические аналоги:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="css"><code><span class="line"><span style="color:#B392F0">.element</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#6A737D">  /* Вместо width */</span></span>
+<span class="line"><span style="color:#79B8FF">  inline-size</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">200</span><span style="color:#F97583">px</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">  /* Вместо height */</span></span>
+<span class="line"><span style="color:#79B8FF">  block-size</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">100</span><span style="color:#F97583">px</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">  /* Вместо min-width и max-width */</span></span>
+<span class="line"><span style="color:#79B8FF">  min-inline-size</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">100</span><span style="color:#F97583">px</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#79B8FF">  max-inline-size</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">300</span><span style="color:#F97583">px</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">  /* Вместо min-height и max-height */</span></span>
+<span class="line"><span style="color:#79B8FF">  min-block-size</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">50</span><span style="color:#F97583">px</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#79B8FF">  max-block-size</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">150</span><span style="color:#F97583">px</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+<h2 id="почему-это-важно">Почему это важно?</h2>
+<ol>
+<li><strong>Поддержка разных языков</strong>: Твой сайт будет корректно отображаться на любом языке без дополнительных правок.</li>
+<li><strong>Меньше кода</strong>: Не нужно писать отдельные стили для RTL-версий.</li>
+<li><strong>Современный подход</strong>: Это часть современного CSS, который делает вёрстку более гибкой.</li>
+<li><strong>Международные сайты</strong>: Если ты создаёшь сайт на нескольких языках, включая языки с направлением RTL, логические свойства значительно упростят твою работу.</li>
+<li><strong>Адаптация к разным системам письма</strong>: Помимо направления LTR и RTL, логические свойства помогут с вертикальными системами письма, как в японском или китайском языках.</li>
+</ol>
+<h2 id="практический-пример">Практический пример</h2>
+<p>Давай посмотрим на реальный пример:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="css"><code><span class="line"><span style="color:#B392F0">.card</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#6A737D">  /* Старый подход */</span></span>
+<span class="line"><span style="color:#79B8FF">  margin-left</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">20</span><span style="color:#F97583">px</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#79B8FF">  margin-right</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">20</span><span style="color:#F97583">px</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#79B8FF">  padding-top</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">15</span><span style="color:#F97583">px</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#79B8FF">  padding-bottom</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">15</span><span style="color:#F97583">px</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">  /* Новый подход с логическими свойствами */</span></span>
+<span class="line"><span style="color:#79B8FF">  margin-inline</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">20</span><span style="color:#F97583">px</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#79B8FF">  padding-block</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">15</span><span style="color:#F97583">px</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+<p>но больше всего мне нравится современный вариант центровщика:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="css"><code><span class="line"><span style="color:#B392F0">.card</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#6A737D">  /* Старый подход */</span></span>
+<span class="line"><span style="color:#79B8FF">  margin</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">0</span><span style="color:#79B8FF"> auto</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">  /* То что мне на самом деле нужно,</span></span>
+<span class="line"><span style="color:#6A737D">  но вариант избыточный  */</span></span>
+<span class="line"><span style="color:#79B8FF">  margin-left</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">auto</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#79B8FF">  margin-right</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">auto</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">  /* Новый подход с логическими свойствами */</span></span>
+<span class="line"><span style="color:#79B8FF">  margin-inline</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">auto</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+<p>В старом подходе меня всегда смущало набирать <code>0</code>. Он мне не нужен, но набивать его раз за разом приходится, так как это требование. По сути мне нужен второй вариант, когда я явно указываю, что нужны “автотические” отступы слева и справа. С современным вариантом меня начало абсолютно всё устравивать. <code>0</code> отвалился сам собой и ушла избыточность.</p>
+<h2 id="сокращения">Сокращения</h2>
+<p>CSS предоставляет удобные сокращения:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="css"><code><span class="line"><span style="color:#B392F0">.element</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#6A737D">  /* Вместо margin-inline-start и margin-inline-end */</span></span>
+<span class="line"><span style="color:#79B8FF">  margin-inline</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">20</span><span style="color:#F97583">px</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">  /* Вместо padding-block-start и padding-block-end */</span></span>
+<span class="line"><span style="color:#79B8FF">  padding-block</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">20</span><span style="color:#F97583">px</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">  /* Для всех сторон */</span></span>
+<span class="line"><span style="color:#79B8FF">  inset</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">20</span><span style="color:#F97583">px</span><span style="color:#E1E4E8">;  </span><span style="color:#6A737D">/* Вместо top, right, bottom, left */</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+<p>Также доступны сокращения для границ:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="css"><code><span class="line"><span style="color:#B392F0">.element</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#6A737D">  /* Все inline границы (лево и право в LTR) */</span></span>
+<span class="line"><span style="color:#79B8FF">  border-inline</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">1</span><span style="color:#F97583">px</span><span style="color:#79B8FF"> solid</span><span style="color:#79B8FF"> black</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">  /* Все block границы (верх и низ) */</span></span>
+<span class="line"><span style="color:#79B8FF">  border-block</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">1</span><span style="color:#F97583">px</span><span style="color:#79B8FF"> solid</span><span style="color:#79B8FF"> black</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+<h2 id="поддержка-браузеров">Поддержка браузеров</h2>
+<p>Хорошая новость! Логические свойства поддерживаются всеми современными браузерами. Браузеры начали широко поддерживать эти свойства с 2021 года.</p>
+<p>Для поддержки старых браузеров можно использовать fallback:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="css"><code><span class="line"><span style="color:#B392F0">.element</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#79B8FF">  margin-left</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">20</span><span style="color:#F97583">px</span><span style="color:#E1E4E8">;  </span><span style="color:#6A737D">/* Fallback */</span></span>
+<span class="line"><span style="color:#79B8FF">  margin-inline-start</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">20</span><span style="color:#F97583">px</span><span style="color:#E1E4E8">;  </span><span style="color:#6A737D">/* Современное решение */</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+<p>естестенно руками такое писать не нужно, так как с этим прекрасно справляется автоматизаци.</p>
+<h2 id="практические-советы">Практические советы</h2>
+<ol>
+<li>Начни использовать логические свойства в новых проектах</li>
+<li>При рефакторинге старых проектов постепенно переходи на логические свойства</li>
+<li>Используй сокращения для более чистого кода</li>
+<li>Не забывай про fallback для старых браузеров</li>
+<li>Обязательно тестируй свой сайт в режимах LTR и RTL, чтобы убедиться в корректной работе логических свойств</li>
+</ol>
+<h2 id="реальное-применение">Реальное применение</h2>
+<p>Представь, что ты разрабатываешь многоязычный интернет-магазин. На арабской версии сайта все элементы должны “зеркально” отображаться:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="css"><code><span class="line"><span style="color:#6A737D">/* Старый подход */</span></span>
+<span class="line"><span style="color:#B392F0">.product-image</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#79B8FF">  float</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">left</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#79B8FF">  margin-right</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">20</span><span style="color:#F97583">px</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">[</span><span style="color:#B392F0">dir</span><span style="color:#F97583">=</span><span style="color:#9ECBFF">"rtl"</span><span style="color:#E1E4E8">] </span><span style="color:#B392F0">.product-image</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#79B8FF">  float</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">right</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#79B8FF">  margin-left</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">20</span><span style="color:#F97583">px</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#79B8FF">  margin-right</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">0</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">/* Новый подход с логическими свойствами */</span></span>
+<span class="line"><span style="color:#B392F0">.product-image</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#79B8FF">  float</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">inline-start</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#79B8FF">  margin-inline-end</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">20</span><span style="color:#F97583">px</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+<p>С логическими свойствами тебе не нужно писать отдельные правила для RTL - всё работает автоматически!</p>
+<h2 id="типичные-ошибки-начинающих">Типичные ошибки начинающих</h2>
+<p>Когда только начинаешь использовать логические свойства, легко попасть в несколько распространенных ловушек:</p>
+<ol>
+<li>
+<p><strong>Смешивание физических и логических свойств</strong>:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="css"><code><span class="line"><span style="color:#6A737D">/* Неправильно */</span></span>
+<span class="line"><span style="color:#B392F0">.box</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#79B8FF">  margin-left</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">10</span><span style="color:#F97583">px</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#79B8FF">  margin-inline-end</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">20</span><span style="color:#F97583">px</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+<p>Проблема: в LTR режиме <code>margin-inline-end</code> соответствует правому полю, что конфликтует с <code>margin-left</code>.</p>
+</li>
+<li>
+<p><strong>Забывание о режиме направления</strong>:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="css"><code><span class="line"><span style="color:#6A737D">/* Недостаточно */</span></span>
+<span class="line"><span style="color:#85E89D">html</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#79B8FF">  direction</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">rtl</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+<p>Для корректной работы логических свойств важно установить атрибут <code>dir</code> или CSS-свойство <code>direction</code>.</p>
+</li>
+<li>
+<p><strong>Невнимательность к списку свойств с префиксом <code>border-</code></strong>:
+Многие разработчики забывают, что для границы есть не только основные свойства, но и свойства для цвета, стиля и ширины.</p>
+</li>
+</ol>  </div> </article> </main> <footer data-astro-cid-sz7xmlte> <div class="footer-content" data-astro-cid-sz7xmlte> <p class="copyright" data-astro-cid-sz7xmlte>&copy; 2025 Nikolai Shabalin</p> <div class="social-links" data-astro-cid-sz7xmlte> <a href="https://github.com/nikolai-shabalin/" target="_blank" aria-label="GitHub" data-astro-cid-sz7xmlte> <span class="sr-only" data-astro-cid-sz7xmlte>GitHub</span> <svg viewBox="0 0 16 16" aria-hidden="true" width="24" height="24" data-astro-cid-sz7xmlte> <path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z" data-astro-cid-sz7xmlte></path> </svg> </a> </div> </div> </footer>  </body></html>
