@@ -10,19 +10,19 @@
     0 2px 6px rgba(var(--gray), 25%),
     0 8px 24px rgba(var(--gray), 33%),
     0 16px 32px rgba(var(--gray), 33%);
-  
+
   /* Типографическая шкала */
-  --text-xs: clamp(0.75rem, 0.72rem + 0.17vw, 0.875rem);
-  --text-sm: clamp(0.875rem, 0.83rem + 0.24vw, 1rem);
-  --text-base: clamp(1rem, 0.94rem + 0.34vw, 1.125rem);
-  --text-md: clamp(1.125rem, 1.05rem + 0.47vw, 1.25rem);
+  --text-xs: clamp(0.75rem, 0.72rem + 0.17vw, 0.88rem);
+  --text-sm: clamp(0.88rem, 0.83rem + 0.24vw, 1rem);
+  --text-base: clamp(1rem, 0.94rem + 0.34vw, 1.13rem);
+  --text-md: clamp(1.13rem, 1.05rem + 0.47vw, 1.25rem);
   --text-lg: clamp(1.25rem, 1.15rem + 0.65vw, 1.5rem);
-  --text-xl: clamp(1.5rem, 1.33rem + 0.9vw, 1.875rem);
-  --text-2xl: clamp(1.875rem, 1.63rem + 1.24vw, 2.25rem);
+  --text-xl: clamp(1.5rem, 1.33rem + 0.9vw, 1.88rem);
+  --text-2xl: clamp(1.88rem, 1.63rem + 1.24vw, 2.25rem);
   --text-3xl: clamp(2.25rem, 1.89rem + 1.71vw, 2.75rem);
   --text-4xl: clamp(2.75rem, 2.22rem + 2.37vw, 3.5rem);
   --text-5xl: clamp(3.5rem, 2.64rem + 3.29vw, 4.5rem);
-  
+
   /* Расстояния */
   --space-xs: 0.5rem;
   --space-sm: 0.75rem;
@@ -31,19 +31,19 @@
   --space-xl: 2rem;
   --space-2xl: 3rem;
   --space-3xl: 4rem;
-  
+
   /* Шрифтовые пары */
-  --font-heading: 'Montserrat', sans-serif;
-  --font-body: 'Inter', sans-serif;
-  
+  --font-heading: "Montserrat", sans-serif;
+  --font-body: "Inter", sans-serif;
+
   /* Максимальная длина строки для хорошей читаемости */
   --content-width: 65ch;
 }
 
-*:focus-visible { 
-  outline: 3px solid black;
+*:focus-visible {
+  outline: 3px solid #000000;
   outline-offset: 0.25rem;
-  border-radius: 0.125rem;
+  border-radius: 0.13rem;
 }
 
 @font-face {
@@ -138,7 +138,8 @@ h6 {
   margin-bottom: var(--space-md);
 }
 
-ul, ol {
+ul,
+ol {
   margin-top: var(--space-md);
   margin-bottom: var(--space-lg);
   padding-left: var(--space-xl);
@@ -160,7 +161,7 @@ a {
 }
 
 a:hover {
-  color: var(--accent-dark);  
+  color: var(--accent-dark);
 }
 
 p {
@@ -195,7 +196,8 @@ table {
   margin: var(--space-xl) 0;
 }
 
-th, td {
+th,
+td {
   padding: var(--space-sm);
   text-align: left;
   border-bottom: 1px solid rgba(var(--gray), 0.2);
