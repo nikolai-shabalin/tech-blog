@@ -7,7 +7,7 @@
     "build": "astro check && astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "lint": "npm run lint:styles",
+    "lint": "pnpm run lint:styles",
     "lint:styles": "stylelint src/styles/**.*css",
     "lint:scripts": "eslint"
   },
