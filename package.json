@@ -9,10 +9,7 @@
     "astro": "astro",
     "lint": "npm run lint:styles",
     "lint:styles": "stylelint src/styles/**.*css",
-    "lint:scripts": "eslint",
-    "predeploy": "echo shabalin.online > dist/CNAME",
-    "deploy": "gh-pages -d dist",
-    "publish": "npm run lint && npm run build && npm run deploy"
+    "lint:scripts": "eslint"
   },
   "devDependencies": {
     "@astrojs/check": "0.9.4",
@@ -22,7 +19,6 @@
     "@eslint/js": "9.24.0",
     "astro": "5.6.1",
     "eslint": "9.24.0",
-    "gh-pages": "6.3.0",
     "stylelint": "16.18.0",
     "stylelint-config-htmlacademy": "4.2.3",
     "typescript": "5.8.3"
