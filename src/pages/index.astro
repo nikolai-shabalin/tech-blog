@@ -16,88 +16,130 @@ const posts = (await getCollection('blog')).sort(
 		<title>Title</title>
 		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
 		<style>
-			main {
-				width: 960px;
+			.hero {
+				margin: var(--space-3xl) 0;
+				text-align: center;
 			}
-			ul {
-				display: flex;
-				flex-wrap: wrap;
-				gap: 2rem;
+			.hero h1 {
+				font-size: var(--text-5xl);
+				line-height: 1.05;
+				margin: 0 0 var(--space-md) 0;
+				position: relative;
+				display: inline-block;
+			}
+			.hero h1::after {
+				content: '';
+				position: absolute;
+				width: 40%;
+				height: 6px;
+				background-color: var(--accent);
+				bottom: -16px;
+				left: 30%;
+			}
+			.hero p {
+				font-size: var(--text-xl);
+				max-width: 36rem;
+				margin: var(--space-xl) auto;
+				color: rgb(var(--gray));
+				line-height: 1.5;
+			}
+			
+			.posts-header {
+				margin: var(--space-3xl) 0 var(--space-2xl) 0;
+				text-align: center;
+				font-size: var(--text-2xl);
+				font-weight: 500;
+				color: rgb(var(--black));
+			}
+			
+			.posts-list {
+				display: grid;
+				grid-template-columns: repeat(1, 1fr);
+				gap: var(--space-3xl);
 				list-style-type: none;
 				margin: 0;
 				padding: 0;
 			}
-			ul li {
-				width: calc(50% - 1rem);
+			
+			.post-item {
+				position: relative;
+				padding-bottom: var(--space-2xl);
+				transition: transform 0.3s ease;
 			}
-			ul li * {
-				text-decoration: none;
-				transition: 0.2s ease;
+
+			.post-item:not(:last-child) {
+				border-bottom: 1px solid rgba(var(--gray), 0.15);
 			}
-			ul li:first-child {
-				width: 100%;
-				margin-bottom: 1rem;
-				text-align: center;
+			
+			.post-item:hover {
+				transform: translateY(-5px);
 			}
-			ul li:first-child img {
-				width: 100%;
-			}
-			ul li:first-child .title {
-				font-size: 2.369rem;
-			}
-			ul li img {
-				margin-bottom: 0.5rem;
-				border-radius: 12px;
-			}
-			ul li a {
+			
+			.post-link {
 				display: block;
+				text-decoration: none;
 			}
-			.title {
-				margin: 0;
+
+			.post-link:hover {
+				border-bottom: none;
+			}
+			
+			.post-link:hover .post-title {
+				color: var(--accent);
+			}
+			
+			.post-title {
+				font-size: var(--text-3xl);
+				margin: 0 0 var(--space-sm) 0;
 				color: rgb(var(--black));
-				line-height: 1;
+				line-height: 1.2;
+				transition: color 0.2s ease;
 			}
-			.date {
-				margin: 0;
+			
+			.post-date {
+				margin: 0 0 var(--space-lg) 0;
 				color: rgb(var(--gray));
+				font-size: var(--text-sm);
+				font-style: italic;
+				letter-spacing: 0.05em;
 			}
-			ul li a:hover h4,
-			ul li a:hover .date {
-				color: rgb(var(--accent));
+			
+			.post-excerpt {
+				margin: var(--space-md) 0 0 0;
+				font-size: var(--text-md);
+				line-height: 1.6;
+				color: rgb(var(--gray-dark));
+				max-width: var(--content-width);
 			}
-			ul a:hover img {
-				box-shadow: var(--box-shadow);
-			}
+			
 			@media (max-width: 720px) {
-				ul {
-					gap: 0.5em;
+				.hero h1 {
+					font-size: var(--text-4xl);
 				}
-				ul li {
-					width: 100%;
-					text-align: center;
+				
+				.hero p {
+					font-size: var(--text-lg);
 				}
-				ul li:first-child {
-					margin-bottom: 0;
-				}
-				ul li:first-child .title {
-					font-size: 1.563em;
+				
+				.post-title {
+					font-size: var(--text-2xl);
 				}
 			}
 		</style>
 	</head>
 	<body>
-		<main>
+		<main>			
 			<section>
-				<ul>
+				<ul class="posts-list">
 					{
 						posts.map((post) => (
-							<li>
-								<a href={`/blog/${post.slug}/`}>
-									<img width={720} height={360} src={post.data.heroImage} alt="" />
-									<h4 class="title">{post.data.title}</h4>
-									<p class="date">
+							<li class="post-item">
+								<a href={`/blog/${post.slug}/`} class="post-link">
+									<h2 class="post-title">{post.data.title}</h2>
+									<p class="post-date">
 										<FormattedDate date={post.data.pubDate} />
 									</p>
+									<p class="post-excerpt">{post.data.description}</p>
 								</a>
 							</li>
 						))

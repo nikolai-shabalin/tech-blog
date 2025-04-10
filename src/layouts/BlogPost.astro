@@ -6,74 +6,171 @@ import FormattedDate from '../components/FormattedDate.astro';
 
 type Props = CollectionEntry<'blog'>['data'];
 
-const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
+const { title, description, pubDate, updatedDate } = Astro.props;
 ---
 
 <html lang="ru">
 	<head>
 		<BaseHead title={title} description={description} />
 		<style>
-			main {
-				width: calc(100% - 2em);
-				max-width: 100%;
-				margin: 0;
-			}
-			.hero-image {
-				width: 100%;
-			}
-			.hero-image img {
-				display: block;
-				margin: 0 auto;
-				border-radius: 12px;
-				box-shadow: var(--box-shadow);
-			}
-			.prose {
-				width: 960px;
-				max-width: calc(100% - 2em);
-				margin: auto;
-				padding: 1em;
-				color: rgb(var(--gray-dark));
-			}
-			.title {
-				margin-bottom: 1em;
-				padding: 1em 0;
+			.post-header {
+				margin: var(--space-3xl) 0 var(--space-2xl) 0;
 				text-align: center;
-				line-height: 1;
 			}
-			.title h1 {
-				margin: 0 0 0.5em 0;
+			
+			.post-title {
+				font-size: var(--text-4xl);
+				line-height: 1.1;
+				margin: 0 0 var(--space-lg) 0;
+				position: relative;
+				display: inline-block;
 			}
-			.date {
-				margin-bottom: 0.5em;
+			
+			.post-meta {
+				margin-bottom: var(--space-xl);
 				color: rgb(var(--gray));
-			}
-			.last-updated-on {
 				font-style: italic;
+				font-size: var(--text-sm);
+				letter-spacing: 0.05em;
 			}
+			
+			.post-meta time {
+				margin-right: var(--space-xs);
+			}
+			
+			.post-updated {
+				font-style: italic;
+				font-size: var(--text-xs);
+				color: rgb(var(--gray));
+				margin-top: var(--space-sm);
+			}
+			
+			.divider {
+				height: 1px;
+				background: rgba(var(--gray), 0.2);
+				margin: var(--space-2xl) auto;
+				width: 60%;
+				max-width: 400px;
+			}
+			
+			.content {
+				margin: 0 auto;
+				max-width: var(--content-width);
+			}
+			
+			/* Стилизация типографики контента */
+			.content :global(h2) {
+				margin-top: var(--space-3xl);
+				margin-bottom: var(--space-lg);
+				font-size: var(--text-3xl);
+				position: relative;
+			}
+			
+			.content :global(h2)::before {
+				content: '';
+				width: 30px;
+				height: 3px;
+				background: var(--accent);
+				position: absolute;
+				top: -10px;
+				left: 0;
+			}
+			
+			.content :global(h3) {
+				margin-top: var(--space-2xl);
+				margin-bottom: var(--space-md);
+				font-size: var(--text-2xl);
+			}
+			
+			.content :global(ul) {
+				margin-bottom: var(--space-xl);
+			}
+			
+			.content :global(p) {
+				margin-bottom: var(--space-lg);
+				font-size: var(--text-lg);
+				line-height: 1.8;
+			}
+			
+			.content :global(code) {
+				font-size: 0.9em;
+			}
+			
+			.content :global(pre) {
+				margin: var(--space-xl) 0;
+			}
+			
+			.content :global(blockquote) {
+				font-size: var(--text-lg);
+				line-height: 1.6;
+				font-style: italic;
+				color: rgb(var(--gray-dark));
+				background: rgba(var(--gray-light), 0.5);
+				padding: var(--space-lg);
+				border-radius: 4px;
+				border-left: 4px solid var(--accent);
+				margin: var(--space-xl) 0;
+			}
+			
+			.content :global(figure) {
+				margin: var(--space-xl) 0;
+			}
+			
+			.content :global(figcaption) {
+				font-size: var(--text-sm);
+				color: rgb(var(--gray));
+				text-align: center;
+				margin-top: var(--space-sm);
+			}
+			
+			.content :global(img) {
+				border-radius: 8px;
+				box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+			}
+
+			.content :global(blockquote p:last-child) {
+				margin-bottom: 0;
+			}
+			
+			@media (max-width: 720px) {
+				.post-title {
+					font-size: var(--text-3xl);
+				}
+				
+				.content :global(h2) {
+					font-size: var(--text-2xl);
+				}
+				
+				.content :global(h3) {
+					font-size: var(--text-xl);
+				}
+			}
+			
 		</style>
 	</head>
 
 	<body>
 		<main>
 			<article>
-				<div class="hero-image">
-					{heroImage && <img width={1020} height={510} src={heroImage} alt="" />}
-				</div>
-				<div class="prose">
-					<div class="title">
-						<div class="date">
+				<div class="post-header">
+					<h1 class="post-title">{title}</h1>
+					<div class="post-meta">
+						<time datetime={pubDate.toISOString()}>
 							<FormattedDate date={pubDate} />
-							{
-								updatedDate && (
-									<div class="last-updated-on">
-										Last updated on <FormattedDate date={updatedDate} />
-									</div>
-								)
-							}
-						</div>
-						<h1>{title}</h1>
-						<hr />
+						</time>
+						{
+							updatedDate && (
+								<div class="post-updated">
+									Последнее обновление: <FormattedDate date={updatedDate} />
+								</div>
+							)
+						}
 					</div>
+				</div>
+				
+				<div class="divider"></div>
+				
+				<div class="content">
 					<slot />
 				</div>
 			</article>
