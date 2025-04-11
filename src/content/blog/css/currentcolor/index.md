@@ -20,7 +20,7 @@ pubDate: "Apr 11 2025"
 
 `currentcolor` ссылается на итоговое значение (_resolved value_) свойства `color`. А `color`, как вы знаете, наследуется. Это значит, что если где-то у родителя элемента цвет уже задан, дочерние элементы могут использовать `currentcolor`, не прописывая цвет заново.
 
-Обратите внимание: регистр букв не важен, вы можете писать currentcolor, currentcolor или даже currentcolor — CSS это не смутит. Я уже пишу `currentcolor`, так как я пишу CSS, а не XML, как в SVG.
+Обратите внимание: регистр букв не важен, вы можете писать currentColor, CURRENTCOLOR или даже cUrrENtCoLOr — CSS это не смутит. Я уже пишу `currentcolor`, так как я пишу CSS, а не XML, как в SVG.
 
 > `currentcolor` отныне и во веки веков **можно** писать без заглавных букв — это разрешает спецификация [CSS Color Module Level 4](https://www.w3.org/TR/css-color-4/#currentcolor-color)
 
