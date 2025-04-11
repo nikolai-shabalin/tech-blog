@@ -108,5 +108,7 @@ pubDate: "Apr 11 2025"
 
 Кстати, о `currentcolor` часто спрашивают на собеседованиях, поэтому знать о существовании `currentcolor` нужно.
 
+Поделитесь тем как вы используете `currentcolor` в 2025 в [телеграм-канале](https://t.me/greatAttractorCode).
+
 ## Источники
 - [Using currentcolor in 2025](https://frontendmasters.com/blog/using-currentcolor-in-2025/)
