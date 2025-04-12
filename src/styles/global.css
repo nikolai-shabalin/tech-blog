@@ -205,23 +205,18 @@ img {
 
 code {
   padding: 0.1em 0.4em;
-  /* background-color: rgb(var(--gray-light)); */
   border-radius: 3px;
   font-size: 0.9em;
-  /* font-family: "SF Mono", "Monaco", "Inconsolata", "Fira Mono", "Droid Sans Mono", "Source Code Pro", monospace; */
 }
 
 pre {
   padding: var(--space-lg);
   border-radius: 8px;
-  /* background-color: rgb(var(--gray-dark));
-  color: rgb(var(--gray-light)); */
   overflow-x: auto;
 }
 
 pre > code {
   all: unset;
-  /* font-family: "SF Mono", "Monaco", "Inconsolata", "Fira Mono", "Droid Sans Mono", "Source Code Pro", monospace; */
 }
 
 blockquote {
