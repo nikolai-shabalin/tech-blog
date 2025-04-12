@@ -15,59 +15,51 @@ const posts = (await getCollection('blog')).sort(
 	<head>
 		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
 		<style>
-			.posts-header {
-				margin: var(--space-3xl) 0 var(--space-2xl) 0;
-				text-align: center;
-				font-size: var(--text-2xl);
-				font-weight: 500;
-				color: rgb(var(--black));
-			}
-
-			.posts-list {
-				display: grid;
-				grid-template-columns: repeat(1, 1fr);
+			.posts__list {
+				display: flex;
+        flex-direction: column;
 				gap: var(--space-3xl);
 				list-style-type: none;
 				margin: 0;
 				padding: 0;
 			}
 
-			.post-item {
+			.short-post {
 				position: relative;
 				padding-bottom: var(--space-2xl);
 				transition: transform 0.3s ease;
 			}
 
-			.post-item:not(:last-child) {
-				border-bottom: 1px solid rgba(var(--gray), 0.15);
-			}
+      .short-post:not(:last-child) {
+        border-bottom: 1px solid rgba(var(--gray), 0.15);
+      }
 
-			.post-item:hover {
-				transform: translateY(-5px);
-			}
+      .short-post:has(.short-post__link:hover) {
+        transform: translateY(-5px);
+      }
 
-			.post-link {
+			.short-post__link {
 				display: block;
 				text-decoration: none;
 			}
 
-			.post-link:hover {
-				border-bottom: none;
-			}
+      .short-post__link:hover {
+        border-bottom: none;
+      }
 
-			.post-link:hover .post-title {
-				color: var(--accent);
-			}
+      .short-post__link:hover .short-post__title {
+        color: var(--accent);
+      }
 
-			.post-title {
-				font-size: var(--text-3xl);
+			.short-post__title {
+        font-size: var(--text-2xl);
 				margin: 0 0 var(--space-sm) 0;
 				color: rgb(var(--black));
 				line-height: 1.2;
 				transition: color 0.2s ease;
 			}
 
-			.post-date {
+			.short-post__date {
 				margin: 0 0 var(--space-lg) 0;
 				color: rgb(var(--gray));
 				font-size: var(--text-sm);
@@ -75,7 +67,7 @@ const posts = (await getCollection('blog')).sort(
 				letter-spacing: 0.05em;
 			}
 
-			.post-excerpt {
+			.short-post__description {
 				margin: var(--space-md) 0 0 0;
 				font-size: var(--text-md);
 				line-height: 1.6;
@@ -83,35 +75,28 @@ const posts = (await getCollection('blog')).sort(
 				max-width: var(--content-width);
 			}
 
-			@media (max-width: 720px) {
-				.hero h1 {
-					font-size: var(--text-4xl);
-				}
-
-				.hero p {
-					font-size: var(--text-lg);
-				}
-
-				.post-title {
-					font-size: var(--text-2xl);
+			@media (min-width: 720px) {
+				.short-post__title {
+          font-size: var(--text-3xl);
 				}
 			}
 		</style>
 	</head>
 	<body>
 		<main>
-			<section>
-				<ul class="posts-list">
+      <h1 class="sr-only">Статьи</h1>
+			<section class="posts">
+				<ul class="posts__list">
 					{
 						posts.map((post) => (
-							<li class="post-item">
-								<a href={`/blog/${post.slug}/`} class="post-link">
-									<h2 class="post-title">{post.data.title}</h2>
-									<p class="post-date">
-										<FormattedDate date={post.data.pubDate} />
-									</p>
-									<p class="post-excerpt">{post.data.description}</p>
-								</a>
+							<li class="short-post">
+								<a href={`/blog/${post.slug}/`} class="short-post__link">
+									<h2 class="short-post__title">{post.data.title}</h2>
+                </a>
+                <p class="short-post__date">
+                  <FormattedDate date={post.data.pubDate} />
+                </p>
+                <p class="short-post__description">{post.data.description}</p>
 							</li>
 						))
 					}

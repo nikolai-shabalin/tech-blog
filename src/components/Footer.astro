@@ -28,6 +28,8 @@ const currentYear = new Date().getFullYear();
     width: min(100%, var(--content-width));
     margin-inline: auto;
     display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
     justify-content: space-between;
     align-items: center;
   }
@@ -58,10 +60,10 @@ const currentYear = new Date().getFullYear();
     transform: translateY(-2px);
   }
 
-  @media (max-width: 720px) {
+  @media (min-width: 720px) {
     .footer__content {
-      flex-direction: column;
-      gap: var(--space-md);
+      flex-direction: row;
+      gap: 0;
     }
   }
 </style>
