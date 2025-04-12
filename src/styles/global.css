@@ -72,6 +72,32 @@ body {
   min-height: 100vh;
 }
 
+@media (prefers-color-scheme: dark) {
+  :root {
+    --gray-light: 34, 41, 57;
+    --gray-dark: 229, 233, 240;
+    --black: 238, 238, 238;
+
+    --gray-gradient: rgba(var(--gray-light), 50%), #0f1219;
+  }
+
+  body {
+    background: linear-gradient(var(--gray-gradient)) no-repeat;
+    background-size: 100% 600px;
+    background-color: #0f1219;
+    color: rgb(var(--gray-dark));
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    color: rgb(var(--black));
+  }
+}
+
 main {
   width: var(--content-width);
   max-width: calc(100% - 2rem);
