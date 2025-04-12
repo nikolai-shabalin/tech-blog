@@ -35,6 +35,8 @@
   /* Шрифтовые пары */
   --font-heading: "Montserrat", sans-serif;
   --font-body: "Inter", sans-serif;
+
+  --content-width: 960px;
 }
 
 *:focus-visible {
@@ -71,7 +73,7 @@ body {
 }
 
 main {
-  width: 960px;
+  width: var(--content-width);
   max-width: calc(100% - 2rem);
   margin: 0 auto;
   padding: var(--space-3xl) var(--space-md);
