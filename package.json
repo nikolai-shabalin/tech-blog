@@ -20,7 +20,7 @@
     "astro": "5.6.1",
     "eslint": "9.24.0",
     "stylelint": "16.18.0",
-    "stylelint-config-htmlacademy": "4.2.3",
+    "stylelint-config-expa": "1.0.0",
     "typescript": "5.8.3"
   },
   "engines": {
