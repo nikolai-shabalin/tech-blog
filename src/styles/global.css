@@ -35,9 +35,6 @@
   /* Шрифтовые пары */
   --font-heading: "Montserrat", sans-serif;
   --font-body: "Inter", sans-serif;
-
-  /* Максимальная длина строки для хорошей читаемости */
-  --content-width: 65ch;
 }
 
 *:focus-visible {
@@ -160,7 +157,6 @@ a:hover {
 
 p {
   margin: 0 0 var(--space-lg) 0;
-  max-width: var(--content-width);
 }
 
 .prose p + p {
@@ -209,23 +205,23 @@ img {
 
 code {
   padding: 0.1em 0.4em;
-  background-color: rgb(var(--gray-light));
+  /* background-color: rgb(var(--gray-light)); */
   border-radius: 3px;
   font-size: 0.9em;
-  font-family: "SF Mono", "Monaco", "Inconsolata", "Fira Mono", "Droid Sans Mono", "Source Code Pro", monospace;
+  /* font-family: "SF Mono", "Monaco", "Inconsolata", "Fira Mono", "Droid Sans Mono", "Source Code Pro", monospace; */
 }
 
 pre {
   padding: var(--space-lg);
   border-radius: 8px;
-  background-color: rgb(var(--gray-dark));
-  color: rgb(var(--gray-light));
+  /* background-color: rgb(var(--gray-dark));
+  color: rgb(var(--gray-light)); */
   overflow-x: auto;
 }
 
 pre > code {
   all: unset;
-  font-family: "SF Mono", "Monaco", "Inconsolata", "Fira Mono", "Droid Sans Mono", "Source Code Pro", monospace;
+  /* font-family: "SF Mono", "Monaco", "Inconsolata", "Fira Mono", "Droid Sans Mono", "Source Code Pro", monospace; */
 }
 
 blockquote {
@@ -236,7 +232,6 @@ blockquote {
   line-height: 1.6;
   font-style: italic;
   color: rgb(var(--gray));
-  max-width: var(--content-width);
 }
 
 blockquote p:last-child {
