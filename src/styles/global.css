@@ -6,6 +6,7 @@
   --gray-light: 229, 233, 240;
   --gray-dark: 34, 41, 57;
   --gray-gradient: rgba(var(--gray-light), 50%), #ffffff;
+  --focus-outline-color: #000000;
   --box-shadow:
     0 2px 6px rgba(var(--gray), 25%),
     0 8px 24px rgba(var(--gray), 33%),
@@ -40,7 +41,7 @@
 }
 
 *:focus-visible {
-  outline: 3px solid #000000;
+  outline: 3px solid var(--focus-outline-color);
   outline-offset: 0.25rem;
   border-radius: 0.13rem;
 }
@@ -78,7 +79,7 @@ body {
     --gray-dark: 229, 233, 240;
     --black: 238, 238, 238;
     --gray: 128, 144, 177;
-
+    --focus-outline-color: #ffffff;
     --gray-gradient: rgba(var(--gray-light), 50%), #0f1219;
   }
 
