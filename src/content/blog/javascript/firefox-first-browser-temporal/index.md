@@ -70,4 +70,3 @@ pubDate: "Apr 18 2025"
 
 ## Источники
 - [Shipping Temporal](https://spidermonkey.dev/blog/2025/04/11/shipping-temporal.html)
-`
