@@ -17,7 +17,7 @@
     "@astrojs/rss": "4.0.11",
     "@astrojs/sitemap": "3.3.0",
     "@eslint/js": "9.24.0",
-    "astro": "5.7.3",
+    "astro": "5.7.4",
     "eslint": "9.24.0",
     "stylelint": "16.18.0",
     "stylelint-config-expa": "1.0.0",
