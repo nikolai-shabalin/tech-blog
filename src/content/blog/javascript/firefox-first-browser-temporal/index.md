@@ -31,8 +31,8 @@ pubDate: "Apr 18 2025"
 - **Перевод события в часовой пояс пользователя**
   ```js
   const releaseUTC = Temporal.ZonedDateTime.from('2025-05-12T16:00Z[UTC]');
-  const userZone   = Temporal.Now.timeZone();      // 'Europe/Stockholm'
-  const inUserTZ   = releaseUTC.withTimeZone(userZone);
+  const userZone = Temporal.Now.timeZone(); // 'Europe/Stockholm'
+  const inUserTZ  = releaseUTC.withTimeZone(userZone);
 
   console.log(inUserTZ.toString());
   // 2025-05-12T18:00+02:00[Europe/Stockholm]
@@ -41,11 +41,11 @@ pubDate: "Apr 18 2025"
 - **Сколько дней между двумя датами**
   ```js
   const start = Temporal.PlainDate.from('2025-04-01');
-  const end   = Temporal.PlainDate.from('2025-04-18');
+  const end = Temporal.PlainDate.from('2025-04-18');
 
   const diff = end.since(start);
   console.log(diff.toString()); // P17D
-  console.log(diff.days);       // 17
+  console.log(diff.days); // 17
   ```
 
 - **Напоминание каждые две недели**
@@ -56,13 +56,13 @@ pubDate: "Apr 18 2025"
   for (let i = 0; i < 3; i++) {
     next = next.add(interval);
     console.log(`Следующая встреча: ${next.toString()}`);
-  }zzz
+  }
   ```
 
 - **«Через месяц» без эффекта 31‑го числа**
   ```js
   const invoiceDate = Temporal.PlainDate.from('2025-01-31');
-  const dueDate     = invoiceDate.add({ months: 1 }, { overflow: 'constrain' });
+  const dueDate = invoiceDate.add({ months: 1 }, { overflow: 'constrain' });
 
   console.log(dueDate.toString()); // 2025-02-28
   ```
