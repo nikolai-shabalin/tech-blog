@@ -1,0 +1,58 @@
+{
+  "name": "Frontend Dev Blog",
+  "short_name": "FrontendBlog",
+  "description": "Экспертный блог о CSS, JavaScript и веб-производительности. Глубокий разбор современных веб-технологий, типографики и оптимизации.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#000000",
+  "icons": [
+    {
+      "src": "/icons/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icons/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "orientation": "portrait",
+  "scope": "/",
+  "lang": "ru",
+  "dir": "ltr",
+  "categories": ["frontend", "web-development", "css", "html", "React", "javascript", "performance", "accessibility"],
+  "screenshots": [
+    {
+      "src": "/screenshots/desktop.png",
+      "sizes": "1920x1080",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "Desktop view of Tech Blog"
+    },
+    {
+      "src": "/screenshots/mobile.png",
+      "sizes": "750x1334",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Mobile view of Tech Blog"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Latest Posts",
+      "url": "/posts",
+      "description": "View the latest blog posts",
+      "icons": [
+        {
+          "src": "/icons/shortcut-96x96.png",
+          "sizes": "96x96",
+          "type": "image/png"
+        }
+      ]
+    }
+  ],
+  "id": "tech-blog-pwa",
+  "prefer_related_applications": false
+}
