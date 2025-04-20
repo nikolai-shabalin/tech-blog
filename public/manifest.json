@@ -3,7 +3,7 @@
   "short_name": "FrontendBlog",
   "description": "Экспертный блог о CSS, JavaScript и веб-производительности. Глубокий разбор современных веб-технологий, типографики и оптимизации.",
   "start_url": "/",
-  "display": "standalone",
+  "display": "fullscreen",
   "background_color": "#ffffff",
   "theme_color": "#000000",
   "icons": [
