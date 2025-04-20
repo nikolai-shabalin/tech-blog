@@ -39,20 +39,6 @@
       "label": "Mobile view of Tech Blog"
     }
   ],
-  "shortcuts": [
-    {
-      "name": "Latest Posts",
-      "url": "/posts",
-      "description": "View the latest blog posts",
-      "icons": [
-        {
-          "src": "/icons/shortcut-96x96.png",
-          "sizes": "96x96",
-          "type": "image/png"
-        }
-      ]
-    }
-  ],
   "id": "tech-blog-pwa",
   "prefer_related_applications": false
 }
