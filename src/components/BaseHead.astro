@@ -1,5 +1,7 @@
 ---
 import '../styles/global.css';
+import '../styles/transitions.css';
+import { ViewTransitions } from 'astro:transitions';
 
 interface Props {
 	title: string;
@@ -17,6 +19,11 @@ const { title, description, image } = Astro.props;
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 <meta name="generator" content={Astro.generator} />
+
+<ViewTransitions />
+
+<!-- View Transitions -->
+<meta name="view-transition" content="same-origin" />
 
 <!-- PWA -->
 <link rel="manifest" href="/manifest.json">
