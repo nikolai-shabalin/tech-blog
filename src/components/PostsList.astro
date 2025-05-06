@@ -9,6 +9,7 @@ const { posts } = Astro.props;
 ---
 
 <section class="posts">
+  <h2 class="sr-only">Список новостей</h2>
   <ul class="posts__list">
     {
       posts.map((post) => (
@@ -30,7 +31,7 @@ const { posts } = Astro.props;
   .posts__list {
     display: flex;
     flex-direction: column;
-    gap: var(--space-3xl);
+    row-gap: 2.5rlh;
     list-style-type: none;
     margin: 0;
     padding: 0;
@@ -38,25 +39,21 @@ const { posts } = Astro.props;
 
   .short-post {
     position: relative;
-    padding-bottom: var(--space-2xl);
+    margin-block-end: 2rlh;
     transition: transform 0.3s ease;
-  }
 
-  .short-post:not(:last-child) {
-    border-bottom: 1px solid rgba(var(--gray), 0.15);
-  }
+    &:not(:last-child) {
+      border-bottom: 1px solid rgba(var(--gray), 0.15);
+    }
 
-  .short-post:has(.short-post__link:hover) {
-    transform: translateY(-5px);
+    &:has(.short-post__link:hover) {
+      transform: translateY(-0.25rlh);
+    }
   }
 
   .short-post__link {
     display: block;
     text-decoration: none;
-  }
-
-  .short-post__link:hover {
-    border-bottom: none;
   }
 
   .short-post__link:hover .short-post__title {
@@ -65,9 +62,9 @@ const { posts } = Astro.props;
 
   .short-post__title {
     font-size: var(--text-2xl);
-    margin: 0 0 var(--space-sm) 0;
+    line-height: 2.5rlh;
+    margin-block: 0 0.5rlh;
     color: rgb(var(--black));
-    line-height: 1.2;
     transition: color 0.2s ease;
   }
 
@@ -75,6 +72,7 @@ const { posts } = Astro.props;
     margin: 0 0 var(--space-lg) 0;
     color: rgb(var(--gray));
     font-size: var(--text-sm);
+    line-height: 1rlh;
     font-style: italic;
     letter-spacing: 0.05em;
   }
@@ -82,7 +80,7 @@ const { posts } = Astro.props;
   .short-post__description {
     margin: var(--space-md) 0 0 0;
     font-size: var(--text-md);
-    line-height: 1.6;
+    line-height: 1.25rlh;
     color: rgb(var(--gray-dark));
     max-width: var(--content-width);
   }

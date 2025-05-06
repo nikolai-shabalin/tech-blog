@@ -16,18 +16,19 @@ const currentCategory = pathname.match(/\/blog\/category\/([^\/]+)/)?.[1];
 
 <header class="header">
   <div class="header__content">
-    <div class="header__logo">
-      <a href="/" class="logo-link">
-        {SITE_TITLE}
-      </a>
-    </div>
+    <a href="/" class="header__logo logo">
+      {SITE_TITLE}
+    </a>
     <nav class="header__nav">
-      <ul class="nav-list">
+      <ul class="nav__list">
         {categories.map((category) => {
           const isActive = category === currentCategory;
           return (
-            <li class="nav-item">
-              <a href={`/blog/category/${category}/`} class={`nav-link ${isActive ? 'nav-link--active' : ''}`}>
+            <li class="nav__item">
+              <a
+                href={`/blog/category/${category}/`}
+                class="nav__link"
+                aria-current={isActive ? "page" : undefined}>
                 {category}
               </a>
             </li>
@@ -39,96 +40,95 @@ const currentCategory = pathname.match(/\/blog\/category\/([^\/]+)/)?.[1];
 </header>
 
 <style>
+  /* HEADER */
   .header {
-    padding: var(--space-md) var(--space-md);
     border-bottom: 1px solid rgba(var(--gray), 0.15);
+    padding: 1rlh;
+    container: header / inline-size;
+    margin-block-end: 1rlh;
   }
 
   .header__content {
+    width: min(100%, var(--content-width));
+    margin-inline: auto;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
-    gap: var(--space-md);
-    width: min(100%, var(--content-width));
-    margin-inline: auto;
   }
 
-  .header__logo {
+  @container header (min-width: 600px) {
+    .header__content {
+      flex-direction: row;
+    }
+  }
+
+  /* LOGO */
+  .logo {
     font-family: var(--font-heading);
-    font-weight: 700;
     font-size: var(--text-xl);
-  }
-
-  .logo-link {
+    font-weight: 700;
+    line-height: 2rlh;
     color: rgb(var(--black));
     text-decoration: none;
     transition: color 0.2s ease;
+    display: inline-block;
+
+    &:hover {
+      color: var(--accent);
+    }
   }
 
-  .logo-link:hover {
-    color: var(--accent);
-  }
-
-  .header__nav {
-    width: 100%;
-  }
-
-  .nav-list {
+  /* NAVIGATION */
+  .nav__list {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
-    gap: var(--space-md);
-    list-style: none;
+    column-gap: var(--space-md);
+    list-style-type: none;
     margin: 0;
     padding: 0;
   }
 
-  .nav-link {
-    display: block;
-    padding: var(--space-xs) 0;
+  .nav__item {
+    margin: 0;
+  }
+
+  .nav__link {
+    display: inline-block;
+    padding-block: 0.5rlh;
     color: rgb(var(--gray-dark));
     text-decoration: none;
     font-size: var(--text-sm);
+    line-height: 1rlh;
     font-weight: 500;
     transition: color 0.2s ease;
     position: relative;
-  }
 
-  .nav-link:hover {
-    color: var(--accent);
-  }
-
-  .nav-link::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 0;
-    height: 2px;
-    background-color: var(--accent);
-    transition: width 0.3s ease;
-  }
-
-  .nav-link:hover::after {
-    width: 100%;
-  }
-
-  .nav-link--active {
-    color: var(--accent);
-  }
-
-  .nav-link--active::after {
-    width: 100%;
-  }
-
-  @media (min-width: 720px) {
-    .header__content {
-      flex-direction: row;
+    &:hover {
+      color: var(--accent);
     }
 
-    .header__nav {
-      width: auto;
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background-color: var(--accent);
+      transition: width 0.3s ease;
+    }
+
+    &:hover::after {
+      width: 100%;
+    }
+
+    &[aria-current] {
+      color: var(--accent);
+
+      &::after {
+        width: 100%;
+      }
     }
   }
 </style>
