@@ -1,0 +1,100 @@
+---
+import { getCollection } from 'astro:content';
+import BlogPost from '../../layouts/BlogPost.astro';
+
+const digests = await getCollection('digest');
+const sortedDigests = digests.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+---
+
+<BlogPost title="Дайджесты новостей" description="Еженедельные дайджесты новостей из мира технологий" pubDate={new Date()}>
+  <div class="digest-list">
+    {sortedDigests.map((digest) => (
+      <article class="digest-item">
+        <h2>
+          <a href={`/digest/${digest.slug}`}>
+            {digest.data.title}
+          </a>
+        </h2>
+        <p>{digest.data.description}</p>
+        <div class="digest-date">
+          {new Date(digest.data.pubDate).toLocaleDateString('ru-RU', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+          })}
+        </div>
+        <div class="digest-news">
+          <h3>Новости недели:</h3>
+          <ul>
+            {digest.data.news.map((item) => (
+              <li>
+                {item.link ? (
+                  <a href={item.link} target="_blank" rel="noopener noreferrer">
+                    {item.title}
+                  </a>
+                ) : (
+                  item.title
+                )}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </article>
+    ))}
+  </div>
+
+  <style>
+    .digest-list {
+      display: grid;
+      gap: var(--space-2xl);
+    }
+
+    .digest-item {
+      background: rgba(var(--gray-light), 0.5);
+      padding: var(--space-xl);
+      border-radius: 8px;
+    }
+
+    .digest-item h2 {
+      margin-top: 0;
+      margin-bottom: var(--space-md);
+    }
+
+    .digest-item h2 a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    .digest-item h2 a:hover {
+      text-decoration: underline;
+    }
+
+    .digest-date {
+      color: rgb(var(--gray));
+      font-size: var(--text-sm);
+      margin-bottom: var(--space-lg);
+    }
+
+    .digest-news h3 {
+      margin-bottom: var(--space-md);
+    }
+
+    .digest-news ul {
+      list-style: disc;
+      padding-left: var(--space-xl);
+    }
+
+    .digest-news li {
+      margin-bottom: var(--space-sm);
+    }
+
+    .digest-news a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    .digest-news a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</BlogPost>

@@ -1,0 +1,81 @@
+---
+import { getCollection } from 'astro:content';
+import BlogPost from '../../layouts/BlogPost.astro';
+
+export async function getStaticPaths() {
+  const digests = await getCollection('digest');
+  return digests.map((digest) => ({
+    params: { slug: digest.slug },
+    props: { digest },
+  }));
+}
+
+const { digest } = Astro.props;
+const { Content } = await digest.render();
+---
+
+<BlogPost {...digest.data}>
+  <div class="digest-content">
+    <Content />
+  </div>
+
+  <section class="digest-news">
+    <h2>Новости недели</h2>
+    <div class="news-list">
+      {digest.data.news.map((item) => (
+        <div class="news-item">
+          <h3>
+            {item.link ? (
+              <a href={item.link} target="_blank" rel="noopener noreferrer">
+                {item.title}
+              </a>
+            ) : (
+              item.title
+            )}
+          </h3>
+          <p>{item.description}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <style>
+    .digest-content {
+      margin-bottom: var(--space-2xl);
+    }
+
+    .digest-news h2 {
+      margin-bottom: var(--space-xl);
+    }
+
+    .news-list {
+      display: grid;
+      gap: var(--space-xl);
+    }
+
+    .news-item {
+      background: rgba(var(--gray-light), 0.5);
+      padding: var(--space-lg);
+      border-radius: 8px;
+    }
+
+    .news-item h3 {
+      margin-top: 0;
+      margin-bottom: var(--space-md);
+    }
+
+    .news-item h3 a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    .news-item h3 a:hover {
+      text-decoration: underline;
+    }
+
+    .news-item p {
+      margin-bottom: 0;
+      color: rgb(var(--gray-dark));
+    }
+  </style>
+</BlogPost>
