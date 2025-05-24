@@ -110,26 +110,21 @@ const { questions } = Astro.props;
       e.preventDefault();
       const formData = new FormData(form);
 
-      // Проверяем каждый вопрос
       for (let i = 0; i < questions.length; i++) {
         const selectedAnswer = parseInt(formData.get(`question-${i}`));
         const questionBlock = form.querySelector(`[name="question-${i}"]`).closest('.question-block');
         const allOptions = questionBlock.querySelectorAll('.option-label');
-        
-        // Сбрасываем предыдущие стили
+
         allOptions.forEach(option => {
           option.classList.remove('correct', 'incorrect');
         });
 
-        // Подсвечиваем правильный ответ
         allOptions[questions[i].correctAnswer].classList.add('correct');
 
-        // Если ответ неправильный, подсвечиваем его красным
         if (selectedAnswer !== questions[i].correctAnswer) {
           allOptions[selectedAnswer].classList.add('incorrect');
         }
       }
     });
   }
-</script> 
-</script> 
+</script>
