@@ -23,6 +23,11 @@ const currentCategory = pathname.match(/\/blog\/category\/([^\/]+)/)?.[1];
     </div>
     <nav class="header__nav">
       <ul class="nav-list">
+        <li class="nav-item">
+          <a href="/digest/" class={`nav-link ${pathname === '/digest/' ? 'nav-link--active' : ''}`}>
+            Дайджесты
+          </a>
+        </li>
         {categories.map((category) => {
           const isActive = category === currentCategory;
           return (
