@@ -4,40 +4,40 @@ import { SITE_TITLE } from '../consts';
 
 const allPosts = await getCollection('blog');
 const categories = [...new Set(
-  allPosts.map(post => {
-    const pathSegments = post.id.split('/');
-    return pathSegments[0].toLowerCase();
-  })
+  allPosts.map(post => post.id.split('/')[0].toLowerCase())
 )].sort();
 
 const { pathname } = Astro.url;
+const isDigestPage = pathname === '/digest/';
 const currentCategory = pathname.match(/\/blog\/category\/([^\/]+)/)?.[1];
+
+const navItems = [
+  { href: '/digest/', label: 'Дайджесты', isActive: isDigestPage },
+  ...categories.map(category => ({
+    href: `/blog/category/${category}/`,
+    label: category,
+    isActive: category === currentCategory
+  })).filter(item => item.label !== 'digest')
+];
 ---
 
 <header class="header">
   <div class="header__content">
     <div class="header__logo">
+
       <a href="/" class="logo-link">
         {SITE_TITLE}
       </a>
     </div>
     <nav class="header__nav">
       <ul class="nav-list">
-        <li class="nav-item">
-          <a href="/digest/" class={`nav-link ${pathname === '/digest/' ? 'nav-link--active' : ''}`}>
-            Дайджесты
-          </a>
-        </li>
-        {categories.map((category) => {
-          const isActive = category === currentCategory;
-          return (
-            <li class="nav-item">
-              <a href={`/blog/category/${category}/`} class={`nav-link ${isActive ? 'nav-link--active' : ''}`}>
-                {category}
-              </a>
-            </li>
-          );
-        })}
+        {navItems.map(item => (
+          <li class="nav-item">
+            <a href={item.href} class={`nav-link ${item.isActive ? 'nav-link--active' : ''}`}>
+              {item.label}
+            </a>
+          </li>
+        ))}
       </ul>
     </nav>
   </div>
@@ -45,7 +45,7 @@ const currentCategory = pathname.match(/\/blog\/category\/([^\/]+)/)?.[1];
 
 <style>
   .header {
-    padding: var(--space-md) var(--space-md);
+    padding: var(--space-md);
     border-bottom: 1px solid rgba(var(--gray), 0.15);
   }
 
