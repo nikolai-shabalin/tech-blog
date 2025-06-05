@@ -93,6 +93,8 @@ body {
     --focus-outline-color: #ffffff;
     --gray-gradient: rgba(var(--gray-light), 50%), #0f1219;
     --bg-color: #0f1219;
+    --accent: #6b7bff;
+    --accent-dark: #4a5bff;
   }
 }
 
