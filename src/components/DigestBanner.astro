@@ -20,13 +20,13 @@ const { banners } = Astro.props;
       class="banner-image"
       id="banner-image"
     />
-    <button class="banner-timer" id="banner-timer" type="button" aria-label="Сменить баннер">
-      <svg viewBox="0 0 40 40" class="timer-svg">
-        <circle class="timer-circle-bg" cx="20" cy="20" r="18" />
-        <circle class="timer-circle" cx="20" cy="20" r="18" />
-      </svg>
-    </button>
   </a>
+  <button class="banner-timer" id="banner-timer" type="button" aria-label="Сменить баннер">
+    <svg viewBox="0 0 40 40" class="timer-svg">
+      <circle class="timer-circle-bg" cx="20" cy="20" r="18" />
+      <circle class="timer-circle" cx="20" cy="20" r="18" />
+    </svg>
+  </button>
   <div class="banner-links">
     <a href={banners[0].portfolioUrl} class="portfolio-link" id="portfolio-link">Посмотреть портфолио</a>
   </div>
