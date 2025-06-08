@@ -21,8 +21,5 @@ export default defineConfig({
 				};
 			},
 		})
-	],
-	content: {
-		collections: ['initiative', 'blog']
-	}
+	]
 });
