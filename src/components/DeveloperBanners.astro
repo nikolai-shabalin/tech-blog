@@ -2,7 +2,14 @@
 import { banners } from '../data/banners';
 
 // Перемешиваем массив баннеров
-const shuffledBanners = [...banners].sort(() => Math.random() - 0.5);
+function fisherYatesShuffle(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+  return array;
+}
+const shuffledBanners = fisherYatesShuffle([...banners]);
 ---
 
 <p>Ниже вы найдёте баннеры специалистов, которых не нужно обучать с нуля:
