@@ -11,10 +11,10 @@ const { banners } = Astro.props;
 
 <div class="digest-banner">
   <a href={banners[0].portfolioUrl} class="banner-link" id="banner-link">
-    <img 
-      src={banners[0].image} 
-      alt="Frontend Developer Banner" 
-      width="960" 
+    <img
+      src={banners[0].image}
+      alt="Frontend Developer Banner"
+      width="960"
       height="300"
       class="banner-image"
       id="banner-image"
@@ -34,33 +34,32 @@ const { banners } = Astro.props;
 
 <script define:vars={{ banners }}>
   let currentIndex = 0;
-  let timerInterval;
   let timerCircle;
   let bannerImage;
   let bannerLink;
   let portfolioLink;
   let animationFrame;
   let startTime;
-  const DURATION = 20000;
-  
+  const DURATION = 15000;
+
   function updateTimer(timestamp) {
     if (!startTime) startTime = timestamp;
     const elapsed = timestamp - startTime;
     const progress = Math.min(elapsed / DURATION, 1);
-    
+
     if (timerCircle) {
       const circumference = 2 * Math.PI * 18;
       const offset = circumference * (1 - progress);
       timerCircle.style.strokeDashoffset = offset;
     }
-    
+
     if (progress < 1) {
       animationFrame = requestAnimationFrame(updateTimer);
     } else {
       updateBanner();
     }
   }
-  
+
   function updateBanner() {
     currentIndex = (currentIndex + 1) % banners.length;
     bannerImage.src = banners[currentIndex].image;
@@ -86,7 +85,7 @@ const { banners } = Astro.props;
     bannerImage.src = banners[currentIndex].image;
     bannerLink.href = banners[currentIndex].portfolioUrl;
     portfolioLink.href = banners[currentIndex].portfolioUrl;
-    
+
     // Setup click handler
     const timerButton = document.getElementById('banner-timer');
     timerButton?.addEventListener('click', (e) => {
@@ -196,4 +195,4 @@ const { banners } = Astro.props;
   .initiative-link:hover {
     color: var(--accent);
   }
-</style> 
+</style>
