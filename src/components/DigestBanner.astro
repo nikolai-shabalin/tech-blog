@@ -10,6 +10,7 @@ const { banners } = Astro.props;
 ---
 
 <div class="digest-banner">
+  <a href="/initiative" class="initiative-link">Узнать об инициативе</a>
   <a href={banners[0].portfolioUrl} class="banner-link" id="banner-link">
     <img
       src={banners[0].image}
@@ -28,7 +29,6 @@ const { banners } = Astro.props;
   </a>
   <div class="banner-links">
     <a href={banners[0].portfolioUrl} class="portfolio-link" id="portfolio-link">Посмотреть портфолио</a>
-    <a href="/initiative" class="initiative-link">Узнать об инициативе</a>
   </div>
 </div>
 
@@ -192,6 +192,20 @@ const { banners } = Astro.props;
   }
 
   .portfolio-link:hover,
+  .initiative-link:hover {
+    color: var(--accent);
+  }
+
+  .initiative-link {
+    display: block;
+    text-align: right;
+    margin-bottom: var(--space-sm);
+    color: rgb(var(--gray));
+    text-decoration: none;
+    font-size: var(--text-sm);
+    transition: color 0.2s ease;
+  }
+
   .initiative-link:hover {
     color: var(--accent);
   }
