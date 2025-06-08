@@ -1,0 +1,108 @@
+<div class="frontie-mascot">
+    <div class="frontie-speech" id="frontieSpeech">
+      Привет, я Фронти!
+    </div>
+    <img 
+      src="/images/frontie/frontie.webp" 
+      alt="Фронти - маскот дайджеста" 
+      width="200" 
+      height="200"
+      class="frontie-image"
+    />
+  </div>
+  
+  <script>
+    const messages = [
+      "Привет, я Фронти!",
+      "Ты уже пролистал 10% — отлично идёшь!",
+      "Знаешь, что круто? CSS Grid!",
+      "React? Vue? А может нативный JS? 😏",
+      "Если непонятно — попробуй DevTools!",
+      "Люблю, когда код чистый, как хвост после дождя!",
+      "Фронтенд — это не боль, если с умом!",
+      "Проверил доступность? А стоит!",
+      "О, 80%! Не сдавайся, почти финиш!",
+      "Герой! Ты дошёл до конца. А теперь push в прод 🦊"
+    ];
+  
+    window.addEventListener("scroll", () => {
+      const scrollTop = window.scrollY;
+      const docHeight = document.body.scrollHeight - window.innerHeight;
+      const scrollPercent = Math.min(Math.floor((scrollTop / docHeight) * 10), 9);
+  
+      const speech = document.getElementById("frontieSpeech");
+      if (speech && Number(speech.dataset.index) !== scrollPercent) {
+        speech.textContent = messages[scrollPercent];
+        speech.dataset.index = String(scrollPercent);
+      }
+    });
+  </script>
+  
+  <style>
+    .frontie-mascot {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 100;
+      transition: transform 0.3s ease;
+      animation: slideIn 0.5s ease-out forwards;
+      animation-timeline: scroll();
+      animation-range: 100px 300px;
+      opacity: 0;
+      transform: translateX(100%);
+    }
+  
+    .frontie-speech {
+      position: absolute;
+      bottom: 100%;
+      right: 0;
+      background: white;
+      padding: 8px 12px;
+      border-radius: 8px;
+      margin-bottom: 8px;
+      font-size: 14px;
+      opacity: 0;
+      transform: translateY(10px);
+      animation: speechAppear 0.3s ease-out forwards;
+      animation-timeline: scroll();
+      animation-range: 400px 600px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+  
+    @keyframes speechAppear {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateX(100%);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+  
+    .frontie-mascot:hover {
+      transform: scale(1.1);
+    }
+  
+    .frontie-image {
+      width: 150px;
+      height: auto;
+    }
+  
+    @media (max-width: 768px) {
+      .frontie-mascot {
+        display: none;
+      }
+    }
+  </style>
