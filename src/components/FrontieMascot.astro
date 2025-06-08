@@ -1,42 +1,24 @@
 <div class="frontie-mascot">
     <div class="frontie-speech" id="frontieSpeech">
-      Привет, я Фронти!
+      <div class="message" style="--index: 0">Привет, я Фронти!</div>
+      <div class="message" style="--index: 1">Ты уже пролистал 10% — отлично идёшь!</div>
+      <div class="message" style="--index: 2">Знаешь, что круто? CSS Grid!</div>
+      <div class="message" style="--index: 3">React? Vue? А может нативный JS? 😏</div>
+      <div class="message" style="--index: 4">Если непонятно — попробуй DevTools!</div>
+      <div class="message" style="--index: 5">Люблю, когда код чистый, как хвост после дождя!</div>
+      <div class="message" style="--index: 6">Фронтенд — это не боль, если с умом!</div>
+      <div class="message" style="--index: 7">Проверил доступность? А стоит!</div>
+      <div class="message" style="--index: 8">О, 80%! Не сдавайся, почти финиш!</div>
+      <div class="message" style="--index: 9">Герой! Ты дошёл до конца. А теперь push в прод 🦊</div>
     </div>
     <img 
-      src="/images/frontie/frontie.webp" 
+      src="/images/frontie/frontie-small.webp" 
       alt="Фронти - маскот дайджеста" 
       width="200" 
       height="200"
       class="frontie-image"
     />
   </div>
-  
-  <script>
-    const messages = [
-      "Привет, я Фронти!",
-      "Ты уже пролистал 10% — отлично идёшь!",
-      "Знаешь, что круто? CSS Grid!",
-      "React? Vue? А может нативный JS? 😏",
-      "Если непонятно — попробуй DevTools!",
-      "Люблю, когда код чистый, как хвост после дождя!",
-      "Фронтенд — это не боль, если с умом!",
-      "Проверил доступность? А стоит!",
-      "О, 80%! Не сдавайся, почти финиш!",
-      "Герой! Ты дошёл до конца. А теперь push в прод 🦊"
-    ];
-  
-    window.addEventListener("scroll", () => {
-      const scrollTop = window.scrollY;
-      const docHeight = document.body.scrollHeight - window.innerHeight;
-      const scrollPercent = Math.min(Math.floor((scrollTop / docHeight) * 10), 9);
-  
-      const speech = document.getElementById("frontieSpeech");
-      if (speech && Number(speech.dataset.index) !== scrollPercent) {
-        speech.textContent = messages[scrollPercent];
-        speech.dataset.index = String(scrollPercent);
-      }
-    });
-  </script>
   
   <style>
     .frontie-mascot {
@@ -56,7 +38,7 @@
       position: absolute;
       bottom: 100%;
       right: 0;
-      background: white;
+      background: #f8f9fa;
       padding: 8px 12px;
       border-radius: 8px;
       margin-bottom: 8px;
@@ -67,6 +49,36 @@
       animation-timeline: scroll();
       animation-range: 400px 600px;
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      min-width: 200px;
+      min-height: 40px;
+      color: #1a1a1a;
+    }
+
+    .message {
+      position: absolute;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 100%;
+      text-align: center;
+      color: inherit;
+    }
+
+    .message {
+      animation: showMessage linear forwards;
+      animation-timeline: scroll();
+      animation-range: calc(var(--index) * 10%) calc((var(--index) + 1) * 10%);      
+    }
+
+    @keyframes showMessage {
+      0%, 100% {
+        opacity: 0;
+      }
+      10%, 90% {
+        opacity: 1;
+      }
     }
   
     @keyframes speechAppear {
@@ -93,11 +105,6 @@
   
     .frontie-mascot:hover {
       transform: scale(1.1);
-    }
-  
-    .frontie-image {
-      width: 150px;
-      height: auto;
     }
   
     @media (max-width: 768px) {
