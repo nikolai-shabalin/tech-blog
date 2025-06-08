@@ -41,6 +41,7 @@ const { banners } = Astro.props;
   let animationFrame;
   let startTime;
   const DURATION = 15000;
+  const CIRCUMFERENCE = 2 * Math.PI * 18;
 
   function updateTimer(timestamp) {
     if (!startTime) startTime = timestamp;
@@ -48,9 +49,8 @@ const { banners } = Astro.props;
     const progress = Math.min(elapsed / DURATION, 1);
 
     if (timerCircle) {
-      const circumference = 2 * Math.PI * 18;
-      const offset = circumference * (1 - progress);
-      timerCircle.style.strokeDashoffset = offset;
+      const offset = CIRCUMFERENCE * progress;
+      timerCircle.style.strokeDashoffset = CIRCUMFERENCE - offset;
     }
 
     if (progress < 1) {
@@ -74,7 +74,7 @@ const { banners } = Astro.props;
     }
     startTime = null;
     if (timerCircle) {
-      timerCircle.style.strokeDashoffset = '0';
+      timerCircle.style.strokeDashoffset = CIRCUMFERENCE;
     }
     animationFrame = requestAnimationFrame(updateTimer);
   }
@@ -94,17 +94,23 @@ const { banners } = Astro.props;
       updateBanner();
     });
 
+    // Initialize timer circle
+    if (timerCircle) {
+      timerCircle.style.strokeDasharray = CIRCUMFERENCE;
+      timerCircle.style.strokeDashoffset = CIRCUMFERENCE;
+    }
+
     // Start initial timer
-    resetTimer();
+    startTime = null;
+    animationFrame = requestAnimationFrame(updateTimer);
   }
 
-  document.addEventListener('DOMContentLoaded', () => {
-    timerCircle = document.querySelector('.timer-circle');
-    bannerImage = document.getElementById('banner-image');
-    bannerLink = document.getElementById('banner-link');
-    portfolioLink = document.getElementById('portfolio-link');
-    initBanner();
-  });
+  // Инициализация сразу
+  timerCircle = document.querySelector('.timer-circle');
+  bannerImage = document.getElementById('banner-image');
+  bannerLink = document.getElementById('banner-link');
+  portfolioLink = document.getElementById('portfolio-link');
+  initBanner();
 </script>
 
 <style>
@@ -173,7 +179,8 @@ const { banners } = Astro.props;
     stroke-width: 4;
     stroke-linecap: round;
     stroke-dasharray: 113.1; /* 2 * PI * 18 */
-    stroke-dashoffset: 0;
+    stroke-dashoffset: 113.1; /* Начальное состояние - пустой круг */
+    transition: stroke-dashoffset 0.1s linear;
   }
 
   .banner-links {
