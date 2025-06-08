@@ -102,7 +102,7 @@ const { questions } = Astro.props;
   }
 </style>
 
-<script define:vars={{ questions }}>
+<script is:inline define:vars={{ questions }}>
   const form = document.getElementById('quiz-form');
 
   if (form) {

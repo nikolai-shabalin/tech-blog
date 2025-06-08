@@ -32,7 +32,7 @@ const { banners } = Astro.props;
   </div>
 </div>
 
-<script define:vars={{ banners }}>
+<script is:inline define:vars={{ banners }}>
   let currentIndex = 0;
   let timerCircle;
   let bannerImage;
