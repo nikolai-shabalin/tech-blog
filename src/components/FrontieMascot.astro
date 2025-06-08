@@ -64,12 +64,9 @@
       width: 100%;
       text-align: center;
       color: inherit;
-    }
-
-    .message {
       animation: showMessage linear forwards;
       animation-timeline: scroll();
-      animation-range: calc(var(--index) * 10%) calc((var(--index) + 1) * 10%);      
+      animation-range: calc(var(--index) * 10%) calc((var(--index) + 1) * 10%);
     }
 
     @keyframes showMessage {
