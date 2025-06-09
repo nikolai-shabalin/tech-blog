@@ -1,0 +1,246 @@
+---
+---
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+	course: CollectionEntry<'courses'>;
+}
+
+const { course } = Astro.props;
+const { data } = course;
+
+const levelLabels = {
+	beginner: 'Начинающий',
+	intermediate: 'Средний',
+	advanced: 'Продвинутый'
+};
+
+const freeLessonsCount = data.lessons.filter(lesson => !lesson.isPremium).length;
+const premiumLessonsCount = data.lessons.filter(lesson => lesson.isPremium).length;
+---
+
+<article class="course-card">
+	<div class="course-card__header">
+		<div class="course-card__meta">
+			<span class={`course-card__level course-card__level--${data.level}`}>
+				{levelLabels[data.level]}
+			</span>
+			<span class="course-card__duration">{data.duration}</span>
+		</div>
+		
+		{data.isPremium && (
+			<div class="course-card__premium">
+				<span class="premium-badge">Premium</span>
+				{data.price && (
+					<span class="course-card__price">{data.price} ₽</span>
+				)}
+			</div>
+		)}
+	</div>
+
+	<div class="course-card__content">
+		<h2 class="course-card__title">
+			<a href={`/course/${course.slug}/`} class="course-card__link">
+				{data.title}
+			</a>
+		</h2>
+		
+		<p class="course-card__description">
+			{data.description}
+		</p>
+
+		<div class="course-card__lessons">
+			<div class="lessons-info">
+				<span class="lessons-count">
+					{data.lessons.length} {data.lessons.length === 1 ? 'урок' : data.lessons.length < 5 ? 'урока' : 'уроков'}
+				</span>
+				{premiumLessonsCount > 0 && (
+					<span class="lessons-premium">
+						{freeLessonsCount} бесплатных, {premiumLessonsCount} платных
+					</span>
+				)}
+			</div>
+		</div>
+
+		{data.tags.length > 0 && (
+			<div class="course-card__tags">
+				{data.tags.map(tag => (
+					<span class="tag">{tag}</span>
+				))}
+			</div>
+		)}
+	</div>
+
+	<div class="course-card__footer">
+		<a href={`/course/${course.slug}/`} class="course-card__button">
+			{data.isPremium ? 'Подробнее' : 'Начать изучение'}
+		</a>
+	</div>
+</article>
+
+<style>
+	.course-card {
+		background: rgb(var(--white));
+		border: 1px solid rgba(var(--gray), 0.2);
+		border-radius: 12px;
+		padding: var(--space-lg);
+		transition: all 0.3s ease;
+		height: fit-content;
+	}
+
+	.course-card:hover {
+		border-color: var(--accent);
+		box-shadow: 0 8px 25px rgba(var(--accent-rgb), 0.15);
+		transform: translateY(-2px);
+	}
+
+	.course-card__header {
+		display: flex;
+		justify-content: space-between;
+		align-items: flex-start;
+		margin-bottom: var(--space-md);
+		flex-wrap: wrap;
+		gap: var(--space-sm);
+	}
+
+	.course-card__meta {
+		display: flex;
+		gap: var(--space-sm);
+		align-items: center;
+	}
+
+	.course-card__level {
+		padding: var(--space-xs) var(--space-sm);
+		border-radius: 6px;
+		font-size: var(--text-sm);
+		font-weight: 500;
+		text-transform: uppercase;
+		letter-spacing: 0.5px;
+	}
+
+	.course-card__level--beginner {
+		background: rgba(34, 197, 94, 0.1);
+		color: rgb(21, 128, 61);
+	}
+
+	.course-card__level--intermediate {
+		background: rgba(251, 146, 60, 0.1);
+		color: rgb(194, 65, 12);
+	}
+
+	.course-card__level--advanced {
+		background: rgba(239, 68, 68, 0.1);
+		color: rgb(185, 28, 28);
+	}
+
+	.course-card__duration {
+		color: rgb(var(--gray-dark));
+		font-size: var(--text-sm);
+	}
+
+	.course-card__premium {
+		display: flex;
+		align-items: center;
+		gap: var(--space-sm);
+	}
+
+	.premium-badge {
+		background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+		color: white;
+		padding: var(--space-xs) var(--space-sm);
+		border-radius: 6px;
+		font-size: var(--text-sm);
+		font-weight: 600;
+	}
+
+	.course-card__price {
+		font-weight: 700;
+		color: var(--accent);
+		font-size: var(--text-lg);
+	}
+
+	.course-card__content {
+		margin-bottom: var(--space-lg);
+	}
+
+	.course-card__title {
+		margin: 0 0 var(--space-md) 0;
+		font-size: var(--text-xl);
+		font-weight: 700;
+		line-height: 1.3;
+	}
+
+	.course-card__link {
+		color: rgb(var(--black));
+		text-decoration: none;
+		transition: color 0.2s ease;
+	}
+
+	.course-card__link:hover {
+		color: var(--accent);
+	}
+
+	.course-card__description {
+		color: rgb(var(--gray-dark));
+		line-height: 1.6;
+		margin-bottom: var(--space-md);
+	}
+
+	.course-card__lessons {
+		margin-bottom: var(--space-md);
+	}
+
+	.lessons-info {
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-xs);
+	}
+
+	.lessons-count {
+		font-weight: 600;
+		color: rgb(var(--black));
+	}
+
+	.lessons-premium {
+		font-size: var(--text-sm);
+		color: rgb(var(--gray-dark));
+	}
+
+	.course-card__tags {
+		display: flex;
+		flex-wrap: wrap;
+		gap: var(--space-xs);
+		margin-bottom: var(--space-md);
+	}
+
+	.tag {
+		background: rgba(var(--gray), 0.1);
+		color: rgb(var(--gray-dark));
+		padding: var(--space-xs) var(--space-sm);
+		border-radius: 4px;
+		font-size: var(--text-sm);
+	}
+
+	.course-card__footer {
+		border-top: 1px solid rgba(var(--gray), 0.1);
+		padding-top: var(--space-md);
+	}
+
+	.course-card__button {
+		display: inline-block;
+		background: var(--accent);
+		color: white;
+		padding: var(--space-sm) var(--space-lg);
+		border-radius: 8px;
+		text-decoration: none;
+		font-weight: 600;
+		transition: all 0.2s ease;
+		text-align: center;
+		width: 100%;
+	}
+
+	.course-card__button:hover {
+		background: var(--accent-dark);
+		transform: translateY(-1px);
+	}
+</style> 
