@@ -123,7 +123,7 @@ UI-компонент для создания форм в стиле drag-and-dr
 ## 🧠 Ещё интересное
 
 - [Copilot + React: как создать приложение](https://github.blog/ai-and-ml/github-copilot/github-for-beginners-building-a-react-app-with-github-copilot/?utm_source=frontend&utm_medium=digest&utm_campaign=shabalin_online)
-- [Redwood SDK: почему ваш фреймворк "сломался"]((https://rwsdk.com/blog/your-react-meta-framework-feels-broken)
+- [Redwood SDK: почему ваш фреймворк "сломался"](https://rwsdk.com/blog/your-react-meta-framework-feels-broken)
 - [🕹️ Контроллер персонажа с физикой и AI](https://tympanus.net/codrops/2025/05/28/building-a-physics-based-character-controller-with-the-help-of-ai/?utm_source=frontend&utm_medium=digest&utm_campaign=shabalin_online)
 - [▶ История Concurrent Rendering в React](https://www.youtube.com/watch?v=edN42P_vfCI&utm_source=frontend&utm_medium=digest&utm_campaign=shabalin_online)
 - [⚡ Компонент Activity в React — прирост производительности](https://www.youtube.com/watch?v=gRKVL5w-2Lc&utm_source=frontend&utm_medium=digest&utm_campaign=shabalin_online)
