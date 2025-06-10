@@ -1,0 +1,362 @@
+---
+import BaseHead from '../../components/BaseHead.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+
+import { SITE_TITLE } from '../../consts';
+import { getCollection } from 'astro:content';
+
+const courses = (await getCollection('courses')).sort(
+	(a, b) => a.data.title.localeCompare(b.data.title),
+);
+
+const pageTitle = 'Курсы';
+const pageDescription = 'Сборник микро-курсов по веб-разработке: CSS Grid, Flexbox, MSW и другие современные технологии';
+---
+
+<!doctype html>
+<html lang="ru">
+	<head>
+		<BaseHead title={`${pageTitle} | ${SITE_TITLE}`} description={pageDescription} />
+	</head>
+	<body>
+		<Header />
+		<main class="main">
+			<div class="container">
+				<header class="page-header">
+					<h1 class="page-title">Курсы по веб-разработке</h1>
+					<p class="page-description">
+						Изучайте современные технологии веб-разработки с помощью наших микро-курсов. 
+						Каждый курс содержит теоретические материалы и практические задания.
+					</p>
+				</header>
+
+				<div class="courses-grid">
+					{courses.map((course) => (
+						<article class="course-card">
+							<div class="course-card__main">
+								<div class="course-card__header">
+									<div class="course-card__meta">
+										<span class={`course-card__level course-card__level--${course.data.level}`}>
+											{course.data.level === 'beginner' ? 'Начинающий' : course.data.level === 'intermediate' ? 'Средний' : 'Продвинутый'}
+										</span>
+										<span class="course-card__duration">{course.data.duration}</span>
+									</div>
+								</div>
+
+								<div class="course-card__content">
+									<h2 class="course-card__title">
+										<a href={`/course/${course.slug}/`} class="course-card__link">
+											{course.data.title}
+										</a>
+									</h2>
+									
+									<p class="course-card__description">
+										{course.data.description}
+									</p>
+
+									{course.data.tags.length > 0 && (
+										<div class="course-card__tags">
+											{course.data.tags.map(tag => (
+												<span class="tag">{tag}</span>
+											))}
+										</div>
+									)}
+								</div>
+							</div>
+
+							<div class="course-card__sidebar">
+								{course.data.isPremium && (
+									<div class="course-card__premium">
+										<span class="premium-badge">Premium</span>
+										{course.data.price && (
+											<span class="course-card__price">{course.data.price} ₽</span>
+										)}
+									</div>
+								)}
+
+								<div class="course-card__lessons">
+									<div class="lessons-info">
+										<span class="lessons-count">
+											{course.data.lessons.length} {course.data.lessons.length === 1 ? 'урок' : course.data.lessons.length < 5 ? 'урока' : 'уроков'}
+										</span>
+										{course.data.lessons.filter(lesson => lesson.isPremium).length > 0 && (
+											<span class="lessons-premium">
+												{course.data.lessons.filter(lesson => !lesson.isPremium).length} бесплатных, {course.data.lessons.filter(lesson => lesson.isPremium).length} платных
+											</span>
+										)}
+									</div>
+								</div>
+
+								<div class="course-card__footer">
+									<a href={`/course/${course.slug}/`} class="course-card__button">
+										{course.data.isPremium ? 'Подробнее' : 'Начать изучение'}
+									</a>
+								</div>
+							</div>
+						</article>
+					))}
+				</div>
+
+				{courses.length === 0 && (
+					<div class="empty-state">
+						<p>Курсы скоро появятся!</p>
+					</div>
+				)}
+			</div>
+		</main>
+		<Footer />
+	</body>
+</html>
+
+<style>
+	.main {
+		padding: var(--space-xl) var(--space-md);
+		min-height: calc(100vh - 140px);
+	}
+
+	.container {
+		width: min(100%, var(--content-width));
+		margin-inline: auto;
+	}
+
+	.page-header {
+		text-align: center;
+		margin-bottom: var(--space-xl);
+	}
+
+	.page-title {
+		font-size: var(--text-3xl);
+		font-weight: 700;
+		color: rgb(var(--black));
+		margin-bottom: var(--space-md);
+	}
+
+	.page-description {
+		font-size: var(--text-lg);
+		color: rgb(var(--gray-dark));
+		max-width: 600px;
+		margin: 0 auto;
+		line-height: 1.6;
+	}
+
+	.courses-grid {
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-lg);
+	}
+
+	.empty-state {
+		text-align: center;
+		padding: var(--space-xl);
+		color: rgb(var(--gray-dark));
+		font-size: var(--text-lg);
+	}
+
+	@media (max-width: 480px) {
+		.courses-grid {
+			grid-template-columns: 1fr;
+		}
+	}
+
+	/* Course Card Styles */
+	.course-card {
+		background: rgb(var(--white));
+		border: 1px solid rgba(var(--gray), 0.2);
+		border-radius: 12px;
+		padding: var(--space-lg);
+		transition: all 0.3s ease;
+		display: flex;
+		flex-direction: column;
+		width: 100%;
+		max-width: 100%;
+	}
+
+	.course-card:hover {
+		border-color: var(--accent);
+		box-shadow: 0 8px 25px rgba(var(--accent-rgb), 0.15);
+		transform: translateY(-2px);
+	}
+
+	.course-card__header {
+		display: flex;
+		justify-content: space-between;
+		align-items: flex-start;
+		margin-bottom: var(--space-md);
+		flex-wrap: wrap;
+		gap: var(--space-sm);
+	}
+
+	.course-card__meta {
+		display: flex;
+		gap: var(--space-sm);
+		align-items: center;
+	}
+
+	.course-card__level {
+		padding: var(--space-xs) var(--space-sm);
+		border-radius: 6px;
+		font-size: var(--text-sm);
+		font-weight: 500;
+		text-transform: uppercase;
+		letter-spacing: 0.5px;
+	}
+
+	.course-card__level--beginner {
+		background: rgba(34, 197, 94, 0.1);
+		color: rgb(21, 128, 61);
+	}
+
+	.course-card__level--intermediate {
+		background: rgba(251, 146, 60, 0.1);
+		color: rgb(194, 65, 12);
+	}
+
+	.course-card__level--advanced {
+		background: rgba(239, 68, 68, 0.1);
+		color: rgb(185, 28, 28);
+	}
+
+	.course-card__duration {
+		color: rgb(var(--gray-dark));
+		font-size: var(--text-sm);
+	}
+
+	.course-card__premium {
+		display: flex;
+		align-items: center;
+		gap: var(--space-sm);
+	}
+
+	.premium-badge {
+		background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+		color: white;
+		padding: var(--space-xs) var(--space-sm);
+		border-radius: 6px;
+		font-size: var(--text-sm);
+		font-weight: 600;
+	}
+
+	.course-card__price {
+		font-weight: 700;
+		color: var(--accent);
+		font-size: var(--text-lg);
+	}
+
+	.course-card__content {
+		margin-bottom: var(--space-lg);
+	}
+
+	.course-card__title {
+		margin: 0 0 var(--space-md) 0;
+		font-size: var(--text-xl);
+		font-weight: 700;
+		line-height: 1.3;
+	}
+
+	.course-card__link {
+		color: rgb(var(--black));
+		text-decoration: none;
+		transition: color 0.2s ease;
+	}
+
+	.course-card__link:hover {
+		color: var(--accent);
+	}
+
+	.course-card__description {
+		color: rgb(var(--gray-dark));
+		line-height: 1.6;
+		margin-bottom: var(--space-md);
+	}
+
+	.course-card__lessons {
+		margin-bottom: var(--space-md);
+	}
+
+	.lessons-info {
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-xs);
+	}
+
+	.lessons-count {
+		font-weight: 600;
+		color: rgb(var(--black));
+	}
+
+	.lessons-premium {
+		font-size: var(--text-sm);
+		color: rgb(var(--gray-dark));
+	}
+
+	.course-card__tags {
+		display: flex;
+		flex-wrap: wrap;
+		gap: var(--space-xs);
+		margin-bottom: var(--space-md);
+	}
+
+	.tag {
+		background: rgba(var(--gray), 0.1);
+		color: rgb(var(--gray-dark));
+		padding: var(--space-xs) var(--space-sm);
+		border-radius: 4px;
+		font-size: var(--text-sm);
+	}
+
+	.course-card__footer {
+		border-top: 1px solid rgba(var(--gray), 0.1);
+		padding-top: var(--space-md);
+	}
+
+	.course-card__button {
+		display: inline-block;
+		background: var(--accent);
+		color: white;
+		padding: var(--space-sm) var(--space-lg);
+		border-radius: 8px;
+		text-decoration: none;
+		font-weight: 600;
+		transition: all 0.2s ease;
+		text-align: center;
+		width: 100%;
+	}
+
+	.course-card__button:hover {
+		background: var(--accent-dark);
+		transform: translateY(-1px);
+	}
+
+	@media (min-width: 768px) {
+		.course-card {
+			flex-direction: row;
+			align-items: flex-start;
+			gap: var(--space-xl);
+		}
+
+		.course-card__main {
+			flex: 1;
+			display: flex;
+			flex-direction: column;
+		}
+
+		.course-card__sidebar {
+			flex-shrink: 0;
+			width: 280px;
+			display: flex;
+			flex-direction: column;
+			gap: var(--space-md);
+		}
+
+		.course-card__footer {
+			border-top: none;
+			padding-top: 0;
+			margin-top: auto;
+		}
+
+		.course-card__button {
+			width: 100%;
+		}
+	}
+</style> 

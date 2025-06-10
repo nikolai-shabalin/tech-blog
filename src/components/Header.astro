@@ -11,7 +11,10 @@ const { pathname } = Astro.url;
 const isDigestPage = pathname.startsWith('/digest');
 const currentCategory = pathname.match(/\/blog\/category\/([^\/]+)/)?.[1];
 
+const isCoursePage = pathname.startsWith('/course');
+
 const navItems = [
+  { href: '/course/', label: 'Курсы', isActive: isCoursePage },
   { href: '/digest/', label: 'Дайджесты', isActive: isDigestPage },
   ...categories.map(category => ({
     href: `/blog/category/${category}/`,
