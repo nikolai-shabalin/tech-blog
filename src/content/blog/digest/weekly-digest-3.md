@@ -66,8 +66,6 @@ Safari перескакивает с версии 18 сразу на 26. В чи
 - [Миграция с Next.js на TanStack Start](https://tanstack.com/start/latest/docs/framework/react/migrate-from-next-js?utm_source=frontend&utm_medium=digest&utm_campaign=shabalin_online)
 - [SolidJS для React-разработчиков](https://marmelab.com/blog/2025/05/28/solidjs-for-react-developper.html?utm_source=frontend&utm_medium=digest&utm_campaign=shabalin_online)
 - 🎥 [Remix V3's Fatal Flaw](https://www.youtube.com/watch?v=5SPqO6NR_Bg&utm_source=frontend&utm_medium=digest&utm_campaign=shabalin_online)
-- **[Курс по Node Streams](https://www.nodejsstreams.com/?utm_source=frontend&utm_medium=digest&utm_campaign=shabalin_online)** — от автора Erick Wendel.
-
 
 ## 🟩 Node.js
 
@@ -152,6 +150,3 @@ Scalekit предлагает готовое решение для автори�
 - **[Smooothy](https://github.com/vallafederico/smooothy?utm_source=frontend&utm_medium=digest&utm_campaign=shabalin_online)** — слайдер с настройкой параллакса и клавиатурного управления.
 - **[Fulldev UI](https://ui.full.dev/?utm_source=frontend&utm_medium=digest&utm_campaign=shabalin_online)** — готовые Astro-компоненты.
 - **[SmoothUI](https://www.smoothui.dev/?utm_source=frontend&utm_medium=digest&utm_campaign=shabalin_online)** — анимированные компоненты на React + Tailwind.
-## 🗳 Опросы и исследования
-
-- **[Blacksmith](https://www.blacksmith.sh/?utm_source=frontend&utm_medium=digest&utm_campaign=shabalin_online&utm_term=frontend)** — ускоряет Docker-сборки в GitHub Actions в 2–40 раз.
