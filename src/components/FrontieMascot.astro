@@ -118,27 +118,3 @@ if (!messages.length) {
       }
     }
   </style>
-
-  <script>
-    // Показываем сообщения по очереди при скролле
-    const messages = document.querySelectorAll<HTMLElement>('.message');
-    let currentIndex = 0;
-
-    function showNextMessage() {
-      messages.forEach(msg => msg.style.opacity = '0');
-      messages[currentIndex].style.opacity = '1';
-      currentIndex = (currentIndex + 1) % messages.length;
-    }
-
-    // Показываем следующее сообщение каждые 3 секунды
-    setInterval(showNextMessage, 3000);
-
-    // Также показываем следующее сообщение при скролле
-    let lastScrollY = window.scrollY;
-    window.addEventListener('scroll', () => {
-      if (Math.abs(window.scrollY - lastScrollY) > 100) {
-        showNextMessage();
-        lastScrollY = window.scrollY;
-      }
-    });
-  </script>
