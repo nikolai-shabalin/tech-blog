@@ -15,8 +15,8 @@ if (!messages.length) {
 
 <div class="frontie-mascot">
     <div class="frontie-speech" id="frontieSpeech">
-      {messages.map((message) => (
-        <div class="message" style={`--index: ${message.index}`}>{message.text}</div>
+      {messages.map((message, index) => (
+        <div class="message" style={`--index: ${index}`}>{message.text}</div>
       ))}
     </div>
     <img
