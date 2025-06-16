@@ -26,14 +26,15 @@
   --text-4xl: clamp(2.75rem, 2.22rem + 2.37vw, 3.5rem);
   --text-5xl: clamp(3.5rem, 2.64rem + 3.29vw, 4.5rem);
 
-  /* Расстояния */
-  --space-xs: 0.5rem;
-  --space-sm: 0.75rem;
-  --space-md: 1rem;
-  --space-lg: 1.5rem;
-  --space-xl: 2rem;
-  --space-2xl: 3rem;
-  --space-3xl: 4rem;
+  /* Вертикальный ритм */
+  --rhythm: 1rlh;
+  --space-xs: 0.25rlh;
+  --space-sm: 0.5rlh;
+  --space-md: 0.75rlh;
+  --space-lg: 1rlh;
+  --space-xl: 1.5rlh;
+  --space-2xl: 2rlh;
+  --space-3xl: 3rlh;
 
   /* Шрифтовые пары */
   --font-heading: "Montserrat", sans-serif;
@@ -69,7 +70,7 @@ body {
   background-color: var(--bg-color);
   color: rgb(var(--gray-dark));
   font-size: var(--text-lg);
-  line-height: 1.7;
+  line-height: 1.6;
   letter-spacing: -0.01em;
   font-feature-settings: "kern", "liga", "calt";
   -webkit-font-smoothing: antialiased;
@@ -224,7 +225,7 @@ table {
   table {
     font-size: var(--text-sm);
   }
-  
+
   th,
   td {
     padding: var(--space-xs);
