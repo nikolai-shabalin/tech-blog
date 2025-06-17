@@ -1,0 +1,11 @@
+{
+  "all": true,
+  "ignore": ["node_modules", ".astro"],
+  "typescript": true,
+  "astro": true,
+  "rules": {
+    "astro": {
+      "enabled": true
+    }
+  }
+} 
