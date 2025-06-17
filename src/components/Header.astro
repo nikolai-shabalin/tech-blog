@@ -9,7 +9,7 @@ const categories = [...new Set(
 
 const { pathname } = Astro.url;
 const isDigestPage = pathname.startsWith('/digest');
-const currentCategory = pathname.match(/\/blog\/category\/([^\/]+)/)?.[1];
+const currentCategory = pathname.match(/\/blog\/category\/([^/]+)/)?.[1];
 
 const navItems = [
   { href: '/digest/', label: 'Дайджесты', isActive: isDigestPage },
