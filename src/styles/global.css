@@ -224,7 +224,7 @@ table {
   table {
     font-size: var(--text-sm);
   }
-  
+
   th,
   td {
     padding: var(--space-xs);
