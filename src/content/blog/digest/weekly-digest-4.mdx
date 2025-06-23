@@ -28,6 +28,8 @@ Axel Rauschmayer выпустил новую книгу по JavaScript. В не
 **[Biome v2: линтер с поддержкой типов без TypeScript-компилятора](https://biomejs.dev/blog/biome-v2/?utm_source=frontend&utm_medium=digest&utm_campaign=shabalin_online)**
 Biome v2 умеет проверять ваш код с учётом типов, но без запуска `tsc`. Поддерживает плагины, monorepo, но пока не поддерживает Vue и Svelte.
 
+### ⚙️ SVGO v4
+Вышел SVGO v4. SVGO v4 требует Node.js 16+ и отказывается от `removeViewBox` и `removeTitle` в пресете по умолчанию ради сохранения масштабируемости и доступности. Также введены только именованные экспорты и переработан способ импорта плагинов и селекторов — потребуется обновить конфиг и импорт в коде. Смотрите [гайд по миграции](https://svgo.dev/docs/migrations/migration-from-v3-to-v4/).
 
 <TelegramCTA/>
 
