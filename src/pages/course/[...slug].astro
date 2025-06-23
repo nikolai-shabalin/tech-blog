@@ -95,31 +95,60 @@ const premiumLessonsCount = data.lessons.filter(lesson => lesson.isPremium).leng
 					<section class="lessons">
 						<h2 class="lessons__title">Программа курса</h2>
 						<div class="lessons__list">
-							{data.lessons.map((lesson, index) => (
-								<a href={`/course/${course.slug}/${lesson.slug}/`} class={`lesson ${lesson.isPremium ? 'lesson--premium' : 'lesson--free'}`}>
-									<div class="lesson__header">
-										<div class="lesson__number">{index + 1}</div>
-										<div class="lesson__info">
-											<h3 class="lesson__title">{lesson.title}</h3>
-											<p class="lesson__description">{lesson.description}</p>
+							{data.lessons.map((lesson, index) => {
+								const lessonPath = `/course/${course.slug}/${lesson.slug}/`;
+
+								return lesson.isActive === false ? (
+									<a
+										class={`lesson lesson--inactive ${lesson.isPremium ? 'lesson--premium' : 'lesson--free'}`}
+										aria-disabled={true}
+										role="link"
+									>
+										<div class="lesson__header">
+											<div class="lesson__number">{index + 1}</div>
+											<div class="lesson__info">
+												<h3 class="lesson__title">{lesson.title}</h3>
+												<p class="lesson__description">{lesson.description}</p>
+											</div>
 										</div>
-									</div>
-									<div class="lesson__meta">
-										{lesson.duration && (
-											<span class="lesson__duration">{lesson.duration}</span>
-										)}
-										{lesson.isPremium ? (
-											<span class="lesson__status lesson__status--premium">
-												Платный урок
+										<div class="lesson__meta">
+											{lesson.duration && (
+												<span class="lesson__duration">{lesson.duration}</span>
+											)}
+											<span class="lesson__status lesson__status--inactive">
+												Скоро
 											</span>
-										) : (
-											<span class="lesson__status lesson__status--free">
-												Бесплатный
-											</span>
-										)}
-									</div>
-								</a>
-							))}
+										</div>
+									</a>
+								) : (
+									<a
+										href={lessonPath}
+										class={`lesson ${lesson.isPremium ? 'lesson--premium' : 'lesson--free'}`}
+									>
+										<div class="lesson__header">
+											<div class="lesson__number">{index + 1}</div>
+											<div class="lesson__info">
+												<h3 class="lesson__title">{lesson.title}</h3>
+												<p class="lesson__description">{lesson.description}</p>
+											</div>
+										</div>
+										<div class="lesson__meta">
+											{lesson.duration && (
+												<span class="lesson__duration">{lesson.duration}</span>
+											)}
+											{lesson.isPremium ? (
+												<span class="lesson__status lesson__status--premium">
+													Платный урок
+												</span>
+											) : (
+												<span class="lesson__status lesson__status--free">
+													Бесплатный
+												</span>
+											)}
+										</div>
+									</a>
+								);
+							})}
 						</div>
 					</section>
 
@@ -350,7 +379,14 @@ const premiumLessonsCount = data.lessons.filter(lesson => lesson.isPremium).leng
 		border-color: rgba(var(--accent-rgb), 0.2);
 	}
 
-	.lesson:hover {
+	.lesson--inactive {
+		background: rgba(156, 163, 175, 0.05);
+		border-color: rgba(156, 163, 175, 0.2);
+		opacity: 0.7;
+		cursor: not-allowed;
+	}
+
+	.lesson:not(.lesson--inactive):hover {
 		border-color: var(--accent);
 		box-shadow: 0 4px 12px rgba(var(--accent-rgb), 0.1);
 	}
@@ -419,6 +455,11 @@ const premiumLessonsCount = data.lessons.filter(lesson => lesson.isPremium).leng
 	.lesson__status--premium {
 		background: rgba(251, 146, 60, 0.1);
 		color: rgb(194, 65, 12);
+	}
+
+	.lesson__status--inactive {
+		background: rgba(156, 163, 175, 0.1);
+		color: rgb(107, 114, 128);
 	}
 
 	.course__purchase {

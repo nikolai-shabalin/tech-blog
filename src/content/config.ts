@@ -39,6 +39,7 @@ const courses = defineCollection({
 			slug: z.string(),
 			description: z.string(),
 			isPremium: z.boolean().default(false),
+			isActive: z.boolean().default(true),
 			duration: z.string().optional(),
 		})),
 	}),
@@ -53,6 +54,7 @@ const lessons = defineCollection({
 		description: z.string(),
 		duration: z.string().optional(),
 		isPremium: z.boolean().default(false),
+		isActive: z.boolean().default(true),
 		order: z.number(),
 	}),
 });
