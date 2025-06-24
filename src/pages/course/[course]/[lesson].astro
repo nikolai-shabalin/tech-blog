@@ -1,18 +1,37 @@
 ---
-import { getEntry } from 'astro:content';
+import { getEntry, type CollectionEntry } from 'astro:content';
 import BaseHead from '../../../components/BaseHead.astro';
 import Header from '../../../components/Header.astro';
 import Footer from '../../../components/Footer.astro';
 import { SITE_TITLE } from '../../../consts';
 
-const course = await getEntry('courses', 'css-grid');
-const lesson = await getEntry('lessons', 'introduction');
+// Эта функция нужна для генерации статических путей. 
+// Мы должны найти все уроки и создать для них пути.
+export async function getStaticPaths() {
+  const lessons = await getEntry('lessons', 'javascript/00-about-course');
+  // В будущем здесь нужно будет получать все уроки для всех курсов
+  return [
+    {
+      params: { course: 'javascript', lesson: 'about-course' },
+      props: { courseSlug: 'javascript', lessonSlug: 'about-course' }
+    }
+  ];
+}
+
+const { courseSlug, lessonSlug } = Astro.props;
+
+const course = await getEntry('courses', courseSlug);
+const lesson = await getEntry('lessons', `${courseSlug}/${lessonSlug}`);
 
 if (!course || !lesson) {
   return Astro.redirect('/course/');
 }
 
 const { Content } = await lesson.render();
+
+const currentLessonIndex = course.data.lessons.findIndex(l => l.slug === lessonSlug);
+const prevLesson = currentLessonIndex > 0 ? course.data.lessons[currentLessonIndex - 1] : null;
+const nextLesson = currentLessonIndex < course.data.lessons.length - 1 ? course.data.lessons[currentLessonIndex + 1] : null;
 ---
 
 <!doctype html>
@@ -52,10 +71,19 @@ const { Content } = await lesson.render();
 					</div>
 
 					<nav class="lesson__navigation">
-						<a href={`/course/${course.slug}/container-items/`} class="nav-button nav-button--next">
-							<span class="nav-button__label">Следующий урок</span>
-							<span class="nav-button__title">Grid Container и Grid Items</span>
-						</a>
+						{prevLesson ? (
+							<a href={`/course/${course.slug}/${prevLesson.slug}/`} class="nav-button nav-button--prev">
+								<span class="nav-button__label">Предыдущий урок</span>
+								<span class="nav-button__title">{prevLesson.title}</span>
+							</a>
+						) : <div />}
+						
+						{nextLesson && (
+							<a href={`/course/${course.slug}/${nextLesson.slug}/`} class="nav-button nav-button--next">
+								<span class="nav-button__label">Следующий урок</span>
+								<span class="nav-button__title">{nextLesson.title}</span>
+							</a>
+						)}
 					</nav>
 
 					<div class="lesson__back">
@@ -71,6 +99,7 @@ const { Content } = await lesson.render();
 </html>
 
 <style>
+	/* Стили скопированы из container-items.astro для консистентности */
 	.main {
 		padding: var(--space-xl) var(--space-md);
 		min-height: calc(100vh - 140px);
@@ -193,99 +222,81 @@ const { Content } = await lesson.render();
 		margin-bottom: var(--space-md);
 	}
 
-	.lesson__content :global(li) {
-		margin-bottom: var(--space-xs);
+	.lesson__content :global(a) {
+		color: var(--accent);
+		text-decoration: underline;
 	}
 
-	.lesson__content :global(code) {
-		background: rgba(var(--gray), 0.1);
-		padding: 2px 6px;
-		border-radius: 3px;
-		font-family: 'Courier New', monospace;
-		font-size: 0.9em;
-	}
-
-	.lesson__content :global(pre) {
-		background: rgb(var(--black));
-		color: rgb(var(--white));
-		padding: var(--space-lg);
-		border-radius: 8px;
-		overflow-x: auto;
-		margin: var(--space-lg) 0;
-	}
-
-	.lesson__content :global(pre code) {
-		background: none;
-		padding: 0;
-		color: inherit;
-	}
-
-	.lesson__content :global(table) {
-		width: 100%;
-		border-collapse: collapse;
-		margin: var(--space-lg) 0;
-	}
-
-	.lesson__content :global(th, td) {
-		border: 1px solid rgba(var(--gray), 0.3);
-		padding: var(--space-sm);
-		text-align: left;
-	}
-
-	.lesson__content :global(th) {
-		background: rgba(var(--gray), 0.1);
+	.lesson__content :global(strong) {
 		font-weight: 600;
 	}
 
-	.lesson__content :global(blockquote) {
-		border-left: 4px solid var(--accent);
-		padding-left: var(--space-lg);
-		margin: var(--space-lg) 0;
-		font-style: italic;
-		color: rgb(var(--gray-dark));
+	.lesson__content :global(pre) {
+		background: #f4f4f4;
+		padding: var(--space-md);
+		border-radius: 6px;
+		overflow-x: auto;
+		margin-bottom: var(--space-md);
+	}
+
+	.lesson__content :global(code) {
+		font-family: var(--font-mono);
+		background: rgba(var(--gray), 0.15);
+		padding: 2px 6px;
+		border-radius: 4px;
+	}
+
+	.lesson__content :global(pre > code) {
+		background: none;
+		padding: 0;
 	}
 
 	.lesson__navigation {
 		display: flex;
-		justify-content: flex-end;
-		gap: var(--space-md);
-		margin-bottom: var(--space-xl);
-		padding: var(--space-lg) 0;
+		justify-content: space-between;
+		margin-top: var(--space-xl);
+		padding-top: var(--space-lg);
 		border-top: 1px solid rgba(var(--gray), 0.2);
 	}
-
+	
 	.nav-button {
-		display: flex;
-		flex-direction: column;
+		display: block;
 		padding: var(--space-md);
-		border: 1px solid rgba(var(--gray), 0.2);
+		border: 1px solid rgba(var(--gray), 0.3);
 		border-radius: 8px;
 		text-decoration: none;
+		color: rgb(var(--black));
 		transition: all 0.2s ease;
-		max-width: 300px;
+		max-width: 48%;
+	}
+
+	.nav-button:hover {
+		border-color: var(--accent);
+		transform: translateY(-2px);
+		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+	}
+
+	.nav-button--prev {
+		text-align: left;
 	}
 
 	.nav-button--next {
 		text-align: right;
 	}
 
-	.nav-button:hover {
-		border-color: var(--accent);
-		box-shadow: 0 4px 12px rgba(var(--accent-rgb), 0.1);
-	}
-
 	.nav-button__label {
 		font-size: var(--text-sm);
 		color: rgb(var(--gray-dark));
 		margin-bottom: var(--space-xs);
+		display: block;
 	}
 
 	.nav-button__title {
 		font-weight: 600;
-		color: rgb(var(--black));
 	}
-
+	
 	.lesson__back {
+		margin-top: var(--space-xl);
 		text-align: center;
 	}
 
@@ -293,21 +304,9 @@ const { Content } = await lesson.render();
 		color: var(--accent);
 		text-decoration: none;
 		font-weight: 500;
-		transition: color 0.2s ease;
 	}
 
 	.back-link:hover {
-		color: var(--accent-dark);
-	}
-
-	@media (max-width: 640px) {
-		.lesson__meta {
-			flex-direction: column;
-			align-items: flex-start;
-		}
-
-		.lesson__navigation {
-			flex-direction: column;
-		}
+		text-decoration: underline;
 	}
 </style> 
