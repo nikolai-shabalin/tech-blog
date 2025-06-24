@@ -25,6 +25,14 @@ const initiative = defineCollection({
 });
 
 export const collections = {
-	'blog': blog,
-	'initiative': initiative,
+        'blog': blog,
+        'initiative': initiative,
+        'courses': defineCollection({
+                type: 'content',
+                schema: z.object({
+                        title: z.string(),
+                        description: z.string(),
+                        duration: z.string().optional(),
+                }),
+        }),
 };

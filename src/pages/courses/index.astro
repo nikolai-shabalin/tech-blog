@@ -1,0 +1,25 @@
+---
+import BaseHead from '../../components/BaseHead.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import CoursesList from '../../components/CoursesList.astro';
+import { SITE_TITLE } from '../../consts';
+import { getCollection } from 'astro:content';
+
+const all = await getCollection('courses');
+const courses = all.filter(entry => entry.id.split('/').length === 2);
+---
+
+<html lang="ru">
+  <head>
+    <BaseHead title={`Курсы | ${SITE_TITLE}`} description="Список доступных курсов" />
+  </head>
+  <body>
+    <Header />
+    <main>
+      <h1 class="sr-only">Курсы</h1>
+      <CoursesList items={courses} base="/courses" />
+    </main>
+    <Footer />
+  </body>
+</html>

@@ -1,0 +1,101 @@
+---
+interface Item {
+  slug: string;
+  data: {
+    title: string;
+    description: string;
+    duration?: string;
+  };
+}
+
+interface Props {
+  items: Item[];
+  base?: string;
+}
+
+const { items, base = '/courses' } = Astro.props;
+---
+
+<section class="posts">
+  <ul class="posts__list">
+    {items.map(item => (
+      <li class="short-post">
+        <a href={`${base}/${item.slug}/`} class="short-post__link">
+          <h2 class="short-post__title">{item.data.title}</h2>
+        </a>
+        {item.data.duration && (
+          <p class="short-post__date">{item.data.duration}</p>
+        )}
+        <p class="short-post__description">{item.data.description}</p>
+      </li>
+    ))}
+  </ul>
+</section>
+
+<style>
+  .posts__list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3xl);
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .short-post {
+    position: relative;
+    padding-bottom: var(--space-2xl);
+    transition: transform 0.3s ease;
+  }
+
+  .short-post:not(:last-child) {
+    border-bottom: 1px solid rgba(var(--gray), 0.15);
+  }
+
+  .short-post:has(.short-post__link:hover) {
+    transform: translateY(-5px);
+  }
+
+  .short-post__link {
+    display: block;
+    text-decoration: none;
+  }
+
+  .short-post__link:hover {
+    border-bottom: none;
+  }
+
+  .short-post__link:hover .short-post__title {
+    color: var(--accent);
+  }
+
+  .short-post__title {
+    font-size: var(--text-2xl);
+    margin: 0 0 var(--space-sm) 0;
+    color: rgb(var(--black));
+    line-height: 1.2;
+    transition: color 0.2s ease;
+  }
+
+  .short-post__date {
+    margin: 0 0 var(--space-lg) 0;
+    color: rgb(var(--gray));
+    font-size: var(--text-sm);
+    font-style: italic;
+    letter-spacing: 0.05em;
+  }
+
+  .short-post__description {
+    margin: var(--space-md) 0 0 0;
+    font-size: var(--text-md);
+    line-height: 1.6;
+    color: rgb(var(--gray-dark));
+    max-width: var(--content-width);
+  }
+
+  @media (min-width: 720px) {
+    .short-post__title {
+      font-size: var(--text-3xl);
+    }
+  }
+</style>

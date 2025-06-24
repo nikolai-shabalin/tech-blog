@@ -1,0 +1,25 @@
+---
+import { type CollectionEntry, getCollection } from 'astro:content';
+import CoursePost from '../../../../layouts/CoursePost.astro';
+
+export async function getStaticPaths() {
+  const entries = await getCollection('courses');
+  const lessons = entries.filter(e => e.id.split('/').length === 3 && !e.id.endsWith('index.md'));
+  return lessons.map(e => ({
+    params: {
+      course: e.id.split('/')[0],
+      module: e.id.split('/')[1],
+      lesson: e.slug.split('/').pop()
+    },
+    props: e
+  }));
+}
+
+type Props = CollectionEntry<'courses'>;
+const post = Astro.props as Props;
+const { Content } = await post.render();
+---
+
+<CoursePost {...post.data} slug={post.slug}>
+  <Content />
+</CoursePost>

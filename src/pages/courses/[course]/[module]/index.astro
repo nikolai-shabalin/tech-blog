@@ -1,0 +1,46 @@
+---
+import BaseHead from '../../../../components/BaseHead.astro';
+import Header from '../../../../components/Header.astro';
+import Footer from '../../../../components/Footer.astro';
+import CoursesList from '../../../../components/CoursesList.astro';
+import { SITE_TITLE } from '../../../../consts';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const entries = await getCollection('courses');
+  const modules = entries.filter(e => e.id.split('/').length === 3 && e.id.endsWith('index.md'));
+  return modules.map(e => ({
+    params: { course: e.id.split('/')[0], module: e.id.split('/')[1] }
+  }));
+}
+
+const { course, module } = Astro.params;
+const all = await getCollection('courses');
+const moduleEntry = all.find(e => e.id === `${course}/${module}/index.md`);
+const lessons = all
+  .filter(e => e.id.startsWith(`${course}/${module}/`) && !e.id.endsWith('index.md'))
+  .sort((a, b) => a.id.localeCompare(b.id));
+---
+
+<html lang="ru">
+  <head>
+    <BaseHead title={`${moduleEntry?.data.title ?? module} | ${SITE_TITLE}`} description={moduleEntry?.data.description ?? ''} />
+  </head>
+  <body>
+    <Header />
+    <main>
+      <a href={`/courses/${course}/`} class="home-link">Назад к курсу</a>
+      {moduleEntry && (
+        <>
+          <h1>{moduleEntry.data.title}</h1>
+          <p>{moduleEntry.data.description}</p>
+          {moduleEntry.data.duration && (
+            <p><em>Время прохождения: {moduleEntry.data.duration}</em></p>
+          )}
+        </>
+      )}
+      <CoursesList items={lessons} base={`/courses/${course}/${module}`} />
+    </main>
+    <Footer />
+  </body>
+</html>
