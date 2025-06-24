@@ -1,0 +1,497 @@
+---
+import { type CollectionEntry, getCollection } from 'astro:content';
+import BaseHead from '../../components/BaseHead.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import { SITE_TITLE } from '../../consts';
+
+export async function getStaticPaths() {
+	const courses = await getCollection('courses');
+	return courses.map((course) => ({
+		params: { slug: course.slug },
+		props: course,
+	}));
+}
+
+type Props = CollectionEntry<'courses'>;
+
+const course = Astro.props;
+const { Content } = await course.render();
+const { data } = course;
+
+const levelLabels = {
+	beginner: 'Начинающий',
+	intermediate: 'Средний',
+	advanced: 'Продвинутый'
+};
+
+const freeLessonsCount = data.lessons.filter(lesson => !lesson.isPremium).length;
+const premiumLessonsCount = data.lessons.filter(lesson => lesson.isPremium).length;
+---
+
+<!doctype html>
+<html lang="ru">
+	<head>
+		<BaseHead title={`${data.title} | ${SITE_TITLE}`} description={data.description} />
+	</head>
+	<body>
+		<Header />
+		<main class="main">
+			<div class="container">
+				<article class="course">
+					<header class="course__header">
+						<div class="course__meta">
+							<span class={`course__level course__level--${data.level}`}>
+								{levelLabels[data.level]}
+							</span>
+							<span class="course__duration">{data.duration}</span>
+							{data.tags.length > 0 && (
+								<div class="course__tags">
+									{data.tags.map(tag => (
+										<span class="tag">{tag}</span>
+									))}
+								</div>
+							)}
+						</div>
+
+						{data.isPremium && (
+							<div class="course__premium">
+								<span class="premium-badge">Premium</span>
+								{data.price && (
+									<span class="course__price">{data.price} ₽</span>
+								)}
+							</div>
+						)}
+					</header>
+
+					<h1 class="course__title">{data.title}</h1>
+					<p class="course__description">{data.description}</p>
+
+					<div class="course__stats">
+						<div class="stat">
+							<span class="stat__number">{data.lessons.length}</span>
+							<span class="stat__label">
+								{data.lessons.length === 1 ? 'урок' : data.lessons.length < 5 ? 'урока' : 'уроков'}
+							</span>
+						</div>
+						{premiumLessonsCount > 0 && (
+							<>
+								<div class="stat">
+									<span class="stat__number">{freeLessonsCount}</span>
+									<span class="stat__label">бесплатных</span>
+								</div>
+								<div class="stat">
+									<span class="stat__number">{premiumLessonsCount}</span>
+									<span class="stat__label">платных</span>
+								</div>
+							</>
+						)}
+					</div>
+
+					<div class="course__content">
+						<Content />
+					</div>
+
+					<section class="lessons">
+						<h2 class="lessons__title">Программа курса</h2>
+						<div class="lessons__list">
+							{data.lessons.map((lesson, index) => (
+								<a href={`/course/${course.slug}/${lesson.slug}/`} class={`lesson ${lesson.isPremium ? 'lesson--premium' : 'lesson--free'}`}>
+									<div class="lesson__header">
+										<div class="lesson__number">{index + 1}</div>
+										<div class="lesson__info">
+											<h3 class="lesson__title">{lesson.title}</h3>
+											<p class="lesson__description">{lesson.description}</p>
+										</div>
+									</div>
+									<div class="lesson__meta">
+										{lesson.duration && (
+											<span class="lesson__duration">{lesson.duration}</span>
+										)}
+										{lesson.isPremium ? (
+											<span class="lesson__status lesson__status--premium">
+												Платный урок
+											</span>
+										) : (
+											<span class="lesson__status lesson__status--free">
+												Бесплатный
+											</span>
+										)}
+									</div>
+								</a>
+							))}
+						</div>
+					</section>
+
+					{data.isPremium && (
+						<div class="course__purchase">
+							<div class="purchase-card">
+								<h3 class="purchase-card__title">Получить полный доступ</h3>
+								<p class="purchase-card__description">
+									Получите доступ ко всем урокам курса и дополнительным материалам
+								</p>
+								{data.price && (
+									<div class="purchase-card__price">
+										<span class="price">{data.price} ₽</span>
+									</div>
+								)}
+								<button class="purchase-card__button">
+									Купить курс
+								</button>
+							</div>
+						</div>
+					)}
+				</article>
+			</div>
+		</main>
+		<Footer />
+	</body>
+</html>
+
+<style>
+	.main {
+		padding: var(--space-xl) var(--space-md);
+		min-height: calc(100vh - 140px);
+	}
+
+	.container {
+		width: min(100%, var(--content-width));
+		margin-inline: auto;
+	}
+
+	.course {
+		max-width: 800px;
+		margin: 0 auto;
+	}
+
+	.course__header {
+		display: flex;
+		justify-content: space-between;
+		align-items: flex-start;
+		margin-bottom: var(--space-lg);
+		flex-wrap: wrap;
+		gap: var(--space-md);
+	}
+
+	.course__meta {
+		display: flex;
+		flex-wrap: wrap;
+		gap: var(--space-sm);
+		align-items: center;
+	}
+
+	.course__level {
+		padding: var(--space-xs) var(--space-sm);
+		border-radius: 6px;
+		font-size: var(--text-sm);
+		font-weight: 500;
+		text-transform: uppercase;
+		letter-spacing: 0.5px;
+	}
+
+	.course__level--beginner {
+		background: rgba(34, 197, 94, 0.1);
+		color: rgb(21, 128, 61);
+	}
+
+	.course__level--intermediate {
+		background: rgba(251, 146, 60, 0.1);
+		color: rgb(194, 65, 12);
+	}
+
+	.course__level--advanced {
+		background: rgba(239, 68, 68, 0.1);
+		color: rgb(185, 28, 28);
+	}
+
+	.course__duration {
+		color: rgb(var(--gray-dark));
+		font-size: var(--text-sm);
+		font-weight: 500;
+	}
+
+	.course__tags {
+		display: flex;
+		flex-wrap: wrap;
+		gap: var(--space-xs);
+	}
+
+	.tag {
+		background: rgba(var(--gray), 0.1);
+		color: rgb(var(--gray-dark));
+		padding: var(--space-xs) var(--space-sm);
+		border-radius: 4px;
+		font-size: var(--text-sm);
+	}
+
+	.course__premium {
+		display: flex;
+		align-items: center;
+		gap: var(--space-sm);
+	}
+
+	.premium-badge {
+		background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+		color: white;
+		padding: var(--space-xs) var(--space-sm);
+		border-radius: 6px;
+		font-size: var(--text-sm);
+		font-weight: 600;
+	}
+
+	.course__price {
+		font-weight: 700;
+		color: var(--accent);
+		font-size: var(--text-xl);
+	}
+
+	.course__title {
+		font-size: var(--text-3xl);
+		font-weight: 700;
+		color: rgb(var(--black));
+		margin-bottom: var(--space-md);
+		line-height: 1.2;
+	}
+
+	.course__description {
+		font-size: var(--text-lg);
+		color: rgb(var(--gray-dark));
+		line-height: 1.6;
+		margin-bottom: var(--space-lg);
+	}
+
+	.course__stats {
+		display: flex;
+		gap: var(--space-lg);
+		padding: var(--space-lg);
+		background: rgba(var(--gray), 0.05);
+		border-radius: 8px;
+		margin-bottom: var(--space-xl);
+	}
+
+	.stat {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		text-align: center;
+	}
+
+	.stat__number {
+		font-size: var(--text-2xl);
+		font-weight: 700;
+		color: var(--accent);
+	}
+
+	.stat__label {
+		font-size: var(--text-sm);
+		color: rgb(var(--gray-dark));
+		margin-top: var(--space-xs);
+	}
+
+	.course__content {
+		margin-bottom: var(--space-xl);
+		line-height: 1.7;
+	}
+
+	.course__content :global(h2) {
+		margin-top: var(--space-xl);
+		margin-bottom: var(--space-md);
+		color: rgb(var(--black));
+	}
+
+	.course__content :global(h3) {
+		margin-top: var(--space-lg);
+		margin-bottom: var(--space-sm);
+		color: rgb(var(--black));
+	}
+
+	.course__content :global(ul) {
+		margin-left: var(--space-lg);
+		margin-bottom: var(--space-md);
+	}
+
+	.course__content :global(li) {
+		margin-bottom: var(--space-xs);
+	}
+
+	.lessons {
+		margin-bottom: var(--space-xl);
+	}
+
+	.lessons__title {
+		font-size: var(--text-2xl);
+		font-weight: 700;
+		color: rgb(var(--black));
+		margin-bottom: var(--space-lg);
+	}
+
+	.lessons__list {
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-md);
+	}
+
+	.lesson {
+		display: block;
+		border: 1px solid rgba(var(--gray), 0.2);
+		border-radius: 8px;
+		padding: var(--space-lg);
+		transition: all 0.2s ease;
+		text-decoration: none;
+		color: inherit;
+	}
+
+	.lesson--free {
+		background: rgb(var(--white));
+	}
+
+	.lesson--premium {
+		background: rgba(var(--accent-rgb), 0.02);
+		border-color: rgba(var(--accent-rgb), 0.2);
+	}
+
+	.lesson:hover {
+		border-color: var(--accent);
+		box-shadow: 0 4px 12px rgba(var(--accent-rgb), 0.1);
+	}
+
+	.lesson__header {
+		display: flex;
+		gap: var(--space-md);
+		margin-bottom: var(--space-sm);
+	}
+
+	.lesson__number {
+		flex-shrink: 0;
+		width: 32px;
+		height: 32px;
+		background: var(--accent);
+		color: white;
+		border-radius: 50%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		font-weight: 600;
+		font-size: var(--text-sm);
+	}
+
+	.lesson__info {
+		flex: 1;
+	}
+
+	.lesson__title {
+		font-size: var(--text-lg);
+		font-weight: 600;
+		color: rgb(var(--black));
+		margin-bottom: var(--space-xs);
+	}
+
+	.lesson__description {
+		color: rgb(var(--gray-dark));
+		line-height: 1.5;
+	}
+
+	.lesson__meta {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		flex-wrap: wrap;
+		gap: var(--space-sm);
+	}
+
+	.lesson__duration {
+		color: rgb(var(--gray-dark));
+		font-size: var(--text-sm);
+	}
+
+	.lesson__status {
+		padding: var(--space-xs) var(--space-sm);
+		border-radius: 4px;
+		font-size: var(--text-sm);
+		font-weight: 500;
+	}
+
+	.lesson__status--free {
+		background: rgba(34, 197, 94, 0.1);
+		color: rgb(21, 128, 61);
+	}
+
+	.lesson__status--premium {
+		background: rgba(251, 146, 60, 0.1);
+		color: rgb(194, 65, 12);
+	}
+
+	.course__purchase {
+		margin-top: var(--space-xl);
+	}
+
+	.purchase-card {
+		background: linear-gradient(135deg, rgba(var(--accent-rgb), 0.05) 0%, rgba(var(--accent-rgb), 0.1) 100%);
+		border: 1px solid rgba(var(--accent-rgb), 0.2);
+		border-radius: 12px;
+		padding: var(--space-xl);
+		text-align: center;
+	}
+
+	.purchase-card__title {
+		font-size: var(--text-xl);
+		font-weight: 700;
+		color: rgb(var(--black));
+		margin-bottom: var(--space-sm);
+	}
+
+	.purchase-card__description {
+		color: rgb(var(--gray-dark));
+		margin-bottom: var(--space-lg);
+		line-height: 1.6;
+	}
+
+	.purchase-card__price {
+		margin-bottom: var(--space-lg);
+	}
+
+	.price {
+		font-size: var(--text-3xl);
+		font-weight: 700;
+		color: var(--accent);
+	}
+
+	.purchase-card__button {
+		background: var(--accent);
+		color: white;
+		border: none;
+		padding: var(--space-md) var(--space-xl);
+		border-radius: 8px;
+		font-size: var(--text-lg);
+		font-weight: 600;
+		cursor: pointer;
+		transition: all 0.2s ease;
+		min-width: 200px;
+	}
+
+	.purchase-card__button:hover {
+		background: var(--accent-dark);
+		transform: translateY(-1px);
+	}
+
+	@media (max-width: 640px) {
+		.course__header {
+			flex-direction: column;
+			align-items: stretch;
+		}
+
+		.course__stats {
+			flex-wrap: wrap;
+			justify-content: center;
+		}
+
+		.lesson__header {
+			flex-direction: column;
+			gap: var(--space-sm);
+		}
+
+		.lesson__number {
+			align-self: flex-start;
+		}
+	}
+</style>
