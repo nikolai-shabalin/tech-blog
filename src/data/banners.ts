@@ -9,7 +9,7 @@ export const banners = [
   },
   {
     image: '/images/banners/ivanov-sergei.png',
-    portfolioUrl: 'https://spb.hh.ru/resume/1e09b0f3ff0ef080f40039ed1f4b78384f5a73'
+    portfolioUrl: 'https://hh.ru/resume/836a6b31ff0ca2c1ef0039ed1f794e55567757'
   },
   {
     image: '/images/banners/petrushin.png',
