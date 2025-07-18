@@ -1,11 +1,6 @@
 {
   "all": true,
-  "ignore": ["node_modules", ".astro"],
+  "ignore": ["node_modules", ".astro", "dist", ".idea", "public"],
   "typescript": true,
-  "astro": true,
-  "rules": {
-    "astro": {
-      "enabled": true
-    }
-  }
+  "astro": true
 } 
