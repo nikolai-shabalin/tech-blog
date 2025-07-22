@@ -100,6 +100,39 @@ const { questions } = Astro.props;
   .quiz-results {
     display: none;
   }
+
+  @media (prefers-color-scheme: dark) {
+    .quiz-container {
+      background: #23262e;
+    }
+    .question-text {
+      color: #e5e9f0;
+    }
+    .option-label {
+      background: #23262e;
+      color: #e5e9f0;
+    }
+    .option-label.correct {
+      background-color: #234d2a;
+      border: 1px solid #3fa15a;
+      color: #c3e6cb;
+    }
+    .option-label.incorrect {
+      background-color: #4d2323;
+      border: 1px solid #e07a7a;
+      color: #f5c6cb;
+    }
+    .option-label:hover {
+      background-color: #2c2f38;
+    }
+    .submit-button {
+      background-color: #6b7bff;
+      color: #fff;
+    }
+    .submit-button:hover {
+      background-color: #4a5bff;
+    }
+  }
 </style>
 
 <script is:inline define:vars={{ questions }}>
