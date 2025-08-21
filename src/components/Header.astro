@@ -12,7 +12,7 @@ const isDigestPage = pathname.startsWith('/digest');
 const currentCategory = pathname.match(/\/blog\/category\/([^/]+)/)?.[1];
 
 const navItems = [
-  { href: '/digest/', label: 'Дайджесты', isActive: isDigestPage },
+  { href: 'https://frontend-weekly.ru/', label: 'Дайджесты', isActive: isDigestPage },
   ...categories.map(category => ({
     href: `/blog/category/${category}/`,
     label: category,
