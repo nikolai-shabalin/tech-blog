@@ -102,6 +102,17 @@ body {
     --accent: #6b7bff;
     --accent-dark: #4a5bff;
   }
+
+  code {
+    background-color: rgba(var(--gray), 0.15);
+    color: rgb(var(--gray-dark));
+    border-color: rgba(var(--gray), 0.3);
+  }
+
+  pre {
+    background-color: rgba(var(--gray), 0.08);
+    border-color: rgba(var(--gray), 0.2);
+  }
 }
 
 main {
@@ -252,14 +263,19 @@ img {
 
 code {
   padding: 0.1em 0.4em;
-  border-radius: 3px;
+  border-radius: 6px;
   font-size: 0.9em;
+  background-color: rgba(var(--gray), 0.1);
+  color: rgb(var(--gray-dark));
+  border: 1px solid rgba(var(--gray), 0.2);
 }
 
 pre {
   padding: var(--space-lg);
   border-radius: 8px;
   overflow-x: auto;
+  background-color: rgba(var(--gray), 0.05);
+  border: 1px solid rgba(var(--gray), 0.1);
 }
 
 pre > code {
