@@ -1,23 +1,25 @@
 ---
-import { getCollection } from 'astro:content';
 import { SITE_TITLE } from '../consts';
 
-const allPosts = await getCollection('blog');
-const categories = [...new Set(
-  allPosts.map(post => post.id.split('/')[0].toLowerCase())
-)].sort();
-
 const { pathname } = Astro.url;
-const isDigestPage = pathname.startsWith('/digest');
-const currentCategory = pathname.match(/\/blog\/category\/([^/]+)/)?.[1];
 
 const navItems = [
-  { href: 'https://frontend-weekly.ru/', label: 'Дайджесты', isActive: isDigestPage },
-  ...categories.map(category => ({
-    href: `/blog/category/${category}/`,
-    label: category,
-    isActive: category === currentCategory
-  })).filter(item => item.label !== 'digest')
+  {
+    href: 'https://frontend-weekly.ru/',
+    label: 'Дайджесты',
+    isActive: pathname.startsWith('/digest')
+  },
+  {
+    href: 'https://webpatterns.ru/',
+    label: 'Паттерны',
+    isActive: false // внешняя ссылка, всегда неактивна
+  },
+  {
+    href: '/support',
+    label: 'Поддержи',
+    isActive: pathname === '/support' || pathname === '/support/',
+    isButton: true
+  }
 ];
 ---
 
@@ -33,7 +35,7 @@ const navItems = [
       <ul class="nav-list">
         {navItems.map(item => (
           <li class="nav-item">
-            <a href={item.href} class={`nav-link ${item.isActive ? 'nav-link--active' : ''}`}>
+            <a href={item.href} class={`nav-link ${item.isActive ? 'nav-link--active' : ''} ${item.isButton ? 'nav-link--button' : ''}`}>
               {item.label}
             </a>
           </li>
@@ -125,6 +127,29 @@ const navItems = [
 
   .nav-link--active::after {
     width: 100%;
+  }
+
+  .nav-link--button {
+    background-color: var(--accent);
+    color: white;
+    padding: var(--space-xs) var(--space-sm);
+    border-radius: 6px;
+    font-weight: 600;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+  }
+
+  .nav-link--button:hover {
+    background-color: var(--accent-dark, color-mix(in srgb, var(--accent) 85%, black));
+    color: white;
+    transform: translateY(-1px);
+  }
+
+  .nav-link--button::after {
+    display: none;
+  }
+
+  .nav-link--button.nav-link--active {
+    background-color: var(--accent-dark, color-mix(in srgb, var(--accent) 85%, black));
   }
 
   @media (min-width: 720px) {
