@@ -86,7 +86,7 @@ body {
   }
 
   main {
-    padding: var(--space-xl) var(--space-md);
+    padding: var(--space-md) var(--space-md);
   }
 }
 
@@ -119,7 +119,7 @@ main {
   width: var(--content-width);
   max-width: calc(100% - 2rem);
   margin-inline: auto;
-  padding: var(--space-3xl) var(--space-md);
+  padding: var(--space-xl) var(--space-md);
   flex: 1 0 auto;
 }
 
