@@ -4,7 +4,7 @@ description: "Изучаем новое CSS свойство interest-delay дл
 pubDate: "Oct 04 2025"
 ---
 
-В спецификации [CSS Basic User Interface Module Level 4](https://drafts.csswg.org/css-ui-4/) появилось свойство [interest-delay](https://drafts.csswg.org/css-ui-4/#interest). Оно позволяет задать задержку "интереса"(внимания) для элемента. Сейчас [это работает](https://caniuse.com/?search=interest-delay) только в 122 Хроме.
+В спецификации [CSS Basic User Interface Module Level 4](https://drafts.csswg.org/css-ui-4/) появилось свойство [interest-delay](https://drafts.csswg.org/css-ui-4/#interest). Оно позволяет задать задержку "интереса"(внимания) для элемента. Сейчас [это работает](https://caniuse.com/?search=interest-delay) только в 142 Хроме.
 
 
 ## Что такое «внимание пользователя»?
