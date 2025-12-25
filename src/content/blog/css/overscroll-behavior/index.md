@@ -13,13 +13,25 @@ pubDate: "Aug 19 2025"
 Чтобы было понятно, что такое цепочка скролов попробуй навести курсор мышки на самый тёмный блок и начните прокрутку вниз. Как только вы досколите до конца внутреннего блока, то продолжится прокрутка в среднем блоке, и так до самого глубокого.
 
 
-<div class="grandfather">
-  <div class="father">
-    <div class="son"></div>
+<div class="demo-wrapper">
+  <label class="overscroll-toggle">
+    <input type="checkbox" id="overscroll-toggle" />
+    <span>overscroll-behavior</span>
+  </label>
+  <div class="grandfather">
+    <div class="father">
+      <div class="son"></div>
+    </div>
   </div>
 </div>
 
 <style>
+
+.demo-wrapper {
+  position: relative;
+  max-width: 900px;
+  margin: 24px auto;
+}
 
 .grandfather {
   max-height: 300px;
@@ -56,12 +68,55 @@ pubDate: "Aug 19 2025"
   border-radius: 12px;
 }
 
+.overscroll-toggle {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  background: #fff;
+  border: 1px solid rgba(0,0,0,.12);
+  border-radius: 6px;
+  font-size: 13px;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0,0,0,.08);
+  user-select: none;
+}
+
+.overscroll-toggle:hover {
+  background: #f5f5f5;
+}
+
+.overscroll-toggle input[type="checkbox"] {
+  cursor: pointer;
+}
+
 .son::after {
   content: "";
   display: block;
   height: 600px; /* больше, чем 150px */
 }
 </style>
+
+<script>
+(function() {
+  const checkbox = document.getElementById('overscroll-toggle');
+  const son = document.querySelector('.son');
+
+  if (checkbox && son) {
+    checkbox.addEventListener('change', function() {
+      if (this.checked) {
+        son.style.overscrollBehavior = 'none';
+      } else {
+        son.style.overscrollBehavior = 'auto';
+      }
+    });
+  }
+})();
+</script>
 
 ## Почему scroll chaining — проблема?
 Когда элемент со своей прокруткой достигает границы, браузер по умолчанию передаёт прокрутку родительскому элементу. Такое поведение особенно заметно в следующих ситуациях:
