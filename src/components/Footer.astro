@@ -36,7 +36,7 @@ import SupportBlock from './SupportBlock.astro';
   .footer {
     padding: var(--space-2xl) var(--space-md);
     margin-top: var(--space-3xl);
-    border-top: 1px solid rgba(var(--gray), 0.2);
+    border-top: 1px solid rgb(from var(--gray) r g b / 0.2);
     background: linear-gradient(var(--gray-gradient)) no-repeat;
   }
 
@@ -52,7 +52,7 @@ import SupportBlock from './SupportBlock.astro';
 
   .copyright {
     font-size: var(--text-sm);
-    color: rgb(var(--gray));
+    color: var(--gray);
     margin: 0;
     letter-spacing: 0.02em;
   }
@@ -63,7 +63,7 @@ import SupportBlock from './SupportBlock.astro';
   }
 
   .social__link {
-    color: rgb(var(--gray));
+    color: var(--gray);
     transition: color 0.2s ease, transform 0.2s ease;
     display: flex;
     align-items: center;

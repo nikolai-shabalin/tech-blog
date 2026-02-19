@@ -19,10 +19,10 @@
   .telegram-cta {
     margin: var(--space-2xl) 0;
     padding: var(--space-xl);
-    background: linear-gradient(135deg, rgba(var(--accent-rgb), 0.1) 0%, rgba(var(--accent-rgb), 0.05) 100%);
+    background: linear-gradient(135deg, rgb(from var(--accent) r g b / 0.1) 0%, rgb(from var(--accent) r g b / 0.05) 100%);
     border-radius: 12px;
     border: 2px solid var(--accent);
-    box-shadow: 0 4px 6px -1px rgba(var(--accent-rgb), 0.1), 0 2px 4px -1px rgba(var(--accent-rgb), 0.06);
+    box-shadow: 0 4px 6px -1px rgb(from var(--accent) r g b / 0.1), 0 2px 4px -1px rgb(from var(--accent) r g b / 0.06);
     position: relative;
   }
 
@@ -58,7 +58,7 @@
 
   .telegram-cta__description {
     margin: 0;
-    color: rgb(var(--gray));
+    color: var(--gray);
     font-size: var(--text-sm);
     line-height: 1.5;
   }

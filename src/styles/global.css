@@ -1,18 +1,30 @@
 :root {
-  /* цвета */
-  --accent: #2337ff;
-  --accent-dark: #000d8a;
-  --black: 15, 18, 25;
-  --gray: 96, 115, 159;
-  --gray-light: 229, 233, 240;
-  --gray-dark: 34, 41, 57;
-  --gray-gradient: rgba(var(--gray-light), 50%), #ffffff;
-  --focus-outline-color: #000000;
-  --bg-color: #ffffff;
+  /* Динамические цвета от дня года */
+  --day-of-year: 1;
+  --hue-step: 0.99deg;
+  --theme-hue: calc((var(--day-of-year) - 1) * var(--hue-step));
+  --contrast-hue: calc(var(--theme-hue) + 180deg);
+  --theme-base: oklch(58% 0.07 var(--theme-hue));
+  --contrast-base: oklch(60% 0.22 var(--contrast-hue));
+
+  --accent: color-mix(in oklch, var(--contrast-base) 80%, #000000);
+  --accent-dark: color-mix(in oklch, var(--contrast-base) 60%, #000000);
+  --accent-hover: var(--accent-dark);
+
+  --black: color-mix(in oklch, var(--theme-base) 42%, #000000);
+  --gray-dark: color-mix(in oklch, var(--theme-base) 58%, #000000);
+  --gray: color-mix(in oklch, var(--theme-base) 48%, #ffffff);
+  --gray-light: color-mix(in oklch, var(--theme-base) 12%, #ffffff);
+  --bg-color: color-mix(in oklch, var(--theme-base) 5%, #ffffff);
+  --surface-color: color-mix(in oklch, var(--theme-base) 8%, #ffffff);
+  --gray-gradient: var(--gray-light), var(--bg-color);
+  --focus-outline-color: color-mix(in oklch, var(--contrast-base) 72%, #000000);
+
   --box-shadow:
-    0 2px 6px rgba(var(--gray), 25%),
-    0 8px 24px rgba(var(--gray), 33%),
-    0 16px 32px rgba(var(--gray), 33%);
+    0 2px 6px rgb(from var(--gray) r g b / 0.25),
+    0 8px 24px rgb(from var(--gray) r g b / 0.33),
+    0 16px 32px rgb(from var(--gray) r g b / 0.33);
+  color-scheme: light dark;
 
   /* Типографическая шкала */
   --text-xs: clamp(0.75rem, 0.72rem + 0.17vw, 0.88rem);
@@ -63,11 +75,11 @@ body {
   font-family: var(--font-body);
   margin: 0;
   padding: 0;
-  background-image: linear-gradient(var(--gray-gradient));
+  background-image: linear-gradient(180deg, var(--gray-gradient));
   background-repeat: no-repeat;
   background-size: 100% 600px;
   background-color: var(--bg-color);
-  color: rgb(var(--gray-dark));
+  color: var(--gray-dark);
   font-size: var(--text-lg);
   line-height: 1.7;
   letter-spacing: -0.01em;
@@ -92,26 +104,29 @@ body {
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --gray-light: 34, 41, 57;
-    --gray-dark: 229, 233, 240;
-    --black: 238, 238, 238;
-    --gray: 128, 144, 177;
-    --focus-outline-color: #ffffff;
-    --gray-gradient: rgba(var(--gray-light), 50%), #0f1219;
-    --bg-color: #0f1219;
-    --accent: #6b7bff;
-    --accent-dark: #4a5bff;
+    --accent: color-mix(in oklch, var(--contrast-base) 62%, #ffffff);
+    --accent-dark: color-mix(in oklch, var(--contrast-base) 78%, #ffffff);
+    --accent-hover: var(--accent-dark);
+
+    --black: color-mix(in oklch, var(--theme-base) 28%, #ffffff);
+    --gray-dark: color-mix(in oklch, var(--theme-base) 20%, #ffffff);
+    --gray: color-mix(in oklch, var(--theme-base) 34%, #ffffff);
+    --gray-light: color-mix(in oklch, var(--theme-base) 32%, #000000);
+    --bg-color: color-mix(in oklch, var(--theme-base) 20%, #000000);
+    --surface-color: color-mix(in oklch, var(--theme-base) 26%, #000000);
+    --gray-gradient: color-mix(in oklch, var(--theme-base) 36%, #000000), var(--bg-color);
+    --focus-outline-color: color-mix(in oklch, var(--contrast-base) 70%, #ffffff);
   }
 
   code {
-    background-color: rgba(var(--gray), 0.15);
-    color: rgb(var(--gray-dark));
-    border-color: rgba(var(--gray), 0.3);
+    background-color: rgb(from var(--surface-color) r g b / 0.7);
+    color: var(--gray-dark);
+    border-color: rgb(from var(--gray) r g b / 0.35);
   }
 
   pre {
-    background-color: rgba(var(--gray), 0.08);
-    border-color: rgba(var(--gray), 0.2);
+    background-color: rgb(from var(--surface-color) r g b / 0.8);
+    border-color: rgb(from var(--gray) r g b / 0.25);
   }
 }
 
@@ -131,7 +146,7 @@ h5,
 h6 {
   margin: 0;
   font-family: var(--font-heading);
-  color: rgb(var(--black));
+  color: var(--black);
   line-height: 1.1;
   letter-spacing: -0.03em;
   font-weight: 700;
@@ -247,7 +262,7 @@ th,
 td {
   padding: var(--space-sm);
   text-align: left;
-  border-bottom: 1px solid rgba(var(--gray), 0.2);
+  border-bottom: 1px solid rgb(from var(--gray) r g b / 0.2);
 }
 
 th {
@@ -265,17 +280,17 @@ code {
   padding: 0.1em 0.4em;
   border-radius: 6px;
   font-size: 0.9em;
-  background-color: rgba(var(--gray), 0.1);
-  color: rgb(var(--gray-dark));
-  border: 1px solid rgba(var(--gray), 0.2);
+  background-color: rgb(from var(--gray) r g b / 0.1);
+  color: var(--gray-dark);
+  border: 1px solid rgb(from var(--gray) r g b / 0.2);
 }
 
 pre {
   padding: var(--space-lg);
   border-radius: 8px;
   overflow-x: auto;
-  background-color: rgba(var(--gray), 0.05);
-  border: 1px solid rgba(var(--gray), 0.1);
+  background-color: rgb(from var(--gray) r g b / 0.05);
+  border: 1px solid rgb(from var(--gray) r g b / 0.1);
 }
 
 pre > code {
@@ -289,7 +304,7 @@ blockquote {
   font-size: var(--text-xl);
   line-height: 1.6;
   font-style: italic;
-  color: rgb(var(--gray));
+  color: var(--gray);
 }
 
 blockquote p:last-child {
@@ -298,7 +313,7 @@ blockquote p:last-child {
 
 hr {
   border: none;
-  border-top: 1px solid rgba(var(--gray), 0.2);
+  border-top: 1px solid rgb(from var(--gray) r g b / 0.2);
   margin: var(--space-2xl) 0;
 }
 

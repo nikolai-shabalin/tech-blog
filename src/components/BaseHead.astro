@@ -19,6 +19,16 @@ const { title, description, image } = Astro.props;
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
 <meta name="generator" content={Astro.generator} />
+<script is:inline>
+  (() => {
+    const now = new Date();
+    const startOfYear = new Date(now.getFullYear(), 0, 0);
+    const msInDay = 1000 * 60 * 60 * 24;
+    const dayOfYear = Math.floor((now.getTime() - startOfYear.getTime()) / msInDay);
+
+    document.documentElement.style.setProperty('--day-of-year', String(dayOfYear));
+  })();
+</script>
 
 <ViewTransitions />
 

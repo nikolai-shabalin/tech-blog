@@ -43,7 +43,7 @@ const { posts } = Astro.props;
   }
 
   .short-post:not(:last-child) {
-    border-bottom: 1px solid rgba(var(--gray), 0.15);
+    border-bottom: 1px solid rgb(from var(--gray) r g b / 0.15);
   }
 
   .short-post:has(.short-post__link:hover) {
@@ -66,14 +66,14 @@ const { posts } = Astro.props;
   .short-post__title {
     font-size: var(--text-2xl);
     margin: 0 0 var(--space-sm) 0;
-    color: rgb(var(--black));
+    color: var(--black);
     line-height: 1.2;
     transition: color 0.2s ease;
   }
 
   .short-post__date {
     margin: 0 0 var(--space-lg) 0;
-    color: rgb(var(--gray));
+    color: var(--gray);
     font-size: var(--text-sm);
     font-style: italic;
     letter-spacing: 0.05em;
@@ -83,7 +83,7 @@ const { posts } = Astro.props;
     margin: var(--space-md) 0 0 0;
     font-size: var(--text-md);
     line-height: 1.6;
-    color: rgb(var(--gray-dark));
+    color: var(--gray-dark);
     max-width: var(--content-width);
   }
 

@@ -23,7 +23,7 @@ const {title, description, pubDate, slug = '', mascotMessages = [], isDigest = f
     .home-link {
       display: inline-block;
       margin-bottom: var(--space-lg);
-      color: rgb(var(--gray));
+      color: var(--gray);
       text-decoration: none;
       font-size: var(--text-sm);
       transition: color 0.2s ease;
@@ -44,7 +44,7 @@ const {title, description, pubDate, slug = '', mascotMessages = [], isDigest = f
       margin-bottom: var(--space-2xl);
       text-align: center;
       display: block;
-      color: rgb(var(--gray));
+      color: var(--gray);
       font-style: italic;
       font-size: var(--text-sm);
       letter-spacing: 0.05em;
@@ -52,7 +52,7 @@ const {title, description, pubDate, slug = '', mascotMessages = [], isDigest = f
 
     .post__divider {
       height: 1px;
-      background: rgba(var(--gray), 0.2);
+      background: rgb(from var(--gray) r g b / 0.2);
       margin: var(--space-2xl) auto;
       width: 60%;
       max-width: 400px;
@@ -110,8 +110,8 @@ const {title, description, pubDate, slug = '', mascotMessages = [], isDigest = f
       font-size: var(--text-lg);
       line-height: 1.6;
       font-style: italic;
-      color: rgb(var(--gray-dark));
-      background: rgba(var(--gray-light), 0.5);
+      color: var(--gray-dark);
+      background: rgb(from var(--gray-light) r g b / 0.5);
       padding: var(--space-lg);
       border-radius: 4px;
       border-left: 4px solid var(--accent);
@@ -124,7 +124,7 @@ const {title, description, pubDate, slug = '', mascotMessages = [], isDigest = f
 
     .content :global(figcaption) {
       font-size: var(--text-sm);
-      color: rgb(var(--gray));
+      color: var(--gray);
       text-align: center;
       margin-top: var(--space-sm);
     }
