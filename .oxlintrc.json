@@ -1,6 +1,12 @@
 {
-  "all": true,
-  "ignore": ["node_modules", ".astro", "dist", ".idea", "public"],
-  "typescript": true,
-  "astro": true
-} 
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "categories": {
+    "correctness": "warn",
+    "suspicious": "warn",
+    "pedantic": "warn",
+    "perf": "warn",
+    "style": "warn",
+    "restriction": "warn"
+  },
+  "ignorePatterns": ["node_modules", ".astro", "dist", ".idea", "public"]
+}
