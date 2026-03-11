@@ -8,6 +8,11 @@ pubDate: 'Mar 12 2026'
   html {
     scrollbar-color: rebeccapurple orange;
   }
+
+  svg {
+    background-color: #F8F8F8;
+    border-radius: 8px;
+  }
 </style>
 
 Полосы прокрутки — это неотъемлемая часть взаимодействия с веб-страницей, особенно в современном мире, где контент часто динамически подгружается, а интерфейсы становятся сложнее. Долгое время разработчики были ограничены в возможностях их стилизации. На смену хаков с JavaScript и плагинам пришел стандартизированный подход — спецификация **[CSS Scrollbars Styling Module Level 1](https://www.w3.org/TR/css-scrollbars-1/)**.
