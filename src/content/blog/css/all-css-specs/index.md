@@ -13,7 +13,7 @@ pubDate: "Mar 11 2026"
 - CSS Scroll Snap Module [Level 1](https://www.w3.org/TR/css-scroll-snap-1/), [Level 2](https://www.w3.org/TR/css-scroll-snap-2/)
 - [CSS Scroll Anchoring Module Level 1](https://www.w3.org/TR/css-scroll-anchoring-1/)
 -  ✅ [CSS Overscroll Behavior Module Level 1](https://www.w3.org/TR/css-overscroll-1/) ([Статья в блоге](/blog/css/overscroll-behavior/))
-- [CSS Scrollbars Styling Module Level 1](https://www.w3.org/TR/css-scrollbars-1/)
+- ✅ [CSS Scrollbars Styling Module Level 1](https://www.w3.org/TR/css-scrollbars-1/) ([Статья в блоге](/blog/css/scrollbars-styling/))
 
 ### 2. Макеты и позиционирование (Layout & Positioning)
 - CSS Grid Layout Module [Level 1](https://www.w3.org/TR/css-grid-1/), [Level 2](https://www.w3.org/TR/css-grid-2/), [Level 3](https://www.w3.org/TR/css-grid-3/)
