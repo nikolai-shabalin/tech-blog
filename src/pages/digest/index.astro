@@ -1,13 +1,14 @@
 ---
-import BaseHead from '../../components/BaseHead.astro';
-import Header from '../../components/Header.astro';
-import Footer from '../../components/Footer.astro';
-import PostsList from '../../components/PostsList.astro';
+import BaseHead from '../../components/base-head.astro';
+import Footer from '../../components/footer.astro';
+import Header from '../../components/header.astro';
+import PostsList from '../../components/posts-list.astro';
 import { SITE_TITLE } from '../../consts';
 import { getCollection } from 'astro:content';
 
-const posts = (await getCollection('blog', ({ id }) => id.startsWith('digest/'))).sort(
-  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+const digestEntries = await getCollection('blog', ({ id: postId }) => postId.startsWith('digest/'));
+const posts = digestEntries.toSorted(
+  (firstPost, secondPost) => secondPost.data.pubDate.valueOf() - firstPost.data.pubDate.valueOf(),
 );
 ---
 

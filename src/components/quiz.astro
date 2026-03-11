@@ -136,27 +136,32 @@ const { questions } = Astro.props;
 </style>
 
 <script is:inline define:vars={{ questions }}>
-  const form = document.getElementById('quiz-form');
+  const STEP = 1;
+  const form = document.querySelector('#quiz-form');
+
+  const markQuestionResult = (questionIndex, formData) => {
+    const selectedAnswer = Number.parseInt(formData.get(`question-${questionIndex}`), 10);
+    const questionBlock = form.querySelector(`[name="question-${questionIndex}"]`).closest('.question-block');
+    const allOptions = questionBlock.querySelectorAll('.option-label');
+
+    for (const option of allOptions) {
+      option.classList.remove('correct', 'incorrect');
+    }
+
+    allOptions[questions[questionIndex].correctAnswer].classList.add('correct');
+
+    if (selectedAnswer !== questions[questionIndex].correctAnswer) {
+      allOptions[selectedAnswer].classList.add('incorrect');
+    }
+  };
 
   if (form) {
-    form.addEventListener('submit', (e) => {
-      e.preventDefault();
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
       const formData = new FormData(form);
 
-      for (let i = 0; i < questions.length; i++) {
-        const selectedAnswer = parseInt(formData.get(`question-${i}`));
-        const questionBlock = form.querySelector(`[name="question-${i}"]`).closest('.question-block');
-        const allOptions = questionBlock.querySelectorAll('.option-label');
-
-        allOptions.forEach(option => {
-          option.classList.remove('correct', 'incorrect');
-        });
-
-        allOptions[questions[i].correctAnswer].classList.add('correct');
-
-        if (selectedAnswer !== questions[i].correctAnswer) {
-          allOptions[selectedAnswer].classList.add('incorrect');
-        }
+      for (let questionIndex = 0; questionIndex < questions.length; questionIndex += STEP) {
+        markQuestionResult(questionIndex, formData);
       }
     });
   }

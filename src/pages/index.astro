@@ -1,20 +1,22 @@
 ---
-import BaseHead from '../components/BaseHead.astro';
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
-import PostsList from '../components/PostsList.astro';
-import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
+/* eslint-disable sort-imports */
+import * as siteConsts from '../consts';
+import BaseHead from '../components/base-head.astro';
+import Footer from '../components/footer.astro';
 import { getCollection } from 'astro:content';
+import Header from '../components/header.astro';
+import PostsList from '../components/posts-list.astro';
 
-const posts = (await getCollection('blog')).sort(
-	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+const allPosts = await getCollection('blog');
+const posts = allPosts.toSorted(
+	(firstPost, secondPost) => secondPost.data.pubDate.valueOf() - firstPost.data.pubDate.valueOf(),
 );
 ---
 
 <!doctype html>
 <html lang="ru">
 	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+		<BaseHead title={siteConsts.SITE_TITLE} description={siteConsts.SITE_DESCRIPTION} />
 	</head>
 	<body>
 		<Header />

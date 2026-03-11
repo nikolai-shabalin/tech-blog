@@ -6,27 +6,24 @@ interface Props {
 }
 
 const { messages = [] } = Astro.props;
-
-// Если сообщений нет, не рендерим компонент
-if (!messages.length) {
-  return null;
-}
 ---
 
-<div class="frontie-mascot">
-    <div class="frontie-speech" id="frontieSpeech">
-      {messages.map((message, index) => (
-        <div class="message" style={`--index: ${index}`}>{message.text}</div>
-      ))}
+{messages.length > 0 && (
+  <div class="frontie-mascot">
+      <div class="frontie-speech" id="frontieSpeech">
+        {messages.map((message, index) => (
+          <div class="message" style={`--index: ${index}`}>{message.text}</div>
+        ))}
+      </div>
+      <img
+        src="/images/frontie/frontie-small.webp"
+        alt="Фронти - маскот дайджеста"
+        width="200"
+        height="200"
+        class="frontie-image"
+      />
     </div>
-    <img
-      src="/images/frontie/frontie-small.webp"
-      alt="Фронти - маскот дайджеста"
-      width="200"
-      height="200"
-      class="frontie-image"
-    />
-  </div>
+)}
 
   <style>
     .frontie-mascot {

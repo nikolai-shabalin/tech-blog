@@ -1,7 +1,7 @@
 ---
 import '../styles/global.css';
 import '../styles/transitions.css';
-import { ViewTransitions } from 'astro:transitions';
+import { ClientRouter } from 'astro:transitions';
 
 interface Props {
 	title: string;
@@ -20,17 +20,22 @@ const { title, description, image } = Astro.props;
 <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
 <meta name="generator" content={Astro.generator} />
 <script is:inline>
-  (() => {
+  const updateDayOfYear = () => {
+    const JANUARY = 0;
+    const FIRST_DAY_OF_MONTH = 1;
+    const MILLISECONDS_IN_DAY = 86_400_000;
+
     const now = new Date();
-    const startOfYear = new Date(now.getFullYear(), 0, 0);
-    const msInDay = 1000 * 60 * 60 * 24;
-    const dayOfYear = Math.floor((now.getTime() - startOfYear.getTime()) / msInDay);
+    const startOfYear = new Date(now.getFullYear(), JANUARY, FIRST_DAY_OF_MONTH);
+    const dayOfYear = Math.floor((now.getTime() - startOfYear.getTime()) / MILLISECONDS_IN_DAY);
 
     document.documentElement.style.setProperty('--day-of-year', String(dayOfYear));
-  })();
+  };
+
+  updateDayOfYear();
 </script>
 
-<ViewTransitions />
+<ClientRouter />
 
 <!-- View Transitions -->
 <meta name="view-transition" content="same-origin" />
@@ -70,17 +75,61 @@ const { title, description, image } = Astro.props;
 
 <!-- Yandex.Metrika counter -->
 <script is:inline type="text/javascript" >
-  (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
-    if (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1") return;
-    m[i].l=1*new Date();
-    for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
-    k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
-  (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+  const YANDEX_METRIKA_ID = 99_027_716;
+  const SCRIPT_URL = 'https://mc.yandex.ru/metrika/tag.js';
+  const LOCAL_HOSTNAMES = new Set(['127.0.0.1', 'localhost']);
 
-  ym(99027716, "init", {
-    clickmap:true,
-    trackLinks:true,
-    accurateTrackBounce:true
-  });
+  const hasMetrikaScript = (scriptUrl) => {
+    for (const scriptElement of document.scripts) {
+      if (scriptElement.src === scriptUrl) {
+        return true;
+      }
+    }
+
+    return false;
+  };
+
+  const injectMetrikaScript = (scriptUrl) => {
+    const metrikaScript = document.createElement('script');
+    metrikaScript.async = true;
+    metrikaScript.src = scriptUrl;
+    document.head.append(metrikaScript);
+  };
+
+  const setupYmQueue = () => {
+    const ymQueueProperty = 'a';
+    const ymLoadTimeProperty = 'l';
+
+    globalThis.ym = (...arguments_) => {
+      const ymQueue = globalThis.ym[ymQueueProperty] ?? [];
+      ymQueue.push(arguments_);
+      globalThis.ym[ymQueueProperty] = ymQueue;
+    };
+    globalThis.ym[ymLoadTimeProperty] = Date.now();
+  };
+
+  const initializeYandexMetrika = () => {
+    if (LOCAL_HOSTNAMES.has(globalThis.location.hostname)) {
+      return;
+    }
+
+    if (hasMetrikaScript(SCRIPT_URL)) {
+      return;
+    }
+
+    injectMetrikaScript(SCRIPT_URL);
+
+    if (typeof globalThis.ym !== 'function') {
+      setupYmQueue();
+    }
+
+    globalThis.ym(YANDEX_METRIKA_ID, 'init', {
+      accurateTrackBounce: true,
+      clickmap: true,
+      trackLinks: true,
+    });
+  };
+
+  initializeYandexMetrika();
 </script>
 <!-- /Yandex.Metrika counter -->

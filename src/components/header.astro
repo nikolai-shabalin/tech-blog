@@ -6,19 +6,20 @@ const { pathname } = Astro.url;
 const navItems = [
   {
     href: 'https://frontend-weekly.ru/',
-    label: 'Дайджесты',
-    isActive: pathname.startsWith('/digest')
+    isActive: pathname.startsWith('/digest'),
+    label: 'Дайджесты'
   },
   {
     href: 'https://webpatterns.ru/',
+    isActive: false,
+    // Внешняя ссылка, всегда неактивна.
     label: 'Паттерны',
-    isActive: false // внешняя ссылка, всегда неактивна
   },
   {
     href: '/support',
-    label: 'Поддержи',
     isActive: pathname === '/support' || pathname === '/support/',
-    isButton: true
+    isButton: true,
+    label: 'Поддержи'
   }
 ];
 ---
