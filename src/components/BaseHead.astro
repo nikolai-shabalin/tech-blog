@@ -1,7 +1,7 @@
 ---
 import '../styles/global.css';
 import '../styles/transitions.css';
-import { ViewTransitions } from 'astro:transitions';
+import { ClientRouter } from 'astro:transitions';
 
 interface Props {
 	title: string;
@@ -30,7 +30,7 @@ const { title, description, image } = Astro.props;
   })();
 </script>
 
-<ViewTransitions />
+<ClientRouter />
 
 <!-- View Transitions -->
 <meta name="view-transition" content="same-origin" />
