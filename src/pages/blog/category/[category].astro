@@ -1,35 +1,38 @@
 ---
-import BaseHead from '../../../components/BaseHead.astro';
-import Header from '../../../components/Header.astro';
-import Footer from '../../../components/Footer.astro';
-import PostsList from '../../../components/PostsList.astro';
+import BaseHead from '../../../components/base-head.astro';
+import Footer from '../../../components/footer.astro';
+import Header from '../../../components/header.astro';
+import PostsList from '../../../components/posts-list.astro';
 import { SITE_TITLE } from '../../../consts';
 import { getCollection } from 'astro:content';
 
-export async function getStaticPaths() {
-  const allPosts = await getCollection('blog');
+export const getStaticPaths = () =>
+  getCollection('blog').then((allPosts) => {
+    const ROOT_SEGMENT_INDEX = 0;
+    const uniqueCategories = [...new Set(
+      allPosts.map((post) => {
+        const pathSegments = post.id.split('/');
+        return pathSegments[ROOT_SEGMENT_INDEX].toLowerCase();
+      }),
+    )];
 
-  const uniqueCategories = [...new Set(
-    allPosts.map(post => {
-      const pathSegments = post.id.split('/');
-      return pathSegments[0].toLowerCase();
-    })
-  )];
+    return uniqueCategories.map((category) => {
+      const filteredPosts = allPosts.filter(
+        (post) => post.id.split('/')[ROOT_SEGMENT_INDEX].toLowerCase() === category,
+      );
 
-  return uniqueCategories.map(category => {
-    const filteredPosts = allPosts.filter(post => post.id.split('/')[0].toLowerCase() === category);
-    return {
-      params: { category },
-      props: { posts: filteredPosts }
-    };
+      return {
+        params: { category },
+        props: { posts: filteredPosts },
+      };
+    });
   });
-}
 
 const { category } = Astro.params;
 const { posts } = Astro.props;
 
-const sortedPosts = posts.sort(
-  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+const sortedPosts = posts.toSorted(
+  (firstPost, secondPost) => secondPost.data.pubDate.valueOf() - firstPost.data.pubDate.valueOf(),
 );
 ---
 

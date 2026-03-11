@@ -5,21 +5,26 @@ import sitemap from '@astrojs/sitemap';
 
 // https://astro.build/config
 export default defineConfig({
-	site: 'https://shabalin.online',
 	base: '',
 	integrations: [
 		mdx(),
 		sitemap({
 			changefreq: 'weekly',
-			priority: 0.7,
-			lastmod: new Date(),
 			customPages: [],
+			lastmod: new Date(),
+			priority: 0.7,
 			serialize: (item) => {
-				return {
-					...item,
-					lastmod: item.lastmod ? new Date(item.lastmod).toISOString() : undefined,
-				};
+				const serializedItem = Object.assign(Object.create(null), item);
+
+				if (item.lastmod) {
+					serializedItem.lastmod = new Date(item.lastmod).toISOString();
+				} else {
+					delete serializedItem.lastmod;
+				}
+
+				return serializedItem;
 			},
 		})
-	]
+	],
+	site: 'https://shabalin.online'
 });

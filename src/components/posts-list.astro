@@ -1,8 +1,11 @@
 ---
-import FormattedDate from './FormattedDate.astro';
+import type { CollectionEntry } from 'astro:content';
+import FormattedDate from './formatted-date.astro';
+
+type BlogPost = CollectionEntry<'blog'>;
 
 interface Props {
-  posts: any[];
+  posts: BlogPost[];
 }
 
 const { posts } = Astro.props;

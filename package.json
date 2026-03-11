@@ -19,9 +19,9 @@
     "@astrojs/rss": "4.0.17",
     "@astrojs/sitemap": "3.7.1",
     "astro": "6.0.2",
-    "oxlint": "1.48.0",
+    "oxlint": "1.53.0",
     "sharp": "0.34.5",
-    "stylelint": "17.3.0",
+    "stylelint": "17.4.0",
     "stylelint-config-expa": "1.0.0",
     "typescript": "5.9.3"
   },

@@ -1,19 +1,19 @@
-import { glob } from 'astro/loaders';
 import { defineCollection, z } from 'astro:content';
+import { glob } from 'astro/loaders';
 
 const blog = defineCollection({
-	loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/blog' }),
+	loader: glob({ base: './src/content/blog', pattern: '**/*.{md,mdx}' }),
 	schema: z.object({
-		title: z.string(),
 		description: z.string(),
-		pubDate: z.coerce.date(),
-		updatedDate: z.coerce.date().optional(),
 		heroImage: z.string().optional(),
 		isDigest: z.boolean().optional(),
 		mascotMessages: z.array(z.object({
+			index: z.number(),
 			text: z.string(),
-			index: z.number()
 		})).optional(),
+		pubDate: z.coerce.date(),
+		title: z.string(),
+		updatedDate: z.coerce.date().optional(),
 	}),
 });
 
