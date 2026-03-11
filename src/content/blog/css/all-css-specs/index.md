@@ -8,7 +8,14 @@ pubDate: "Mar 11 2026"
 
 Пожалуй пойду по группам. Это будет моим планом статей на ближайшие 10 лет =)
 
-### 1. Макеты и позиционирование (Layout & Positioning)
+### 1. Скроллинг и переполнение (Scroll & Overflow)
+- CSS Overflow Module [Level 3](https://www.w3.org/TR/css-overflow-3/), [Level 4](https://www.w3.org/TR/css-overflow-4/), [Level 5](https://www.w3.org/TR/css-overflow-5/)
+- CSS Scroll Snap Module [Level 1](https://www.w3.org/TR/css-scroll-snap-1/), [Level 2](https://www.w3.org/TR/css-scroll-snap-2/)
+- [CSS Scroll Anchoring Module Level 1](https://www.w3.org/TR/css-scroll-anchoring-1/)
+-  ✅ [CSS Overscroll Behavior Module Level 1](https://www.w3.org/TR/css-overscroll-1/) ([Статья в блоге](/blog/css/overscroll-behavior/))
+- [CSS Scrollbars Styling Module Level 1](https://www.w3.org/TR/css-scrollbars-1/)
+
+### 2. Макеты и позиционирование (Layout & Positioning)
 - CSS Grid Layout Module [Level 1](https://www.w3.org/TR/css-grid-1/), [Level 2](https://www.w3.org/TR/css-grid-2/), [Level 3](https://www.w3.org/TR/css-grid-3/)
 - [CSS Flexible Box Layout Module Level 1](https://www.w3.org/TR/css-flexbox-1/)
 - CSS Multi-column Layout Module [Level 1](https://www.w3.org/TR/css-multicol-1/), [Level 2](https://www.w3.org/TR/css-multicol-2/)
@@ -27,7 +34,7 @@ pubDate: "Mar 11 2026"
 - [CSS Line Grid Module Level 1](https://www.w3.org/TR/css-line-grid-1/)
 - [CSS Round Display Level 1](https://www.w3.org/TR/css-round-display-1/)
 
-### 2. Типографика, шрифты и текст (Typography, Fonts & Text)
+### 3. Типографика, шрифты и текст (Typography, Fonts & Text)
 - CSS Fonts Module [Level 3](https://www.w3.org/TR/css-fonts-3/), [Level 4](https://www.w3.org/TR/css-fonts-4/), [Level 5](https://www.w3.org/TR/css-fonts-5/)
 - [CSS Font Loading Module Level 3](https://www.w3.org/TR/css-font-loading-3/)
 - CSS Text Module [Level 3](https://www.w3.org/TR/css-text-3/), [Level 4](https://www.w3.org/TR/css-text-4/)
@@ -41,7 +48,7 @@ pubDate: "Mar 11 2026"
 - [Ethiopic Layout Requirements](https://www.w3.org/TR/elreq/)
 - [Ready-made Counter Styles](https://www.w3.org/TR/predefined-counter-styles/)
 
-### 3. Цвет, фон, границы и визуальные эффекты (Color, Backgrounds, Borders & Visual Effects)
+### 4. Цвет, фон, границы и визуальные эффекты (Color, Backgrounds, Borders & Visual Effects)
 - CSS Color Module [Level 3](https://www.w3.org/TR/css-color-3/), [Level 4](https://www.w3.org/TR/css-color-4/), [Level 5](https://www.w3.org/TR/css-color-5/)
 - [CSS Color HDR Module Level 1](https://www.w3.org/TR/css-color-hdr-1/)
 - [CSS Color Adjustment Module Level 1](https://www.w3.org/TR/css-color-adjust-1/)
@@ -55,7 +62,7 @@ pubDate: "Mar 11 2026"
 - [CSS Masking Module Level 1](https://www.w3.org/TR/css-masking-1/)
 - [CSS Shadow Parts Module Level 1](https://www.w3.org/TR/css-shadow-parts-1/)
 
-### 4. Анимация, переходы и трансформации (Animations, Transitions & Transforms)
+### 5. Анимация, переходы и трансформации (Animations, Transitions & Transforms)
 - CSS Animations [Level 1](https://www.w3.org/TR/css-animations-1/), [Level 2](https://www.w3.org/TR/css-animations-2/)
 - CSS Transitions Module [Level 1](https://www.w3.org/TR/css-transitions-1/), [Level 2](https://www.w3.org/TR/css-transitions-2/)
 - [Web Animations](https://www.w3.org/TR/web-animations-1/)
@@ -66,13 +73,6 @@ pubDate: "Mar 11 2026"
 - CSS Transforms Module [Level 1](https://www.w3.org/TR/css-transforms-1/), [Level 2](https://www.w3.org/TR/css-transforms-2/)
 - [Motion Path Module Level 1](https://www.w3.org/TR/motion-1/)
 - CSS Easing Functions [Level 1](https://www.w3.org/TR/css-easing-1/), [Level 2](https://www.w3.org/TR/css-easing-2/)
-
-### 5. Скроллинг и переполнение (Scroll & Overflow)
-- CSS Overflow Module [Level 3](https://www.w3.org/TR/css-overflow-3/), [Level 4](https://www.w3.org/TR/css-overflow-4/), [Level 5](https://www.w3.org/TR/css-overflow-5/)
-- CSS Scroll Snap Module [Level 1](https://www.w3.org/TR/css-scroll-snap-1/), [Level 2](https://www.w3.org/TR/css-scroll-snap-2/)
-- [CSS Scroll Anchoring Module Level 1](https://www.w3.org/TR/css-scroll-anchoring-1/)
--  ✅ [CSS Overscroll Behavior Module Level 1](https://www.w3.org/TR/css-overscroll-1/)
-- [CSS Scrollbars Styling Module Level 1](https://www.w3.org/TR/css-scrollbars-1/)
 
 ### 6. Пользовательский интерфейс и взаимодействие (User Interface & Interaction)
 - [CSS Basic User Interface Module Level 3 (CSS3 UI)](https://www.w3.org/TR/css-ui-3/), [CSS Basic User Interface Module Level 4](https://www.w3.org/TR/css-ui-4/)
