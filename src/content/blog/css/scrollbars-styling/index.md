@@ -224,7 +224,7 @@ scrollbar-width: auto | thin | none;
     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. ... (очень много текста) ...</p>
     <p>...</p>
   </div>
-  <figcaption>Слева <code>scrollbar-width: auto</code>. Уменьшенный скроллбар с помощью свойства <code>scrollbar-width: thin</code> справа.  </figcaption>
+  <figcaption>Слева(или сверху на мобильном) <code>scrollbar-width: auto</code>. Уменьшенный скроллбар с помощью свойства <code>scrollbar-width: thin</code> справа(или снизу на мобильном).  </figcaption>
 </figure>
 
 <style>
@@ -328,8 +328,8 @@ scrollbar-width: auto | thin | none;
 4.  **Уважение к пользователю:** Пользователи могут настроить предпочтительный стиль скроллбаров в своей ОС или браузере (например, всегда показывать широкие скроллбары). В спецификации сказано, что браузеры могут игнорировать значение `thin`, если пользователь указал, что ему некомфортно с тонкими скроллбарами.
 
 ## Поддержка браузерами
-Оба CSS-свойства `scrollbar-color` и `scrollbar-width` являются Newly available в инициативе Baseline. При чём с разницей в год.
+Оба CSS-свойства, `scrollbar-color` и `scrollbar-width`, имеют статус Newly available в инициативе Baseline, причём с разницей в год.
 
-Widely available `scrollbar-color` станет [12 июня 2028](https://nikolai-shabalin.github.io/css-baseline-timeline/?property=scrollbar-color), а `scrollbar-width` станет [11 июня 2027 года](https://nikolai-shabalin.github.io/css-baseline-timeline/?property=scrollbar-width).
+Статус Widely available для `scrollbar-color` ожидается [12 июня 2028 года](https://nikolai-shabalin.github.io/css-baseline-timeline/?property=scrollbar-color), а для `scrollbar-width` — [11 июня 2027 года](https://nikolai-shabalin.github.io/css-baseline-timeline/?property=scrollbar-width).
 
-На данный момент разница в работе очевидно, в Safari она отличается.
+На данный момент различия в работе очевидны: в Safari поведение отличается.
