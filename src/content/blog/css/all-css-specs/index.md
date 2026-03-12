@@ -12,6 +12,7 @@ pubDate: "Mar 11 2026"
 - CSS Overflow Module [Level 3](https://www.w3.org/TR/css-overflow-3/), [Level 4](https://www.w3.org/TR/css-overflow-4/), [Level 5](https://www.w3.org/TR/css-overflow-5/)
 - CSS Scroll Snap Module [Level 1](https://www.w3.org/TR/css-scroll-snap-1/), [Level 2](https://www.w3.org/TR/css-scroll-snap-2/)
 - [CSS Scroll Anchoring Module Level 1](https://www.w3.org/TR/css-scroll-anchoring-1/)
+- [Scroll-driven Animations](https://www.w3.org/TR/scroll-animations-1/)
 -  ✅ [CSS Overscroll Behavior Module Level 1](https://www.w3.org/TR/css-overscroll-1/) ([Статья в блоге](/blog/css/overscroll-behavior/))
 - ✅ [CSS Scrollbars Styling Module Level 1](https://www.w3.org/TR/css-scrollbars-1/) ([Статья в блоге](/blog/css/scrollbars-styling/))
 
@@ -67,7 +68,6 @@ pubDate: "Mar 11 2026"
 - CSS Transitions Module [Level 1](https://www.w3.org/TR/css-transitions-1/), [Level 2](https://www.w3.org/TR/css-transitions-2/)
 - [Web Animations](https://www.w3.org/TR/web-animations-1/)
 - [Web Animations Module Level 2](https://www.w3.org/TR/web-animations-2/)
-- [Scroll-driven Animations](https://www.w3.org/TR/scroll-animations-1/)
 - [CSS Animation Worklet API](https://www.w3.org/TR/css-animation-worklet-1/)
 - CSS View Transitions Module [Level 1](https://www.w3.org/TR/css-view-transitions-1/), [Level 2](https://www.w3.org/TR/css-view-transitions-2/)
 - CSS Transforms Module [Level 1](https://www.w3.org/TR/css-transforms-1/), [Level 2](https://www.w3.org/TR/css-transforms-2/)
