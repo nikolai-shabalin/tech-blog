@@ -12,7 +12,7 @@ const { posts } = Astro.props;
 ---
 
 <section class="posts">
-  <ul class="posts__list">
+  <ul class="posts__list posts__list--scroll-reveal">
     {
       posts.map((post) => (
         <li class="short-post">
@@ -88,6 +88,36 @@ const { posts } = Astro.props;
     line-height: 1.6;
     color: var(--gray-dark);
     max-width: var(--content-width);
+  }
+
+  @supports (animation-timeline: view()) {
+    .posts__list--scroll-reveal .short-post {
+      opacity: 0.35;
+      transform: translateX(-24px);
+      animation: post-reveal linear both;
+      animation-timeline: view(block);
+      animation-range: entry 8% cover 32%;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .posts__list--scroll-reveal .short-post {
+      opacity: 1;
+      transform: none;
+      animation: none;
+    }
+  }
+
+  @keyframes post-reveal {
+    from {
+      opacity: 0.35;
+      transform: translateX(-50px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
   }
 
   @media (min-width: 720px) {
