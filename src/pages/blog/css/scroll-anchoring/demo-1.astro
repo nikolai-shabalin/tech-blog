@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="ru">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Scroll Anchoring: Пример с баннером</title>
+		<meta
+			name="description"
+			content="Демо подгрузки баннера сверху в прокручиваемом контейнере с наглядным сравнением поведения с Scroll Anchoring и без него."
+		/>
+	</head>
+	<body>
+		<main class="page">
+			<h1>Пример 1: Проблема с загрузкой контента</h1>
+			<p class="lead">
+				Прокрутите контейнер так, чтобы абзац «3. Здесь читатель остановился.» был в зоне чтения и немного касался верхнего бордера, затем
+				нажмите кнопку "загрузить рекламу". Обратите внимание, что контент в блоке баннера не прыгнул.
+			</p>
+
+      <p class="lead">Если выключить Scroll Anchoring, то контент в блоке баннера прыгнет. Для проверки нажмите кнопку "Сбросить демо", включите галочку "Отключить Scroll Anchoring" и повторите эксперимент.</p>
+
+			<div class="controls">
+				<label class="checkbox">
+					<input id="disable-anchoring" type="checkbox" />
+					Отключить Scroll Anchoring (`overflow-anchor: none`)
+				</label>
+				<button id="reset-demo" type="button">Сбросить демо</button>
+			</div>
+
+			<div class="container" id="feed">
+				<div class="ad-banner" id="ad"></div>
+				<div class="content">
+					<p>1. Очень важный текст, который читает пользователь. Здесь уже есть контекст и мысль.</p>
+					<p>2. Продолжение текста. Пользователь спокойно читает дальше без ожидания подвоха.</p>
+					<p id="anchor-point">3. Здесь читатель остановился.</p>
+					<p>4. Еще текст о том, как важна стабильная прокрутка при динамической загрузке интерфейса.</p>
+					<p>5. Дополнительный абзац для прокрутки внутри контейнера и более реалистичного сценария.</p>
+					<p>6. Если выше внезапно появится блок, без якорения контент заметно "поедет".</p>
+					<p>7. Scroll Anchoring старается удержать текущую точку чтения пользователя.</p>
+					<p>8. Это особенно важно для чатов, новостных лент и комментариев.</p>
+					<p>9. Предпоследний абзац в демо-контейнере.</p>
+					<p>10. Конец контента. Теперь нажмите кнопку ниже.</p>
+				</div>
+			</div>
+
+			<button id="load-ad" class="load-button" type="button">Загрузить рекламу</button>
+			<p class="status" id="status">
+				Статус: реклама не загружена.
+			</p>
+		</main>
+	</body>
+</html>
+
+<script>
+	const feed = document.getElementById('feed');
+	const ad = document.getElementById('ad');
+	const loadAdButton = document.getElementById('load-ad');
+	const resetButton = document.getElementById('reset-demo');
+	const disableAnchoringCheckbox = document.getElementById('disable-anchoring');
+	const anchorPoint = document.getElementById('anchor-point');
+	const status = document.getElementById('status');
+
+	function getRelativeAnchorTop() {
+		if (
+			!(feed instanceof HTMLElement) ||
+			!(anchorPoint instanceof HTMLElement)
+		) {
+			return null;
+		}
+
+		const feedRect = feed.getBoundingClientRect();
+		const anchorRect = anchorPoint.getBoundingClientRect();
+		return Math.round(anchorRect.top - feedRect.top);
+	}
+
+	function setStatus(text: string) {
+		if (status instanceof HTMLElement) {
+			status.textContent = text;
+		}
+	}
+
+	if (disableAnchoringCheckbox instanceof HTMLInputElement && feed instanceof HTMLElement) {
+		disableAnchoringCheckbox.addEventListener('change', () => {
+			feed.classList.toggle('no-anchor', disableAnchoringCheckbox.checked);
+			const mode = disableAnchoringCheckbox.checked ? 'выключено' : 'включено';
+			setStatus(`Статус: Scroll Anchoring ${mode}.`);
+		});
+	}
+
+	if (
+		loadAdButton instanceof HTMLButtonElement &&
+		ad instanceof HTMLElement &&
+		feed instanceof HTMLElement
+	) {
+		loadAdButton.addEventListener('click', () => {
+			if (ad.classList.contains('loaded')) {
+				return;
+			}
+
+			const before = getRelativeAnchorTop();
+			ad.classList.add('loaded');
+			ad.textContent = '🤑 ВАЖНАЯ РЕКЛАМА 🤑';
+			loadAdButton.disabled = true;
+
+			requestAnimationFrame(() => {
+				const after = getRelativeAnchorTop();
+				if (before === null || after === null) {
+					setStatus('Статус: реклама загружена.');
+					return;
+				}
+
+				setStatus(`Статус: реклама загружена.`);
+			});
+		});
+	}
+
+	if (
+		resetButton instanceof HTMLButtonElement &&
+		ad instanceof HTMLElement &&
+		loadAdButton instanceof HTMLButtonElement &&
+		feed instanceof HTMLElement &&
+		disableAnchoringCheckbox instanceof HTMLInputElement
+	) {
+		resetButton.addEventListener('click', () => {
+			ad.classList.remove('loaded');
+			ad.textContent = '';
+			loadAdButton.disabled = false;
+			feed.scrollTop = 0;
+			disableAnchoringCheckbox.checked = false;
+			feed.classList.remove('no-anchor');
+			setStatus('Статус: демо сброшено. Прокрутите контейнер и повторите эксперимент.');
+		});
+	}
+</script>
+
+<style>
+	:root {
+		color-scheme: dark;
+	}
+
+	body {
+		margin: 0;
+		font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+		background: #0f0f10;
+		color: #f5f5f5;
+	}
+
+	.page {
+		max-width: 760px;
+		margin: 0 auto;
+		padding: 2rem 1rem 3rem;
+	}
+
+	h1 {
+		margin: 0 0 0.8rem;
+		font-size: clamp(1.35rem, 3vw, 2rem);
+	}
+
+	.lead {
+		margin: 0 0 1.2rem;
+		color: #d6d6d8;
+		line-height: 1.55;
+	}
+
+	.controls {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.8rem 1.2rem;
+		align-items: center;
+		margin-bottom: 1rem;
+	}
+
+	.checkbox {
+		display: inline-flex;
+		gap: 0.55rem;
+		align-items: center;
+		font-size: 0.95rem;
+	}
+
+	.container {
+		width: 400px;
+		height: 300px;
+		overflow-y: auto;
+		border: 1px solid #4e4e52;
+		border-radius: 12px;
+		padding: 0.8rem;
+		background: #17171a;
+	}
+
+	.container.no-anchor {
+		overflow-anchor: none;
+	}
+
+	.ad-banner {
+		background-color: #2e2e33;
+		color: #ffffff;
+		text-align: center;
+		transition: height 0.3s ease;
+		height: 0;
+		overflow: hidden;
+		border-radius: 8px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		font-weight: 700;
+	}
+
+	.ad-banner.loaded {
+		height: 100px;
+		margin-bottom: 0.7rem;
+	}
+
+	.content p {
+		margin: 10px 0;
+		line-height: 1.5;
+	}
+
+	#anchor-point {
+		padding: 0.45rem 0.55rem;
+		border-radius: 6px;
+		background: #243553;
+	}
+
+	.load-button,
+	#reset-demo {
+		margin-top: 0.9rem;
+		border: 1px solid #6e6e76;
+		background: #202024;
+		color: #f8f8f8;
+		border-radius: 8px;
+		padding: 0.55rem 0.8rem;
+		font: inherit;
+		cursor: pointer;
+	}
+
+	.load-button:disabled {
+		opacity: 0.6;
+		cursor: default;
+	}
+
+	.status {
+		margin-top: 0.8rem;
+		color: #a6d7ff;
+		font-size: 0.95rem;
+	}
+</style>
