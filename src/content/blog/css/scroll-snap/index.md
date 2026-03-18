@@ -186,67 +186,129 @@ CSS-свойство `scroll-padding` задаёт *внутренние сме�
 </div>
 
 ### 7) Правило выравнивания: `scroll-snap-align`
-До этого пункта мы поняли, что у нас есть область прокрутки с возможностью изменить размер этой области. Также у нас есть элементы прокрутки с размерами, которые можно изменить. Перейдём к выравниванию.
+Теперь у нас уже есть `snapport` контейнера и `snap area` элемента. Осталось задать правило, **как именно** их выравнивать.
 
 `scroll-snap-align` задаёт, как выровнять `snap area` элемента относительно `snapport`: `start`, `center`, `end`.
-Для наглядности ниже использую неофициальный термин `snap-line`.
 
-<div class="ssx-align-grid">
-  <div class="ssx-align ssx-align--start">
-    <span class="ssx-align-title">start ↔ start</span>
-    <span class="ssx-align-port-label">snapport</span>
-    <span class="ssx-align-line-label">snap-line</span>
-    <span class="ssx-align-boundary ssx-align-boundary--start">start boundary</span>
-    <span class="ssx-align-boundary ssx-align-boundary--end">end boundary</span>
-    <div class="ssx-align-slide"></div>
+Что важно:
+- значения: `start`, `center`, `end`, `none`;
+- можно указать одно или два значения;
+- если значений два, первое для block-оси, второе для inline-оси;
+- это не “включить snap”, а “каким способом этот элемент может выровняться”.
+
+Для наглядности ниже использую неофициальный термин `snap-line`: воображаемая линия `start`, `center` или `end` у `snapport` и у `snap area`. Когда линии совпадают, получается `snap position`.
+
+<div class="ssx-sa-grid">
+
+  <div class="ssx-sa-box">
+    <div class="ssx-sa-header"><code>scroll-snap-align: start</code></div>
+    <div class="ssx-sa-port">
+      <div class="ssx-sa-port-tag">snapport</div>
+      <div class="ssx-sa-track ssx-sa-track--start">
+        <div class="ssx-sa-c">1</div>
+        <div class="ssx-sa-c ssx-sa-c--hi">2</div>
+        <div class="ssx-sa-c">3</div>
+        <div class="ssx-sa-c">4</div>
+        <div class="ssx-sa-c">5</div>
+        <div class="ssx-sa-c">6</div>
+      </div>
+      <div class="ssx-sa-sline ssx-sa-sline--top"><span>snap-line</span></div>
+    </div>
+    <p class="ssx-sa-note">start snap area совпадает со start snapport</p>
   </div>
-  <div class="ssx-align ssx-align--center">
-    <span class="ssx-align-title">center ↔ center</span>
-    <span class="ssx-align-port-label">snapport</span>
-    <span class="ssx-align-line-label">snap-line</span>
-    <span class="ssx-align-boundary ssx-align-boundary--start">start boundary</span>
-    <span class="ssx-align-boundary ssx-align-boundary--end">end boundary</span>
-    <div class="ssx-align-slide"></div>
+
+  <div class="ssx-sa-box">
+    <div class="ssx-sa-header"><code>scroll-snap-align: center</code></div>
+    <div class="ssx-sa-port">
+      <div class="ssx-sa-port-tag">snapport</div>
+      <div class="ssx-sa-track ssx-sa-track--center">
+        <div class="ssx-sa-c">1</div>
+        <div class="ssx-sa-c">2</div>
+        <div class="ssx-sa-c">3</div>
+        <div class="ssx-sa-c ssx-sa-c--hi">4</div>
+        <div class="ssx-sa-c">5</div>
+        <div class="ssx-sa-c">6</div>
+      </div>
+      <div class="ssx-sa-sline ssx-sa-sline--mid"><span>snap-line</span></div>
+    </div>
+    <p class="ssx-sa-note">центр snap area совпадает с центром snapport</p>
   </div>
-  <div class="ssx-align ssx-align--end">
-    <span class="ssx-align-title">end ↔ end</span>
-    <span class="ssx-align-port-label">snapport</span>
-    <span class="ssx-align-line-label">snap-line</span>
-    <span class="ssx-align-boundary ssx-align-boundary--start">start boundary</span>
-    <span class="ssx-align-boundary ssx-align-boundary--end">end boundary</span>
-    <div class="ssx-align-slide"></div>
+
+  <div class="ssx-sa-box">
+    <div class="ssx-sa-header"><code>scroll-snap-align: end</code></div>
+    <div class="ssx-sa-port">
+      <div class="ssx-sa-port-tag">snapport</div>
+      <div class="ssx-sa-track ssx-sa-track--end">
+        <div class="ssx-sa-c">1</div>
+        <div class="ssx-sa-c">2</div>
+        <div class="ssx-sa-c">3</div>
+        <div class="ssx-sa-c ssx-sa-c--hi">4</div>
+        <div class="ssx-sa-c">5</div>
+        <div class="ssx-sa-c">6</div>
+      </div>
+      <div class="ssx-sa-sline ssx-sa-sline--bottom"><span>snap-line</span></div>
+    </div>
+    <p class="ssx-sa-note">end snap area совпадает с end snapport</p>
   </div>
+
 </div>
 
 ### 8) `snap position` (singular)
 
-Это конкретное значение `scrollTop`/`scrollLeft`, при котором выбранное выравнивание выполнено.
+По спецификации `snap position` — это конкретная `scroll position`, которая удовлетворяет выбранному выравниванию `snap area` внутри `snapport`.
 
-<div class="ssx-demo ssx-slider-demo ssx-position-demo">
-  <div class="ssx-position-track">
-    <div class="ssx-position-slide">1</div>
-    <div class="ssx-position-slide ssx-position-slide--active">2</div>
-    <div class="ssx-position-slide">3</div>
+Коротко:
+- `snap area` — это область;
+- `scroll-snap-align` — это правило;
+- `snap position` — это конкретный `scroll offset`, где правило выполнено.
+
+<div class="ssx-pos-compare">
+
+  <div class="ssx-pos-panel">
+    <div class="ssx-pos-panel-title">произвольная позиция</div>
+    <div class="ssx-pos-stage">
+      <div class="ssx-pos-elem ssx-pos-elem--off">snap area</div>
+      <div class="ssx-pos-line ssx-pos-line--port"></div>
+      <div class="ssx-pos-line ssx-pos-line--card"></div>
+      <div class="ssx-pos-gap"></div>
+    </div>
+    <div class="ssx-pos-badge ssx-pos-badge--no">линии не совпали — не snap position</div>
   </div>
-  <div class="ssx-snap-line ssx-snap-line--port"></div>
+
+  <div class="ssx-pos-arrow">→</div>
+
+  <div class="ssx-pos-panel">
+    <div class="ssx-pos-panel-title">snap position</div>
+    <div class="ssx-pos-stage">
+      <div class="ssx-pos-elem ssx-pos-elem--on">snap area</div>
+      <div class="ssx-pos-line ssx-pos-line--snap"></div>
+    </div>
+    <div class="ssx-pos-badge ssx-pos-badge--yes">линии совпали — это snap position ✓</div>
+  </div>
+
 </div>
 
 Формула: **snap area + snapport + align-правило = snap position**.
 
 ### 9) `snap positions` (plural)
 
-У контейнера обычно много кандидатов; браузер выбирает подходящий.
+`Snap position` — это одна конкретная позиция.  
+`Snap positions` — это весь набор кандидатов в контейнере.
 
-<div class="ssx-demo ssx-slider-demo ssx-positions-demo">
-  <div class="ssx-cards">
-    <div class="ssx-card">1</div>
-    <div class="ssx-card">2</div>
-    <div class="ssx-card">3</div>
-    <div class="ssx-card">4</div>
+Что важно:
+- у контейнера обычно много возможных `snap positions`;
+- каждый элемент может добавлять свои кандидаты по оси;
+- браузер выбирает, к какой позиции притягиваться после естественного end-point.
+
+<div class="ssx-ruler">
+  <div class="ssx-ruler-bar">
+    <div class="ssx-ruler-tick ssx-ruler-tick--1"><span>card 1</span></div>
+    <div class="ssx-ruler-tick ssx-ruler-tick--2"><span>card 2</span></div>
+    <div class="ssx-ruler-tick ssx-ruler-tick--3"><span>card 3</span></div>
+    <div class="ssx-ruler-tick ssx-ruler-tick--4"><span>card 4</span></div>
+    <div class="ssx-ruler-vp"></div>
   </div>
-  <div class="ssx-candidate-dots">
-    <span></span><span></span><span></span><span></span>
-  </div>
+  <p class="ssx-ruler-note">viewport двигается и «прилипает» к ближайшей snap position</p>
 </div>
 
 ### 10) Включатель режима: `scroll-snap-type`
@@ -570,156 +632,182 @@ CSS-свойство `scroll-padding` задаёт *внутренние сме�
 
 .ssx-align-grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: minmax(0, 1fr);
   gap: 10px;
   margin: 12px 0 22px;
 }
 
-.ssx-align {
-  --snap-ratio: 0;
-  --slide-shift: 0px;
-  --area-line: 0%;
-  min-height: 156px;
+.ssx-align-slider {
+  --snap-ratio: .5;
+  --track-shift: -71px;
+  position: relative;
+  min-height: 296px;
   border-radius: 10px;
   border: 1px solid #cbd5e1;
   background: #f8fafc;
-  position: relative;
-  overflow: hidden;
+  padding: 8px;
 }
 
-.ssx-align-title {
-  position: absolute;
-  top: 6px;
-  left: 8px;
+.ssx-align-slider__title {
   font-size: 11px;
   font-weight: 700;
-  z-index: 5;
-  background: rgba(255, 255, 255, .9);
-  border: 1px solid rgba(148, 163, 184, .5);
+  color: #0f172a;
+  background: rgba(255, 255, 255, .92);
+  border: 1px solid rgba(148, 163, 184, .55);
   border-radius: 999px;
   padding: 2px 8px;
+  display: inline-block;
+  margin-bottom: 8px;
 }
 
-.ssx-align::before {
+.ssx-align-slider__viewport {
+  position: relative;
+  height: 248px;
+  border-radius: 8px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scroll-snap-type: y mandatory;
+  overscroll-behavior: none;
+  background: rgba(226, 232, 240, .18);
+}
+
+.ssx-align-slider__track {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  transform: translateY(var(--track-shift));
+}
+
+.ssx-align-card {
+  height: 70px;
+  border-radius: 8px;
+  background: #e2e8f0;
+  color: #0f172a;
+  font-weight: 700;
+  display: grid;
+  place-items: center;
+  scroll-snap-align: center;
+}
+
+.ssx-align-card--active {
+  position: relative;
+  background: #fde68a;
+  border: 2px solid #d97706;
+}
+
+.ssx-align-card--active::before {
+  content: "snap area";
+  position: absolute;
+  top: 6px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 9px;
+  color: #78350f;
+  background: rgba(255, 255, 255, .9);
+  border: 1px solid rgba(217, 119, 6, .45);
+  border-radius: 999px;
+  padding: 1px 6px;
+}
+
+.ssx-align-card--start::before {
+  content: "scroll-snap-align: start";
+}
+
+.ssx-align-card--center::before {
+  content: "scroll-snap-align: center";
+}
+
+.ssx-align-card--end::before {
+  content: "scroll-snap-align: end";
+}
+
+.ssx-align-card--active::after {
   content: "";
   position: absolute;
-  top: 32px;
-  bottom: 12px;
-  left: 10px;
-  right: 10px;
+  left: 6px;
+  right: 6px;
+  top: var(--card-line);
+  border-top: 2px dotted #b45309;
+}
+
+.ssx-align-card--start {
+  --card-line: 0%;
+  scroll-snap-align: start;
+}
+
+.ssx-align-card--center {
+  --card-line: 50%;
+  scroll-snap-align: center;
+}
+
+.ssx-align-card--end {
+  --card-line: 100%;
+  scroll-snap-align: end;
+}
+
+.ssx-align-slider__snapport {
+  position: absolute;
+  inset: 40px 8px 8px;
   border: 2px dashed #475569;
   border-radius: 8px;
-  background: rgba(226, 232, 240, .24);
-}
-
-.ssx-align::after {
-  content: "";
-  position: absolute;
-  left: 10px;
-  right: 10px;
-  top: calc(32px + (100% - 44px) * var(--snap-ratio));
-  border-top: 2px dashed #dc2626;
-  z-index: 4;
-}
-
-.ssx-align-port-label {
-  position: absolute;
-  top: 38px;
-  left: 16px;
-  z-index: 5;
+  pointer-events: none;
   font-size: 10px;
   color: #334155;
-  background: rgba(255, 255, 255, .92);
-  border: 1px solid rgba(71, 85, 105, .35);
-  border-radius: 999px;
-  padding: 2px 8px;
+  display: grid;
+  place-items: start start;
+  padding: 4px 6px;
 }
 
-.ssx-align-line-label {
+.ssx-align-slider__line {
   position: absolute;
-  right: 14px;
-  top: calc(32px + (100% - 44px) * var(--snap-ratio) - 12px);
-  z-index: 5;
+  left: 8px;
+  right: 8px;
+  top: calc(40px + (248px * var(--snap-ratio)));
+  border-top: 2px dashed #dc2626;
+  pointer-events: none;
+}
+
+.ssx-align-slider__line::after {
+  content: "snap-line";
+  position: absolute;
+  right: 6px;
+  top: -12px;
   font-size: 10px;
   color: #7f1d1d;
   background: rgba(255, 255, 255, .94);
   border: 1px solid rgba(220, 38, 38, .35);
   border-radius: 999px;
-  padding: 2px 8px;
-}
-
-.ssx-align-boundary {
-  position: absolute;
-  right: 14px;
-  z-index: 5;
-  font-size: 9px;
-  color: #1e293b;
-  background: rgba(255, 255, 255, .94);
-  border: 1px solid rgba(100, 116, 139, .35);
-  border-radius: 999px;
   padding: 1px 7px;
 }
 
-.ssx-align-boundary--start {
-  top: 34px;
-}
-
-.ssx-align-boundary--end {
-  bottom: 14px;
-}
-
-.ssx-align-slide {
-  position: absolute;
-  left: 24px;
-  right: 24px;
-  height: 40px;
-  top: calc(32px + (100% - 44px) * var(--snap-ratio) + var(--slide-shift));
-  border-radius: 8px;
-  border: 2px solid #0ea5e9;
-  background: rgba(125, 211, 252, .3);
-  z-index: 3;
-}
-
-.ssx-align-slide::after {
-  content: "";
-  position: absolute;
-  left: -2px;
-  right: -2px;
-  top: var(--area-line);
-  border-top: 2px dotted #b45309;
-}
-
-.ssx-align--start {
+.ssx-align-slider--start {
   --snap-ratio: 0;
-  --slide-shift: 0px;
-  --area-line: 0%;
+  --track-shift: 0px;
 }
 
-.ssx-align--center {
+.ssx-align-slider--center {
   --snap-ratio: .5;
-  --slide-shift: -20px;
-  --area-line: 50%;
+  --track-shift: 0px;
 }
 
-.ssx-align--end {
+.ssx-align-slider--end {
   --snap-ratio: 1;
-  --slide-shift: -40px;
-  --area-line: 100%;
+  --track-shift: 0px;
 }
 
 .ssx-position-demo {
-  overflow-y: auto;
-  overflow-x: hidden;
+  overflow: hidden;
 }
 
-.ssx-position-track {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
+.ssx-position-single {
+  min-height: 204px;
+  display: grid;
+  place-items: center;
 }
 
 .ssx-position-slide {
-  flex: 0 0 96px;
+  width: 72%;
+  min-width: 220px;
   min-height: 96px;
   border-radius: 10px;
   background: linear-gradient(135deg, #fecaca, #fda4af);
@@ -732,7 +820,7 @@ CSS-свойство `scroll-padding` задаёт *внутренние сме�
 }
 
 .ssx-position-slide--active::after {
-  content: "snap area center";
+  content: "snap area line";
   position: absolute;
   left: 8px;
   right: 8px;
@@ -751,18 +839,45 @@ CSS-свойство `scroll-padding` задаёт *внутренние сме�
   border-top: 2px dashed #dc2626;
 }
 
+.ssx-position-note {
+  position: absolute;
+  left: 12px;
+  right: 12px;
+  bottom: 12px;
+  font-size: 10px;
+  color: #7f1d1d;
+  background: rgba(255, 255, 255, .94);
+  border: 1px solid rgba(220, 38, 38, .3);
+  border-radius: 8px;
+  padding: 4px 8px;
+  text-align: center;
+}
+
 .ssx-candidate-dots {
   display: grid;
-  justify-items: center;
+  justify-items: start;
   gap: 6px;
   margin-top: 8px;
 }
 
 .ssx-candidate-dots span {
-  width: 10px;
-  height: 10px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 10px;
+  color: #1e3a8a;
+  background: rgba(255, 255, 255, .9);
+  border: 1px solid rgba(37, 99, 235, .35);
+  border-radius: 999px;
+  padding: 2px 8px;
+}
+
+.ssx-candidate-dots span i {
+  width: 8px;
+  height: 8px;
   border-radius: 999px;
   background: #2563eb;
+  display: inline-block;
 }
 
 .ssx-type-grid {
@@ -787,6 +902,404 @@ CSS-свойство `scroll-padding` задаёт *внутренние сме�
   margin: 8px 0 24px;
   border-radius: 10px;
   background: #fff;
+}
+
+/* ===== Section 7: scroll-snap-align — X-ray diagram ===== */
+
+.ssx-sa-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  margin: 12px 0 24px;
+}
+
+.ssx-sa-box {
+  border-radius: 10px;
+  border: 1px solid #cbd5e1;
+  background: #f8fafc;
+  padding: 8px;
+}
+
+.ssx-sa-header {
+  margin-bottom: 8px;
+}
+
+.ssx-sa-header code {
+  display: block;
+  background: #1e293b;
+  color: #e2e8f0;
+  border-radius: 6px;
+  padding: 3px 8px;
+  font-size: 11px;
+  text-align: center;
+}
+
+.ssx-sa-port {
+  position: relative;
+  height: 200px;
+  overflow: hidden;
+  border: 2px dashed #475569;
+  border-radius: 8px;
+  background: #f1f5f9;
+}
+
+.ssx-sa-port-tag {
+  position: absolute;
+  top: 4px;
+  left: 6px;
+  font-size: 9px;
+  font-weight: 700;
+  color: #334155;
+  background: rgba(255, 255, 255, .9);
+  border: 1px solid #94a3b8;
+  border-radius: 999px;
+  padding: 1px 6px;
+  z-index: 4;
+  pointer-events: none;
+}
+
+.ssx-sa-track {
+  position: absolute;
+  left: 8px;
+  right: 8px;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* card h=60, gap=10 → card2.top=70, card4.top=210, card4.bottom=270 */
+.ssx-sa-track--start  { transform: translateY(-70px); }
+.ssx-sa-track--center { transform: translateY(-140px); }
+.ssx-sa-track--end    { transform: translateY(-70px); }
+
+.ssx-sa-c {
+  flex: 0 0 60px;
+  height: 60px;
+  border-radius: 8px;
+  background: #e2e8f0;
+  display: grid;
+  place-items: center;
+  font-weight: 700;
+  font-size: 18px;
+  color: #94a3b8;
+}
+
+.ssx-sa-c--hi {
+  background: #fde68a;
+  border: 2px solid #d97706;
+  color: #78350f;
+  position: relative;
+  z-index: 1;
+}
+
+.ssx-sa-sline {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 0;
+  border-top: 2.5px solid #dc2626;
+  z-index: 3;
+  pointer-events: none;
+}
+
+.ssx-sa-sline span {
+  position: absolute;
+  right: 6px;
+  font-size: 9px;
+  font-weight: 700;
+  color: #991b1b;
+  background: rgba(255, 255, 255, .94);
+  border: 1px solid rgba(220, 38, 38, .4);
+  border-radius: 999px;
+  padding: 1px 6px;
+  white-space: nowrap;
+}
+
+.ssx-sa-sline--top         { top: 0; }
+.ssx-sa-sline--top span    { top: 3px; }
+.ssx-sa-sline--mid         { top: 50%; }
+.ssx-sa-sline--mid span    { top: -16px; }
+.ssx-sa-sline--bottom      { bottom: 0; top: auto; }
+.ssx-sa-sline--bottom span { top: -16px; }
+
+.ssx-sa-note {
+  margin: 6px 0 0;
+  font-size: 10px;
+  color: #475569;
+  text-align: center;
+  line-height: 1.3;
+}
+
+/* ===== Section 8: snap position — before / after ===== */
+
+.ssx-pos-compare {
+  display: flex;
+  align-items: stretch;
+  gap: 8px;
+  margin: 12px 0 24px;
+}
+
+.ssx-pos-panel {
+  flex: 1;
+  border-radius: 10px;
+  border: 1px solid #cbd5e1;
+  background: #f8fafc;
+  padding: 10px 8px 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.ssx-pos-panel-title {
+  font-size: 11px;
+  font-weight: 700;
+  color: #334155;
+  text-align: center;
+}
+
+.ssx-pos-stage {
+  position: relative;
+  flex: 1;
+  min-height: 130px;
+  border: 2px dashed #475569;
+  border-radius: 8px;
+  background: #f1f5f9;
+  overflow: hidden;
+}
+
+.ssx-pos-elem {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  width: 70%;
+  height: 56px;
+  border-radius: 8px;
+  background: #fde68a;
+  border: 2px solid #d97706;
+  display: grid;
+  place-items: center;
+  font-size: 12px;
+  font-weight: 700;
+  color: #78350f;
+  z-index: 1;
+}
+
+.ssx-pos-elem--off { top: calc(50% + 24px); }
+.ssx-pos-elem--on  { top: 50%; }
+
+.ssx-pos-line {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 0;
+  z-index: 2;
+}
+
+.ssx-pos-line--port {
+  top: 50%;
+  border-top: 2px dashed #dc2626;
+}
+
+.ssx-pos-line--port::after {
+  content: "center snapport";
+  position: absolute;
+  right: 5px;
+  top: 3px;
+  font-size: 9px;
+  color: #991b1b;
+  background: rgba(255, 255, 255, .9);
+  border: 1px solid rgba(220, 38, 38, .3);
+  border-radius: 999px;
+  padding: 1px 5px;
+}
+
+.ssx-pos-line--card {
+  top: calc(50% + 24px);
+  border-top: 2px dashed #d97706;
+  z-index: 2;
+}
+
+.ssx-pos-line--card::after {
+  content: "center snap area";
+  position: absolute;
+  right: 5px;
+  bottom: 3px;
+  font-size: 9px;
+  color: #92400e;
+  background: rgba(255, 255, 255, .9);
+  border: 1px solid rgba(217, 119, 6, .3);
+  border-radius: 999px;
+  padding: 1px 5px;
+}
+
+.ssx-pos-line--snap {
+  top: 50%;
+  border-top: 2.5px solid #16a34a;
+  z-index: 3;
+}
+
+.ssx-pos-line--snap::after {
+  content: "snap-line (совпали!)";
+  position: absolute;
+  right: 5px;
+  top: 3px;
+  font-size: 9px;
+  font-weight: 700;
+  color: #166534;
+  background: rgba(220, 252, 231, .95);
+  border: 1px solid rgba(22, 163, 74, .3);
+  border-radius: 999px;
+  padding: 1px 5px;
+}
+
+.ssx-pos-gap {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: calc(50% + 1px);
+  height: 23px;
+  border-left: 1.5px dotted #ef4444;
+  z-index: 3;
+}
+
+.ssx-pos-gap::after {
+  content: "gap";
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  font-size: 9px;
+  color: #ef4444;
+  white-space: nowrap;
+}
+
+.ssx-pos-badge {
+  font-size: 10px;
+  text-align: center;
+  border-radius: 6px;
+  padding: 4px 6px;
+  line-height: 1.3;
+}
+
+.ssx-pos-badge--no  { background: #fee2e2; color: #991b1b; }
+.ssx-pos-badge--yes { background: #dcfce7; color: #166534; }
+
+.ssx-pos-arrow {
+  font-size: 22px;
+  color: #64748b;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+/* ===== Section 9: snap positions (plural) — animated ruler ===== */
+
+.ssx-ruler {
+  margin: 12px 0 24px;
+  border-radius: 10px;
+  border: 1px solid #cbd5e1;
+  background: #f8fafc;
+  padding: 32px 16px 14px;
+}
+
+.ssx-ruler-bar {
+  position: relative;
+  height: 44px;
+  background: #e2e8f0;
+  border-radius: 8px;
+}
+
+.ssx-ruler-bar::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 4%;
+  right: 4%;
+  height: 3px;
+  background: #94a3b8;
+  transform: translateY(-50%);
+  border-radius: 2px;
+}
+
+.ssx-ruler-tick {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ssx-ruler-tick::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 4px;
+  height: 20px;
+  background: #2563eb;
+  transform: translateY(-50%);
+  border-radius: 2px;
+}
+
+.ssx-ruler-tick span {
+  position: absolute;
+  bottom: calc(100% + 6px);
+  font-size: 9px;
+  font-weight: 700;
+  color: #1e40af;
+  white-space: nowrap;
+  background: rgba(219, 234, 254, .95);
+  border: 1px solid rgba(37, 99, 235, .35);
+  border-radius: 999px;
+  padding: 1px 6px;
+}
+
+.ssx-ruler-tick--1 { left: 10%; }
+.ssx-ruler-tick--2 { left: 37%; }
+.ssx-ruler-tick--3 { left: 63%; }
+.ssx-ruler-tick--4 { left: 90%; }
+
+.ssx-ruler-vp {
+  position: absolute;
+  top: 4px;
+  bottom: 4px;
+  width: 16%;
+  background: rgba(37, 99, 235, .15);
+  border: 2px solid #2563eb;
+  border-radius: 5px;
+  transform: translateX(-50%);
+  animation: ssx-ruler-slide 6s ease-in-out infinite;
+}
+
+.ssx-ruler-vp::after {
+  content: "viewport";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 8px;
+  font-weight: 700;
+  color: #1e40af;
+  white-space: nowrap;
+}
+
+@keyframes ssx-ruler-slide {
+  0%, 12%  { left: 10%; }
+  22%      { left: 40%; }
+  25%, 37% { left: 37%; }
+  47%      { left: 66%; }
+  50%, 62% { left: 63%; }
+  72%      { left: 93%; }
+  75%, 87% { left: 90%; }
+  97%, 100% { left: 10%; }
+}
+
+.ssx-ruler-note {
+  margin: 10px 0 0;
+  font-size: 11px;
+  color: #475569;
+  text-align: center;
 }
 </style>
 
