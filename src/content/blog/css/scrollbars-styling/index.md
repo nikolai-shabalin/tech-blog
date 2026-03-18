@@ -8,11 +8,6 @@ pubDate: 'Mar 12 2026'
   html {
     scrollbar-color: rebeccapurple orange;
   }
-
-  svg {
-    background-color: #F8F8F8;
-    border-radius: 8px;
-  }
 </style>
 
 Полосы прокрутки — это неотъемлемая часть взаимодействия с веб-страницей, особенно в современном мире, где контент часто динамически подгружается, а интерфейсы становятся сложнее. Долгое время разработчики были ограничены в возможностях их стилизации. На смену хаков с JavaScript и плагинам пришёл стандартизированный подход — спецификация **[CSS Scrollbars Styling Module Level 1](https://www.w3.org/TR/css-scrollbars-1/)**.
@@ -23,35 +18,146 @@ pubDate: 'Mar 12 2026'
 **Основная цель** модуля — предоставить веб-разработчикам простой и стандартизированный способ влиять на визуальное оформление полос прокрутки. Спецификация определяет два ключевых аспекта:
 1.  **Цвет** полосы прокрутки: бегунка и трека
 2.  **Толщину** (ширину) полосы прокрутки.
-<figure style="display: flex; flex-direction: column; align-items: center; width: 100%;">
-<svg width="260" height="420" viewBox="0 0 260 420" xmlns="http://www.w3.org/2000/svg">
+<figure class="scrollbar-parts-diagram">
+<div class="diagram-canvas" aria-hidden="true">
+  <div class="track"></div>
+  <div class="thumb"></div>
 
-  <!-- Track -->
-  <rect x="110" y="40" width="40" height="320" rx="20" fill="#ffd6de"/>
+  <div class="label-track">трек</div>
+  <div class="line-track"></div>
 
-  <!-- Thumb -->
-  <rect x="110" y="150" width="40" height="100" rx="20" fill="#ff8fa3"/>
+  <div class="label-thumb">бегунок</div>
+  <div class="line-thumb"></div>
 
-  <!-- Arrow to thumb -->
-  <line x1="190" y1="200" x2="150" y2="200" stroke="#333" stroke-width="2"/>
-  <text x="195" y="205" font-size="14" font-family="sans-serif">бегунок</text>
-
-  <!-- Arrow to track -->
-  <line x1="80" y1="80" x2="110" y2="80" stroke="#333" stroke-width="2"/>
-  <text x="20" y="85" font-size="14" font-family="sans-serif">трек</text>
-
-  <!-- Width bracket -->
-  <line x1="110" y1="380" x2="150" y2="380" stroke="#333" stroke-width="2"/>
-  <line x1="110" y1="372" x2="110" y2="388" stroke="#333" stroke-width="2"/>
-  <line x1="150" y1="372" x2="150" y2="388" stroke="#333" stroke-width="2"/>
-
-  <!-- Width label -->
-  <text x="88" y="405" font-size="14" font-family="sans-serif">ширина трека</text>
-</svg>
-  <figcaption style="margin-top: 1em; text-align: center;">
+  <div class="width-bracket">
+    <span class="cap left"></span>
+    <span class="line"></span>
+    <span class="cap right"></span>
+  </div>
+  <div class="width-label">ширина трека</div>
+</div>
+  <figcaption>
     Иллюстрация кастомных частей скролбара: трек (полоса) и бегунок
   </figcaption>
 </figure>
+
+<style>
+.scrollbar-parts-diagram {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.scrollbar-parts-diagram .diagram-canvas {
+  position: relative;
+  width: 260px;
+  height: 470px;
+  background: #f8f8f8;
+  border-radius: 8px;
+  font-family: sans-serif;
+}
+
+.scrollbar-parts-diagram .track {
+  position: absolute;
+  top: 40px;
+  left: 110px;
+  width: 40px;
+  height: 320px;
+  border-radius: 20px;
+  background: #ffd6de;
+}
+
+.scrollbar-parts-diagram .thumb {
+  position: absolute;
+  top: 150px;
+  left: 115px;
+  width: 30px;
+  height: 100px;
+  border-radius: 20px;
+  background: #ff8fa3;
+}
+
+.scrollbar-parts-diagram .label-track,
+.scrollbar-parts-diagram .label-thumb,
+.scrollbar-parts-diagram .width-label {
+  position: absolute;
+  color: #333;
+  font-size: 14px;
+}
+
+.scrollbar-parts-diagram .label-track {
+  top: 74px;
+  left: 20px;
+}
+
+.scrollbar-parts-diagram .line-track,
+.scrollbar-parts-diagram .line-thumb {
+  position: absolute;
+  height: 2px;
+  background: #333;
+}
+
+.scrollbar-parts-diagram .line-track {
+  top: 80px;
+  left: 80px;
+  width: 30px;
+}
+
+.scrollbar-parts-diagram .label-thumb {
+  top: 194px;
+  left: 195px;
+}
+
+.scrollbar-parts-diagram .line-thumb {
+  top: 200px;
+  left: 150px;
+  width: 40px;
+}
+
+.scrollbar-parts-diagram .width-bracket {
+  position: absolute;
+  top: 372px;
+  left: 110px;
+  width: 40px;
+  height: 16px;
+}
+
+.scrollbar-parts-diagram .width-bracket .line {
+  position: absolute;
+  top: 8px;
+  left: 0;
+  width: 40px;
+  height: 2px;
+  background: #333;
+}
+
+.scrollbar-parts-diagram .width-bracket .cap {
+  position: absolute;
+  top: 0;
+  width: 2px;
+  height: 16px;
+  background: #333;
+}
+
+.scrollbar-parts-diagram .width-bracket .cap.left {
+  left: 0;
+}
+
+.scrollbar-parts-diagram .width-bracket .cap.right {
+  right: 0;
+}
+
+.scrollbar-parts-diagram .width-label {
+  top: 398px;
+  left: 88px;
+}
+
+.scrollbar-parts-diagram figcaption {
+  margin-top: 1em;
+  text-align: center;
+}
+</style>
 
 Важно понимать, что эта спецификация занимается именно *внешним видом* самого элемента управления (`scrollbar`), а не тем, *как* контент прокручивается или располагается на странице. За логику прокрутки отвечает модуль **[CSS Overflow Module](https://www.w3.org/TR/css-overflow-3/)**.
 
@@ -170,26 +276,106 @@ scrollbar-width: auto | thin | none;
 *   `none`: Полностью скрывает скроллбар. **Важно:** при этом элемент *остаётся прокручиваемым* (например, с помощью колёсика мыши, клавиатуры или тачпада). Используйте это значение с осторожностью, так как оно может сделать контент недоступным для пользователей, которые полагаются только на мышь.
 
 
-<figure style="display: flex; flex-direction: column; align-items: center; width: 100%;">
-<svg width="260" height="420" viewBox="0 0 260 420" xmlns="http://www.w3.org/2000/svg">
+<figure class="scrollbar-width-diagram">
+<div class="diagram-canvas" aria-hidden="true">
+  <div class="track"></div>
 
-  <!-- Track -->
-  <rect x="120" y="60" width="24" height="300" rx="12" fill="#ffe3e3"/>
+  <div class="label-track">трек</div>
+  <div class="line-track"></div>
 
-  <!-- Track label -->
-  <line x1="90" y1="100" x2="120" y2="100" stroke="#333" stroke-width="2"/>
-  <text x="30" y="105" font-size="14" font-family="sans-serif">трек</text>
-
-  <!-- Width bracket -->
-  <line x1="120" y1="380" x2="144" y2="380" stroke="#333" stroke-width="2"/>
-  <line x1="120" y1="372" x2="120" y2="388" stroke="#333" stroke-width="2"/>
-  <line x1="144" y1="372" x2="144" y2="388" stroke="#333" stroke-width="2"/>
-
-</svg>
-  <figcaption style="margin-top: 1em; text-align: center;">
+  <div class="width-bracket">
+    <span class="cap left"></span>
+    <span class="line"></span>
+    <span class="cap right"></span>
+  </div>
+</div>
+  <figcaption>
     Показывает ширину трека
   </figcaption>
 </figure>
+
+<style>
+.scrollbar-width-diagram {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.scrollbar-width-diagram .diagram-canvas {
+  position: relative;
+  width: 260px;
+  height: 420px;
+  background: #f8f8f8;
+  border-radius: 8px;
+  font-family: sans-serif;
+}
+
+.scrollbar-width-diagram .track {
+  position: absolute;
+  top: 60px;
+  left: 120px;
+  width: 24px;
+  height: 300px;
+  border-radius: 12px;
+  background: #ffe3e3;
+}
+
+.scrollbar-width-diagram .label-track {
+  position: absolute;
+  top: 94px;
+  left: 30px;
+  color: #333;
+  font-size: 14px;
+}
+
+.scrollbar-width-diagram .line-track {
+  position: absolute;
+  top: 100px;
+  left: 90px;
+  width: 30px;
+  height: 2px;
+  background: #333;
+}
+
+.scrollbar-width-diagram .width-bracket {
+  position: absolute;
+  top: 372px;
+  left: 120px;
+  width: 24px;
+  height: 16px;
+}
+
+.scrollbar-width-diagram .width-bracket .line {
+  position: absolute;
+  top: 8px;
+  left: 0;
+  width: 24px;
+  height: 2px;
+  background: #333;
+}
+
+.scrollbar-width-diagram .width-bracket .cap {
+  position: absolute;
+  top: 0;
+  width: 2px;
+  height: 16px;
+  background: #333;
+}
+
+.scrollbar-width-diagram .width-bracket .cap.left {
+  left: 0;
+}
+
+.scrollbar-width-diagram .width-bracket .cap.right {
+  right: 0;
+}
+
+.scrollbar-width-diagram figcaption {
+  margin-top: 1em;
+  text-align: center;
+}
+</style>
 
 
 
