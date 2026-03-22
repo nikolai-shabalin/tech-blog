@@ -212,7 +212,49 @@ scroll-snap-align: [ none | start | end | center ]{1,2};
 
 Для наглядности я буду использовать неофициальный термин **snap-line**. Это воображаемая линия `start`, `center` или `end` у `snapport` и у `snap area`. Когда такие линии совпадают, получается `snap position`.
 
-Три базовых варианта выглядят так:
+Чтобы увидеть это буквально, сначала разложим обе стороны по одной горизонтальной оси. Здесь схема специально упрощена: у `snap area` есть начало, центр и конец, и у `snapport` есть такие же три опорные линии.
+
+<div class="ssx-sa-intro">
+  <div class="ssx-sa-axis-card">
+    <div class="ssx-sa-axis-header">
+      <code>snap area</code>
+      <span>линии самого элемента</span>
+    </div>
+    <div class="ssx-sa-axis-frame">
+      <div class="ssx-sa-axis-box ssx-sa-axis-box--area">
+        <div class="ssx-sa-axis-name">scroll snap area</div>
+        <div class="ssx-sa-axis-rulers">
+          <div class="ssx-sa-axis-ruler ssx-sa-axis-ruler--start"><span>начало</span></div>
+          <div class="ssx-sa-axis-ruler ssx-sa-axis-ruler--center"><span>центр</span></div>
+          <div class="ssx-sa-axis-ruler ssx-sa-axis-ruler--end"><span>конец</span></div>
+        </div>
+      </div>
+    </div>
+    <p class="ssx-sa-axis-note">У <code>snap area</code> браузер может ориентироваться на три линии: <code>start</code>, <code>center</code> и <code>end</code>.</p>
+  </div>
+
+  <div class="ssx-sa-axis-card">
+    <div class="ssx-sa-axis-header">
+      <code>snapport</code>
+      <span>линии области, внутри которой идёт выравнивание</span>
+    </div>
+    <div class="ssx-sa-axis-frame">
+      <div class="ssx-sa-axis-box ssx-sa-axis-box--port">
+        <div class="ssx-sa-axis-name">snapport</div>
+        <div class="ssx-sa-axis-rulers">
+          <div class="ssx-sa-axis-ruler ssx-sa-axis-ruler--start"><span>начало</span></div>
+          <div class="ssx-sa-axis-ruler ssx-sa-axis-ruler--center"><span>центр</span></div>
+          <div class="ssx-sa-axis-ruler ssx-sa-axis-ruler--end"><span>конец</span></div>
+        </div>
+      </div>
+    </div>
+    <p class="ssx-sa-axis-note">У <code>snapport</code> есть такой же набор линий: <code>start</code>, <code>center</code> и <code>end</code>.</p>
+  </div>
+</div>
+
+<p class="ssx-sa-summary">Итого: <code>scroll-snap-align</code> просто выбирает, какая линия <code>snap area</code> должна совпасть с такой же линией <code>snapport</code>: <code>start ↔ start</code>, <code>center ↔ center</code> или <code>end ↔ end</code>.</p>
+
+Теперь можно показать три базовых варианта:
 
 <div class="ssx-sa-grid">
   <div class="ssx-sa-box">
@@ -227,7 +269,7 @@ scroll-snap-align: [ none | start | end | center ]{1,2};
         <div class="ssx-sa-c">4</div>
       </div>
     </div>
-    <p class="ssx-sa-note">`start ↔ start`: верхняя линия `snap area` совпала с верхней линией `snapport`.</p>
+    <p class="ssx-sa-note"><code>start ↔ start</code>: верхняя линия <code>snap area</code> совпала с верхней линией <code>snapport</code>.</p>
   </div>
 
   <div class="ssx-sa-box">
@@ -238,11 +280,11 @@ scroll-snap-align: [ none | start | end | center ]{1,2};
       <div class="ssx-sa-track ssx-sa-track--center">
         <div class="ssx-sa-c">1</div>
         <div class="ssx-sa-c">2</div>
-        <div class="ssx-sa-c ssx-sa-c--hi">3</div>
-        <div class="ssx-sa-c">4</div>
+        <div class="ssx-sa-c">3</div>
+        <div class="ssx-sa-c ssx-sa-c--hi">4</div>
       </div>
     </div>
-    <p class="ssx-sa-note">`center ↔ center`: центр `snap area` совпал с центром `snapport`.</p>
+    <p class="ssx-sa-note"><code>center ↔ center</code>: центр <code>snap area</code> совпал с центром <code>snapport</code>.</p>
   </div>
 
   <div class="ssx-sa-box">
@@ -252,28 +294,16 @@ scroll-snap-align: [ none | start | end | center ]{1,2};
       <div class="ssx-sa-sline ssx-sa-sline--bottom"><span>snap-line: end</span></div>
       <div class="ssx-sa-track ssx-sa-track--end">
         <div class="ssx-sa-c">1</div>
-        <div class="ssx-sa-c ssx-sa-c--hi">2</div>
+        <div class="ssx-sa-c">2</div>
         <div class="ssx-sa-c">3</div>
-        <div class="ssx-sa-c">4</div>
+        <div class="ssx-sa-c ssx-sa-c--hi">4</div>
       </div>
     </div>
-    <p class="ssx-sa-note">`end ↔ end`: нижняя линия `snap area` совпала с нижней линией `snapport`.</p>
+    <p class="ssx-sa-note"><code>end ↔ end</code>: нижняя линия <code>snap area</code> совпала с нижней линией <code>snapport</code>.</p>
   </div>
 </div>
 
-Пример с двумя значениями:
-
-```css
-.card {
-  scroll-snap-align: start center;
-}
-```
-
-Это значит: по `block axis` элемент может снапиться к `start`, а по `inline axis` к `center`.
-
-
 ### 8) `snap position`
-
 Теперь можно назвать кульминационный термин. Спецификация определяет `snap position` как **scroll position, которая удовлетворяет заданному выравниванию `snap area` внутри `snapport`**.
 
 Проще говоря:
@@ -318,9 +348,6 @@ scroll-snap-align: [ none | start | end | center ]{1,2};
 - `snap position` отвечает на вопрос «**при каком offset это выравнивание выполнено**?».
 
 ### 9) `snap positions`
-
-После singular легко перейти к plural.
-
 У контейнера почти никогда нет только одной возможной позиции привязки. Обычно у него есть **набор кандидатов**: каждый элемент со своим `scroll-snap-align` добавляет одну или несколько возможных `snap positions` по осям, а браузер затем выбирает, к какой из них притянуться.
 
 То есть:
@@ -341,21 +368,26 @@ scroll-snap-align: [ none | start | end | center ]{1,2};
   <div class="ssx-ruler-note">Каждая отметка — возможная `snap position`. Вместе они образуют набор `snap positions`.</div>
 </div>
 
-Именно этот набор браузер рассматривает дальше, когда применяет правила выбора из раздела *Choosing Snap Positions* в спецификации: обычно он старается подобрать ближайший уместный кандидат, но точный алгоритм остаётся на стороне user agent.
+Именно этот набор браузер рассматривает дальше, когда применяет правила выбора из раздела *[Choosing Snap Positions](https://www.w3.org/TR/css-scroll-snap-1/#choosing)* в спецификации: обычно он старается подобрать ближайший уместный кандидат, но точный алгоритм остаётся на стороне user agent.
 
-### 10) Включатель режима: `scroll-snap-type`
-
-`scroll-snap-type` включает snapping на контейнере и задаёт ось/строгость.
-
-<div class="ssx-type-grid">
-  <code>x mandatory</code>
-  <code>y proximity</code>
-  <code>both mandatory</code>
-</div>
-
-### 11) Процесс: `snapping`
+### 10) Процесс: `snapping`
 
 После естественного end-point браузер может довести прокрутку до ближайшей уместной snap-позиции.
+
+Здесь важно разделить два шага:
+
+1. Пользователь скроллит контейнер колесом, тачпадом, свайпом или клавиатурой.
+2. Браузер получает **естественную точку остановки** прокрутки и уже после этого решает, нужно ли чуть скорректировать её до ближайшей подходящей `snap position`.
+
+Эта естественная точка остановки и есть `natural end-point`. Она появляется из обычной физики скролла: инерции, скорости жеста, текущего `scroll offset` и поведения платформы. То есть сначала контейнер почти «доезжает сам», а уже потом Scroll Snap проверяет, не стоит ли закончить движение в более аккуратной позиции.
+
+Если рядом есть подходящий кандидат, браузер может изменить финальный `scroll offset` так, чтобы он удовлетворял правилу выравнивания. Именно этот короткий переход от естественной остановки к snap-позиции и называется `snapping`.
+
+Проще говоря:
+
+- `natural end-point` — место, где прокрутка закончилась бы без snap;
+- `snapped position` — место, куда браузер решил довести контейнер после проверки snap-правил;
+- `snapping` — сам процесс этого доведения.
 
 <svg class="ssx-snapping-svg" viewBox="0 0 760 90" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="snapping process">
   <rect x="10" y="24" width="740" height="42" rx="8" fill="#f1f5f9"/>
@@ -370,6 +402,111 @@ scroll-snap-align: [ none | start | end | center ]{1,2};
     </marker>
   </defs>
 </svg>
+
+На схеме серой линией отмечен `natural end-point`, красной — итоговая `snapped position`, а синяя стрелка показывает, что браузер может немного «дотянуть» прокрутку до более подходящего кандидата.
+
+При этом важно, что браузер не обязан слепо выбирать абсолютно ближайшую точку в любой ситуации. Он учитывает ось, строгость (`mandatory` или `proximity`), направление движения, достижимость позиции и другие правила выбора из спецификации. Поэтому snapping лучше понимать не как «мгновенный прыжок к ближайшей карточке», а как **корректировку финальной остановки по правилам Scroll Snap**.
+
+### 11) Включатель режима: `scroll-snap-type`
+
+До этого мы разобрали геометрию snapping: у контейнера есть `snapport`, у карточек есть `snap area`, у них есть правила `scroll-snap-align`, а браузер уже умеет вычислять набор `snap positions`.
+
+Но всё это ещё не означает, что контейнер **вообще обязан использовать snapping**. Именно `scroll-snap-type` включает этот режим на scroll-контейнере и отвечает сразу на два вопроса:
+
+- **по какой оси** искать кандидатов на привязку;
+- **с какой строгостью** доводить прокрутку до ближайшей `snap position`.
+
+```css
+scroll-snap-type:
+  none |
+  [ x | y | block | inline | both ]
+  [ mandatory | proximity ]?;
+```
+
+Если коротко, `scroll-snap-type` — это переключатель режима для контейнера:
+
+- `x`, `y`, `inline`, `block`, `both` — говорят, **где именно** искать snap positions;
+- `mandatory` или `proximity` — говорят, **насколько настойчиво** к ним притягиваться.
+
+Без `scroll-snap-type` даже карточки с `scroll-snap-align` не будут снапиться: геометрия уже описана, но сам режим ещё не включён.
+
+Для вертикальных секций и экранов чаще всего нужен `y`: контейнер ищет snap positions сверху вниз.
+
+По строгости есть два основных режима:
+
+- `mandatory` заставляет контейнер закончить прокрутку на одной из `snap positions`;
+- `proximity` снапит мягче и только если естественная остановка уже достаточно близко к подходящей позиции.
+
+Ниже слайдер: контейнер включает режим <code>y mandatory</code>, а карточки отдают свои snap positions через <code>scroll-snap-align: start</code>.
+
+<div class="ssx-demo ssx-type-demo">
+  <div class="ssx-type-demo__header"><code>scroll-snap-type: y mandatory</code></div>
+  <div class="ssx-type-demo__viewport">
+    <div class="ssx-type-demo__track">
+      <div class="ssx-type-demo__card">1</div>
+      <div class="ssx-type-demo__card">2</div>
+      <div class="ssx-type-demo__card">3</div>
+      <div class="ssx-type-demo__card">4</div>
+      <div class="ssx-type-demo__card">5</div>
+      <div class="ssx-type-demo__card">6</div>
+      <div class="ssx-type-demo__card">7</div>
+      <div class="ssx-type-demo__card">8</div>
+      <div class="ssx-type-demo__card">9</div>
+      <div class="ssx-type-demo__card">10</div>
+    </div>
+  </div>
+  <p class="ssx-type-demo__note">Скрольте по вертикали: контейнер ищет кандидатов по оси <code>y</code> и обязан завершить прокрутку на одном из них. Также обратите внимание, что из-за <code>scroll-snap-align: start</code> карточки будут снапиться к верхнему краю snapport к snap area. Удобно понять смысл если вы склавиатуры будете нажимать стрелки вверх и вниз.</p>
+</div>
+
+```html
+<div class="gallery">
+  <article class="card">1</article>
+  <article class="card">2</article>
+  <article class="card">3</article>
+  <article class="card">4</article>
+  <article class="card">…</article>
+</div>
+```
+
+```css
+.gallery {
+  display: flex;
+  flex-direction: column;
+  …
+  scroll-snap-type: y mandatory;
+}
+
+.card {
+  scroll-snap-align: start;
+}
+```
+
+Тот же контейнер можно сделать мягче, если заменить `mandatory` на `proximity`.
+
+<div class="ssx-demo ssx-type-demo">
+  <div class="ssx-type-demo__header"><code>scroll-snap-type: y proximity</code></div>
+  <div class="ssx-type-demo__viewport ssx-type-demo__viewport--proximity">
+    <div class="ssx-type-demo__track">
+      <div class="ssx-type-demo__card">1</div>
+      <div class="ssx-type-demo__card">2</div>
+      <div class="ssx-type-demo__card">3</div>
+      <div class="ssx-type-demo__card">4</div>
+      <div class="ssx-type-demo__card">5</div>
+      <div class="ssx-type-demo__card">6</div>
+      <div class="ssx-type-demo__card">7</div>
+      <div class="ssx-type-demo__card">8</div>
+      <div class="ssx-type-demo__card">9</div>
+      <div class="ssx-type-demo__card">10</div>
+    </div>
+  </div>
+  <p class="ssx-type-demo__note">Здесь ось та же самая, но притяжение мягче: если остановиться близко к карточке, браузер поможет дотянуться до неё, а если остановка далеко, может оставить естественную позицию прокрутки.</p>
+</div>
+
+В итоге разница между `mandatory` и `proximity` такая:
+
+- `mandatory` ведёт себя строго и почти всегда доводит прокрутку до одной из `snap positions`;
+- `proximity` ведёт себя мягче и снапит только когда пользователь уже остановился достаточно близко;
+- если нужна явная постраничность, обычно выбирают `mandatory`, а если snapping должен быть лишь удобным дополнением, чаще подходит `proximity`.
 
 <style>
 .ssx-demo {
@@ -912,20 +1049,140 @@ scroll-snap-align: [ none | start | end | center ]{1,2};
   display: inline-block;
 }
 
-.ssx-type-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 10px;
-  margin: 10px 0 20px;
+.ssx-type-demo {
+  padding-top: 42px;
 }
 
-.ssx-type-grid code {
-  display: block;
-  text-align: center;
+.ssx-type-demo__header {
+  position: absolute;
+  top: 10px;
+  left: 12px;
+  z-index: 3;
+}
+
+.ssx-type-demo__header code {
+  display: inline-block;
+  border-radius: 999px;
+  padding: 4px 10px;
+  background: #1e293b;
+  color: #e2e8f0;
+  font-size: 11px;
+}
+
+.ssx-type-demo__viewport {
+  overflow-y: auto;
+  overflow-x: hidden;
+  scroll-snap-type: y mandatory;
+  height: 320px;
   border-radius: 10px;
-  padding: 12px 8px;
-  background: #111827;
-  color: #e5e7eb;
+  border: 2px dashed #475569;
+  background: #f1f5f9;
+  padding: 12px;
+}
+
+.ssx-type-demo__viewport--proximity {
+  scroll-snap-type: y proximity;
+}
+
+.ssx-type-demo__track {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.ssx-type-demo__card {
+  min-height: 120px;
+  border-radius: 10px;
+  background: #e2e8f0;
+  display: grid;
+  place-items: center;
+  font-weight: 700;
+  font-size: 28px;
+  color: #0f172a;
+  scroll-snap-align: start;
+}
+
+.ssx-type-demo__card--active {
+  background: #fde68a;
+  border: 2px solid #d97706;
+  color: #78350f;
+}
+
+.ssx-type-demo__note {
+  margin: 10px 0 0;
+  font-size: 11px;
+  color: #475569;
+  line-height: 1.45;
+}
+
+.ssx-stop-demo {
+  padding-top: 42px;
+}
+
+.ssx-stop-demo__header {
+  position: absolute;
+  top: 10px;
+  left: 12px;
+  z-index: 3;
+}
+
+.ssx-stop-demo__header code {
+  display: inline-block;
+  border-radius: 999px;
+  padding: 4px 10px;
+  background: #1e293b;
+  color: #e2e8f0;
+  font-size: 11px;
+}
+
+.ssx-stop-demo__viewport {
+  overflow-y: auto;
+  overflow-x: hidden;
+  height: 320px;
+  border-radius: 10px;
+  border: 2px dashed #475569;
+  background: #f1f5f9;
+  padding: 12px;
+  scroll-snap-type: y mandatory;
+}
+
+.ssx-stop-demo__track {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.ssx-stop-demo__card {
+  min-height: 120px;
+  border-radius: 10px;
+  background: #e2e8f0;
+  display: grid;
+  place-items: center;
+  font-weight: 700;
+  font-size: 28px;
+  color: #0f172a;
+  scroll-snap-align: start;
+}
+
+.ssx-stop-demo--normal .ssx-stop-demo__card {
+  scroll-snap-stop: normal;
+}
+
+.ssx-stop-demo--always .ssx-stop-demo__card {
+  scroll-snap-stop: always;
+}
+
+.ssx-stop-demo__card--active {
+  background: #fde68a;
+  border: 2px solid #d97706;
+  color: #78350f;
+}
+
+.ssx-stop-demo__note {
+  margin: 10px 0 0;
+  font-size: 11px;
+  color: #475569;
+  line-height: 1.45;
 }
 
 .ssx-snapping-svg {
@@ -937,6 +1194,138 @@ scroll-snap-align: [ none | start | end | center ]{1,2};
 }
 
 /* ===== Section 7: scroll-snap-align — X-ray diagram ===== */
+
+.ssx-sa-intro {
+  display: grid;
+  gap: 12px;
+  margin: 12px 0 16px;
+}
+
+.ssx-sa-axis-card {
+  border-radius: 10px;
+  border: 1px solid #cbd5e1;
+  background: #f8fafc;
+  padding: 10px;
+}
+
+.ssx-sa-axis-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+}
+
+.ssx-sa-axis-header code {
+  display: inline-block;
+  background: #1e293b;
+  color: #e2e8f0;
+  border-radius: 999px;
+  padding: 3px 10px;
+  font-size: 11px;
+}
+
+.ssx-sa-axis-header span {
+  font-size: 11px;
+  color: #64748b;
+}
+
+.ssx-sa-axis-frame {
+  border-radius: 10px;
+  background: #e2e8f0;
+  padding: 14px;
+  overflow: visible;
+}
+
+.ssx-sa-axis-box {
+  position: relative;
+  min-height: 146px;
+  border-radius: 10px;
+  padding: 18px 18px 14px;
+  overflow: visible;
+}
+
+.ssx-sa-axis-box--area {
+  width: min(100%, 420px);
+  margin: 0 auto;
+  background: #fef3c7;
+  border: 2px solid #d97706;
+  color: #b45309;
+}
+
+.ssx-sa-axis-box--port {
+  width: min(100%, 460px);
+  margin: 0 auto;
+  background: #dbeafe;
+  border: 2px solid #2563eb;
+  color: #1d4ed8;
+}
+
+.ssx-sa-axis-name {
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 10px;
+  font-weight: 700;
+  color: inherit;
+  background: rgba(255, 255, 255, .86);
+  border: 1px solid currentColor;
+  border-radius: 999px;
+  padding: 2px 8px;
+  white-space: nowrap;
+}
+
+.ssx-sa-axis-rulers {
+  position: absolute;
+  inset: 0;
+}
+
+.ssx-sa-axis-ruler {
+  position: absolute;
+  left: -34px;
+  right: -34px;
+  height: 0;
+  border-top: 2px dashed currentColor;
+  opacity: .85;
+}
+
+.ssx-sa-axis-ruler span {
+  position: absolute;
+  right: 0;
+  transform: translateY(-50%);
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1.2;
+  white-space: nowrap;
+  color: inherit;
+  background: rgba(255, 255, 255, .92);
+  border: 1px solid currentColor;
+  border-radius: 999px;
+  padding: 2px 8px;
+}
+
+.ssx-sa-axis-ruler--start { top: 0; }
+.ssx-sa-axis-ruler--center { top: 50%; }
+.ssx-sa-axis-ruler--end { bottom: 0; }
+
+.ssx-sa-axis-note {
+  margin: 8px 0 0;
+  font-size: 11px;
+  color: #475569;
+  line-height: 1.4;
+}
+
+.ssx-sa-summary {
+  margin: 0 0 14px;
+  border-radius: 10px;
+  border: 1px solid #bfdbfe;
+  background: #eff6ff;
+  color: #1e3a8a;
+  padding: 10px 12px;
+  line-height: 1.5;
+}
 
 .ssx-sa-grid {
   display: grid;
@@ -1061,6 +1450,12 @@ scroll-snap-align: [ none | start | end | center ]{1,2};
   color: #475569;
   text-align: center;
   line-height: 1.3;
+}
+
+@media (max-width: 860px) {
+  .ssx-sa-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 /* ===== Section 8: snap position — before / after ===== */
@@ -1333,6 +1728,49 @@ scroll-snap-align: [ none | start | end | center ]{1,2};
   color: #475569;
   text-align: center;
 }
+
+.ssx-oversized-demo__viewport {
+  height: 248px;
+  scroll-snap-type: y mandatory;
+}
+
+.ssx-oversized-demo__card {
+  min-height: 96px;
+  scroll-snap-align: start;
+}
+
+.ssx-oversized-demo__card--giant {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  min-height: 540px;
+  padding: 20px;
+  background: #fde68a;
+  border: 2px solid #d97706;
+  color: #78350f;
+  text-align: left;
+}
+
+.ssx-oversized-demo__card--giant p {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.55;
+  font-weight: 500;
+}
+
+.ssx-oversized-demo__giant-label {
+  margin-bottom: 10px;
+  font-size: 24px;
+  font-weight: 800;
+}
+
+.ssx-oversized-demo__note {
+  margin: 10px 0 0;
+  font-size: 11px;
+  line-height: 1.45;
+  color: #475569;
+}
 </style>
 
 Именно поэтому свойства в модуле разделены на две группы:
@@ -1341,6 +1779,7 @@ scroll-snap-align: [ none | start | end | center ]{1,2};
 - дочерний элемент описывает, **какую область** считать значимой и **как именно** её выравнивать.
 
 ## Свойства для scroll-контейнера
+Уф! Мы прошлись по основной терминологии и поняли, как работает Scroll Snap. Уже сейчас имеется полное понимание геометрии и работы snap позиций Теперь давайте быстро рассмотрим CSS-свойства и их синтаксис для использования, которые будут использоваться в проекте.
 
 ### 1. `scroll-snap-type`
 
@@ -1361,37 +1800,9 @@ scroll-snap-type: none | [ x | y | block | inline | both ] [ mandatory | proximi
   - `mandatory` — браузер *обязан* остановиться на snap-позиции после завершения прокрутки;
   - `proximity` — браузер *может* остановиться на snap-позиции, если пользователь остановился достаточно близко к ней (рекомендуется для мягкого взаимодействия).
 
-**Пример: простой вертикальный слайдер**
-
-```html
-<div class="gallery">
-  <img src="photo1.jpg" alt="">
-  <img src="photo2.jpg" alt="">
-  <img src="photo3.jpg" alt="">
-</div>
-```
-
-```css
-.gallery {
-  display: flex;
-  flex-direction: column;
-  overflow-y: auto;
-  max-height: 320px;
-  scroll-snap-type: y mandatory; /* Принудительная привязка по вертикали */
-}
-
-.gallery img {
-  scroll-snap-align: center;   /* Центрировать каждый слайд по вертикали */
-  flex: 0 0 220px;
-  width: 100%;
-  margin-bottom: 1rem;
-}
-```
-
 Здесь при прокрутке слайдер всегда остановится так, чтобы очередное изображение оказалось по центру контейнера.
 
 ### 2. `scroll-padding`
-
 Свойство определяет внутренние отступы для snapport — области, которая считается «видимой» для расчёта привязки. Это полезно, когда часть контента перекрывается фиксированными элементами (шапка, подвал, тулбары).
 
 ```css
@@ -1455,7 +1866,6 @@ scroll-margin: <length>{1,4};
 
 ```css
 .gallery img {
-  scroll-snap-align: center;
   scroll-margin: 0 20px;   /* добавить по 20px слева и справа */
 }
 ```
@@ -1477,29 +1887,6 @@ scroll-snap-align: [ none | start | end | center ]{1,2};
 
 Если указано одно значение, оно применяется к обеим осям.
 
-**Пример: вертикальный лендинг с секциями на весь экран**
-
-```html
-<div class="slides">
-  <section>Слайд 1</section>
-  <section>Слайд 2</section>
-  <section>Слайд 3</section>
-</div>
-```
-
-```css
-.slides {
-  height: 100vh;
-  overflow-y: scroll;
-  scroll-snap-type: y mandatory;
-}
-
-.slides section {
-  height: 100vh;
-  scroll-snap-align: start;   /* каждая секция приклеится к верхнему краю */
-}
-```
-
 ### 5. `scroll-snap-stop`
 
 Управляет тем, можно ли «перепрыгнуть» через snap-позицию при быстрой прокрутке. Полезно, когда нужно остановиться на каждом элементе, не пропуская их.
@@ -1511,16 +1898,57 @@ scroll-snap-stop: normal | always;
 - `normal` — разрешено проскальзывать мимо (по умолчанию).
 - `always` — запрещено проходить мимо; прокрутка остановится на первой же snap-позиции.
 
-**Пример: пошаговая прокрутка**
+**Пример 1: обычная вертикальная лента (`normal`)**
+
+<div class="ssx-demo ssx-stop-demo ssx-stop-demo--normal">
+  <div class="ssx-stop-demo__header"><code>scroll-snap-stop: normal</code></div>
+  <div class="ssx-stop-demo__viewport">
+    <div class="ssx-stop-demo__track">
+      <article class="ssx-stop-demo__card">1</article>
+      <article class="ssx-stop-demo__card">2</article>
+      <article class="ssx-stop-demo__card">3</article>
+      <article class="ssx-stop-demo__card">4</article>
+      <article class="ssx-stop-demo__card">5</article>
+      <article class="ssx-stop-demo__card">6</article>
+      <article class="ssx-stop-demo__card">7</article>
+      <article class="ssx-stop-demo__card">8</article>
+    </div>
+  </div>
+  <p class="ssx-stop-demo__note">Здесь разрешено проскальзывать мимо: при быстром скролле браузер может перескочить через некоторые snap-позиции и остановиться дальше.</p>
+</div>
+
+```css
+.news-feed article {
+  scroll-snap-stop: normal;
+}
+```
+
+**Пример 2: пошаговая вертикальная прокрутка (`always`)**
+
+<div class="ssx-demo ssx-stop-demo ssx-stop-demo--always">
+  <div class="ssx-stop-demo__header"><code>scroll-snap-stop: always</code></div>
+  <div class="ssx-stop-demo__viewport">
+    <div class="ssx-stop-demo__track">
+      <section class="ssx-stop-demo__card">1</section>
+      <section class="ssx-stop-demo__card">2</section>
+      <section class="ssx-stop-demo__card">3</section>
+      <section class="ssx-stop-demo__card">4</section>
+      <section class="ssx-stop-demo__card">5</section>
+      <section class="ssx-stop-demo__card">6</section>
+      <section class="ssx-stop-demo__card">7</section>
+      <section class="ssx-stop-demo__card">8</section>
+    </div>
+  </div>
+  <p class="ssx-stop-demo__note">Здесь каждая snap-позиция обязательна: даже при быстром движении контейнер старается остановиться на ближайшей секции и не пропускать шаги.</p>
+</div>
 
 ```css
 .strict-slides section {
-  scroll-snap-align: start;
   scroll-snap-stop: always;
 }
 ```
 
-При таком подходе даже быстрое движение колесом мыши или свайп не позволит пропустить слайд — прокрутка остановится на каждом.
+При таком подходе даже быстрое движение колесом мыши или свайп не позволит пропустить секцию — прокрутка остановится на каждой.
 
 ## Особые случаи и рекомендации
 
@@ -1530,38 +1958,50 @@ scroll-snap-stop: normal | always;
 
 Это важно для случаев, когда в секции много контента — пользователь может прокручивать её внутри, но при переходе к другой секции сработает привязка.
 
-### Изменение контента (re-snapping)
+<div class="ssx-demo ssx-oversized-demo">
+  <div class="ssx-slider-demo ssx-oversized-demo__viewport">
+    <div class="ssx-cards ssx-oversized-demo__track">
+      <section class="ssx-card ssx-oversized-demo__card">1</section>
+      <section class="ssx-card ssx-oversized-demo__card">2</section>
+      <section class="ssx-card ssx-oversized-demo__card ssx-oversized-demo__card--giant">
+        <div class="ssx-oversized-demo__giant-label">Очень большой блок</div>
+        <p>Этот элемент специально выше видимой области.</p>
+        <p>Поэтому браузер не обязан сразу перескочить к следующему.</p>
+        <p>Пока большой блок не прокручен, внутри него можно двигаться свободно.</p>
+      </section>
+      <section class="ssx-card ssx-oversized-demo__card">4</section>
+      <section class="ssx-card ssx-oversized-demo__card">5</section>
+      <section class="ssx-card ssx-oversized-demo__card">6</section>
+      <section class="ssx-card ssx-oversized-demo__card">7</section>
+    </div>
+  </div>
+  <p class="ssx-oversized-demo__note">Попробуйте прокрутить галерею: на высоком блоке snapping временно не мешает дочитать содержимое внутри него.</p>
+</div>
 
-Если содержимое динамически меняется (добавляются/удаляются элементы), браузер обязан пересчитать snap-позиции и, если контейнер был привязан к определённому элементу, остаться привязанным к нему (если он всё ещё существует). Это обеспечивает предсказуемое поведение в чатах, логах и лентах.
-
-Пример с лог-консолью, которая всегда привязана к последнему сообщению:
+```html
+<div class="story-gallery">
+  <section>...</section>
+  <section class="story-gallery__giant">Очень большой блок</section>
+  <section>...</section>
+</div>
+```
 
 ```css
-.log {
-  scroll-snap-type: y proximity;
-  align-content: end;
+.story-gallery {
+  scroll-snap-type: y mandatory;
 }
 
-.log::after {
-  content: "";
-  display: block;
-  scroll-snap-align: end;   /* псевдоэлемент в конце создаёт точку привязки */
+.story-gallery section {
+  scroll-snap-align: start;
 }
 ```
 
-### `mandatory` vs `proximity`
+### Изменение контента (re-snapping)
 
-- Используйте `mandatory` только когда уверены, что все snap-позиции достижимы и контент не создаст «ловушек» (например, между элементами большие расстояния). Иначе пользователь может застрять на одном месте, не имея возможности прокрутить дальше.
-- `proximity` более безопасен: он даёт плавность, но не гарантирует остановку на каждом элементе. Хорошо подходит для интерфейсов, где snapping — приятное дополнение, а не обязательное условие.
+Если содержимое динамически меняется (добавляются/удаляются элементы), браузер обязан пересчитать snap-позиции и, если контейнер был привязан к определённому элементу, остаться привязанным к нему (если он всё ещё существует). Это обеспечивает предсказуемое поведение в чатах, логах и лентах.
 
 ## Поддержка браузерами
 
 Scroll Snap добавляен в инициативу [Interop 2026](https://wpt.fyi/interop-2026). Это для нас значит, что до конца года поддержка всему браузерами будет практически идеальной.
 
 CSS Scroll Snap Level 1 поддерживается во всех современных браузерах (Chrome, Firefox, Safari, Edge) начиная с 2018–2019 годов. Для старых версий могут потребоваться префиксы, но сейчас они не обязательны. Рекомендуется всегда проверять актуальную информацию на [caniuse.com](https://caniuse.com/css-snappoints).
-
-## Заключение
-
-Спецификация CSS Scroll Snap Module Level 1 даёт веб-разработчикам мощный инструмент для создания удобных и предсказуемых интерфейсов с прокруткой. Она проста в освоении, но требует внимания к деталям (особенно при использовании `mandatory`). Комбинируя `scroll-snap-type`, `scroll-padding`, `scroll-margin`, `scroll-snap-align` и `scroll-snap-stop`, вы можете реализовать практически любой сценарий — от простой фотогалереи до сложного постраничного приложения.
-
-Документация и актуальный статус спецификации доступны на [w3.org/TR/css-scroll-snap-1](https://www.w3.org/TR/css-scroll-snap-1/). Экспериментируйте и делайте прокрутку удобной!
