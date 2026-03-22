@@ -1,6 +1,6 @@
 ---
 title: 'Управление прокруткой с помощью CSS Scroll Snap Module Level 1'
-description: ''
+description: 'Разбираем CSS Scroll Snap Module Level 1: что такое scroll container, scrollport, snapport, scroll-padding, scroll-margin и как управлять привязкой прокрутки в интерфейсах.'
 pubDate: 'Mar 14 2026'
 ---
 
