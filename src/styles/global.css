@@ -66,6 +66,10 @@
   box-sizing: border-box;
 }
 
+html {
+  scrollbar-color: var(--accent) var(--bg-color);
+}
+
 html,
 body {
   height: 100%;
