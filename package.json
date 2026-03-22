@@ -14,14 +14,14 @@
     "lint:scripts:fix": "oxlint --fix"
   },
   "devDependencies": {
-    "@astrojs/check": "0.9.7",
-    "@astrojs/mdx": "5.0.0",
+    "@astrojs/check": "0.9.8",
+    "@astrojs/mdx": "5.0.2",
     "@astrojs/rss": "4.0.17",
     "@astrojs/sitemap": "3.7.1",
-    "astro": "6.0.2",
-    "oxlint": "1.53.0",
+    "astro": "6.0.8",
+    "oxlint": "1.56.0",
     "sharp": "0.34.5",
-    "stylelint": "17.4.0",
+    "stylelint": "17.5.0",
     "stylelint-config-expa": "1.0.0",
     "typescript": "5.9.3"
   },
