@@ -800,6 +800,12 @@ scroll-snap-type:
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
+@media (max-width: 720px) {
+  .ssx-margin-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
 .ssx-area-item--plain::after {
   inset: 0;
   border-style: dotted;
@@ -1623,6 +1629,18 @@ scroll-snap-type:
   display: flex;
   align-items: center;
   flex-shrink: 0;
+}
+
+@media (max-width: 720px) {
+  .ssx-pos-compare {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .ssx-pos-arrow {
+    justify-content: center;
+    transform: rotate(90deg);
+  }
 }
 
 /* ===== Section 9: snap positions (plural) — animated ruler ===== */
