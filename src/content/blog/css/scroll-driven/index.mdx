@@ -10,8 +10,11 @@ import Demo02ViewProgress from './demos/02-demo-view-progress.astro';
 import Demo03ViewInset from './demos/03-demo-view-inset.astro';
 import Demo04ViewRangeCover from './demos/04-demo-view-range-cover.astro';
 import Demo05ViewRangeContain from './demos/05-demo-view-range-contain.astro';
+import ScrollRocket from './demos/scroll-rocket.astro';
 
-Анимации традиционно управляются временем: они запускаются, длятся заданное количество миллисекунд и заканчиваются. Но что, если нужно, чтобы прогресс анимации зависел не от времени, а от положения полосы прокрутки? Именно эту задачу решает спецификация **[Scroll-driven Animations](https://www.w3.org/TR/scroll-animations-1/)**.
+<ScrollRocket />
+
+Анимации обычно управляются временем: они запускаются, длятся заданное количество миллисекунд и заканчиваются. Но что, если нужно, чтобы прогресс анимации зависел не от времени, а от положения полосы прокрутки? Именно эту задачу решает спецификация **[Scroll-driven Animations](https://www.w3.org/TR/scroll-animations-1/)**.
 
 Scroll-driven Animations позволяют привязать анимацию к прокрутке страницы или любого другого контейнера. Вместо `animation-duration` мы используем расстояние прокрутки: чем дальше прокручен контейнер, тем ближе анимация к своему завершению. Грубо говоря, если блок был прокручен на 50%, то анимация будет завершена на 50%.
 
