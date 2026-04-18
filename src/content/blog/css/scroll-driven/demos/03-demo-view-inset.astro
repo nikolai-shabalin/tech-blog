@@ -1,0 +1,212 @@
+<figure class="view-inset-demo">
+  <figcaption>
+    Этот пример повторяет демо выше. Линиями отмечены дополнительные <code>10%</code> от верхней и нижней границы, с которых визуально показывается старт анимации.
+  </figcaption>
+
+  <div class="view-inset-demo__stage dark-theme">
+    <div class="view-inset-demo__scroller">
+      <div class="view-inset-demo__stack">
+        <div class="view-inset-demo__card">Карточка 1</div>
+        <div class="view-inset-demo__card">Карточка 2</div>
+        <div class="view-inset-demo__card">Карточка 3</div>
+      </div>
+    </div>
+
+    <div class="view-inset-demo__shade view-inset-demo__shade--top" aria-hidden="true">
+      <span>Вне view()</span>
+    </div>
+
+    <div class="view-inset-demo__shade view-inset-demo__shade--bottom" aria-hidden="true">
+      <span>Вне view()</span>
+    </div>
+
+    <div class="view-inset-demo__active-zone" aria-hidden="true">
+      <span>Активная зона view()</span>
+    </div>
+
+    <div class="view-inset-demo__guide view-inset-demo__guide--top" aria-hidden="true">
+      <span>10%</span>
+    </div>
+
+    <div class="view-inset-demo__guide view-inset-demo__guide--bottom" aria-hidden="true">
+      <span>10%</span>
+    </div>
+  </div>
+</figure>
+
+<style>
+  .view-inset-demo {
+    margin: 20px 0 32px;
+  }
+
+  .view-inset-demo figcaption {
+    margin-bottom: 12px;
+    color: var(--gray);
+    font-size: 0.95rem;
+  }
+
+  .view-inset-demo__stage {
+    position: relative;
+    isolation: isolate;
+    border: 1px solid rgb(from var(--gray) r g b / 0.2);
+    border-radius: 24px;
+    overflow: hidden;
+    background:
+      radial-gradient(circle at top right, rgb(from var(--accent) r g b / 0.1), transparent 35%),
+      linear-gradient(180deg, var(--surface-color), rgb(from var(--gray-light) r g b / 0.35));
+  }
+
+  .view-inset-demo__scroller {
+    overscroll-behavior: contain;
+    height: 520px;
+    overflow-y: auto;
+    padding: 24px;
+  }
+
+  .view-inset-demo__stack {
+    display: grid;
+    gap: 18px;
+    padding-block: 52vh;
+    padding-inline: 40px;
+  }
+
+  .view-inset-demo__card {
+    width: 100%;
+    padding: 24px 22px;
+    border: 3px dashed rgb(from white r g b / 1);
+    border-radius: 20px;
+    background: rgb(from var(--surface-color) r g b / 1);
+    color: var(--black);
+    font-size: 1.05rem;
+    font-weight: 600;
+    animation: viewInsetAppear auto linear;
+    animation-timeline: view(block 32%);
+  }
+
+  .view-inset-demo__shade {
+    position: absolute;
+    left: 0;
+    right: 0;
+    z-index: 3;
+    display: flex;
+    height: 22%;
+    align-items: center;
+    justify-content: center;
+    color: rgb(from var(--black) r g b / 0.55);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    pointer-events: none;
+    text-transform: uppercase;
+    backdrop-filter: blur(1.5px);
+  }
+
+  .view-inset-demo__shade span {
+    padding: 4px 10px;
+    border: 1px solid rgb(from var(--black) r g b / 0.15);
+    border-radius: 999px;
+    background: rgb(from var(--surface-color) r g b / 0.66);
+  }
+
+  .view-inset-demo__shade--top {
+    top: 0;
+    border-bottom: 1px dashed rgb(from var(--black) r g b / 0.18);
+    background: linear-gradient(180deg, rgb(from var(--surface-color) r g b / 0.86), rgb(from var(--surface-color) r g b / 0.2));
+  }
+
+  .view-inset-demo__shade--bottom {
+    bottom: 0;
+    border-top: 1px dashed rgb(from var(--black) r g b / 0.18);
+    background: linear-gradient(0deg, rgb(from var(--surface-color) r g b / 0.86), rgb(from var(--surface-color) r g b / 0.2));
+  }
+
+  .view-inset-demo__active-zone {
+    position: absolute;
+    top: 22%;
+    right: 0;
+    bottom: 22%;
+    left: 0;
+    z-index: 2;
+    border: 2px dashed rgb(from var(--accent) r g b / 0.72);
+    pointer-events: none;
+  }
+
+  .view-inset-demo__active-zone span {
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    white-space: nowrap;
+    padding: 3px 10px;
+    border: 1px solid rgb(from var(--accent) r g b / 0.35);
+    border-radius: 999px;
+    background: rgb(from var(--surface-color) r g b / 0.85);
+    color: rgb(from var(--black) r g b / 0.8);
+    font-size: 0.74rem;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+  }
+
+  .view-inset-demo__guide {
+    position: absolute;
+    left: 0;
+    right: 0;
+    z-index: 5;
+    border-top: 2px dashed rgb(from white r g b / 0.9);
+    pointer-events: none;
+  }
+
+  .view-inset-demo__guide span {
+    position: absolute;
+    top: -12px;
+    right: 12px;
+    padding: 2px 8px;
+    border: 1px solid rgb(from white r g b / 0.55);
+    border-radius: 999px;
+    background: rgb(from var(--black) r g b / 0.5);
+    color: rgb(from white r g b / 0.95);
+    font-size: 0.72rem;
+    font-weight: 700;
+  }
+
+  .view-inset-demo__guide--top {
+    top: 32%;
+  }
+
+  .view-inset-demo__guide--bottom {
+    bottom: 32%;
+  }
+
+  @media (max-width: 720px) {
+    .view-inset-demo__scroller {
+      height: 420px;
+      padding: 16px;
+    }
+
+    .view-inset-demo__stack {
+      padding-block: 44vh;
+      padding-inline: 8px;
+    }
+
+    .view-inset-demo__active-zone {
+      left: 10px;
+      right: 10px;
+    }
+
+    .view-inset-demo__shade span,
+    .view-inset-demo__active-zone span,
+    .view-inset-demo__guide span {
+      font-size: 0.68rem;
+    }
+  }
+
+  @keyframes viewInsetAppear {
+    from {
+      border-color: rgb(from var(--accent) r g b / 1);
+    }
+
+    to {
+      border-color: rgb(from var(--accent) r g b / 0);
+    }
+  }
+</style>
