@@ -1036,9 +1036,6 @@ view([<axis> || <view-timeline-inset>]?)
 - `cover` — полный диапазон от первого появления элемента до полного исчезновения.
 
 <figure class="view-progress-demo">
-  <figcaption>
-    Прокрутите контейнер: центральная рамка показывает активную область <code>view()</code>, ту которую видит пользователь. Полупрозрачные зоны сверху и снизу показывают, что карточки продолжают двигаться дальше, но уже вне этой области.
-  </figcaption>
 
 <div class="view-progress-demo__stage dark-theme">
   <div class="view-progress-demo__scroller">
@@ -1211,10 +1208,6 @@ view([<axis> || <view-timeline-inset>]?)
 - `contain` — диапазон, когда элемент полностью находится внутри вьюпорта.
 
 <figure class="view-progress-demo">
-  <figcaption>
-    Прокрутите контейнер: центральная рамка показывает активную область <code>view()</code>, ту которую видит пользователь. Полупрозрачные зоны сверху и снизу показывают, что карточки продолжают двигаться дальше, но уже вне этой области.
-  </figcaption>
-
 <div class="view-progress-demo__stage dark-theme">
   <div class="view-progress-demo__scroller">
     <div class="view-progress-demo__stack">
