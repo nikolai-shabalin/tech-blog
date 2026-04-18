@@ -52,13 +52,13 @@
 </html>
 
 <script>
-	const feed = document.getElementById('feed');
-	const ad = document.getElementById('ad');
-	const loadAdButton = document.getElementById('load-ad');
-	const resetButton = document.getElementById('reset-demo');
-	const disableAnchoringCheckbox = document.getElementById('disable-anchoring');
-	const anchorPoint = document.getElementById('anchor-point');
-	const status = document.getElementById('status');
+	const feed = document.querySelector('#feed');
+	const ad = document.querySelector('#ad');
+	const loadAdButton = document.querySelector('#load-ad');
+	const resetButton = document.querySelector('#reset-demo');
+	const disableAnchoringCheckbox = document.querySelector('#disable-anchoring');
+	const anchorPoint = document.querySelector('#anchor-point');
+	const status = document.querySelector('#status');
 
 	function getRelativeAnchorTop() {
 		if (

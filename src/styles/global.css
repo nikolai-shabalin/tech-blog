@@ -48,8 +48,10 @@
   --space-3xl: 4rem;
 
   /* Шрифтовые пары */
-  --font-heading: "Montserrat", sans-serif;
-  --font-body: "Inter", sans-serif;
+  /* stylelint-disable-next-line no-unknown-custom-properties */
+  --font-heading: var(--font-montserrat);
+  /* stylelint-disable-next-line no-unknown-custom-properties */
+  --font-body: var(--font-inter);
 
   --content-width: 960px;
 }
@@ -316,6 +318,32 @@ hr {
     --gray-gradient: color-mix(in oklch, var(--theme-base) 36%, #000000), var(--bg-color);
     --focus-outline-color: color-mix(in oklch, var(--contrast-base) 70%, #ffffff);
   }
+
+  code {
+    background-color: rgb(from var(--surface-color) r g b / 0.7);
+    color: var(--gray-dark);
+    border-color: rgb(from var(--gray) r g b / 0.35);
+  }
+
+  pre {
+    background-color: rgb(from var(--surface-color) r g b / 0.8);
+    border-color: rgb(from var(--gray) r g b / 0.25);
+  }
+}
+
+.dark-theme {
+  --accent: color-mix(in oklch, var(--contrast-base) 62%, #ffffff);
+  --accent-dark: color-mix(in oklch, var(--contrast-base) 78%, #ffffff);
+  --accent-hover: var(--accent-dark);
+
+  --black: color-mix(in oklch, var(--theme-base) 28%, #ffffff);
+  --gray-dark: color-mix(in oklch, var(--theme-base) 20%, #ffffff);
+  --gray: color-mix(in oklch, var(--theme-base) 34%, #ffffff);
+  --gray-light: color-mix(in oklch, var(--theme-base) 32%, #000000);
+  --bg-color: color-mix(in oklch, var(--theme-base) 20%, #000000);
+  --surface-color: color-mix(in oklch, var(--theme-base) 26%, #000000);
+  --gray-gradient: color-mix(in oklch, var(--theme-base) 36%, #000000), var(--bg-color);
+  --focus-outline-color: color-mix(in oklch, var(--contrast-base) 70%, #ffffff);
 
   code {
     background-color: rgb(from var(--surface-color) r g b / 0.7);
