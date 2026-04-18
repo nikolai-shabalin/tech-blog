@@ -1,6 +1,7 @@
 ---
 import '../styles/global.css';
 import '../styles/transitions.css';
+import { Font } from 'astro:assets';
 import { ClientRouter } from 'astro:transitions';
 
 interface Props {
@@ -33,6 +34,7 @@ const { title, description, image } = Astro.props;
   };
 
   updateDayOfYear();
+  document.addEventListener('astro:after-swap', updateDayOfYear);
 </script>
 
 <ClientRouter />
@@ -46,10 +48,8 @@ const { title, description, image } = Astro.props;
 <!-- Sitemap -->
 <link rel="sitemap" type="application/xml" href="/sitemap-index.xml" />
 
-<!-- Google Fonts -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@500;600;700;800&display=swap" rel="stylesheet">
+<Font cssVariable="--font-inter" preload />
+<Font cssVariable="--font-montserrat" preload />
 
 <!-- Canonical URL -->
 <link rel="canonical" href={canonicalURL} />
