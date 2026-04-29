@@ -18,191 +18,150 @@
 </div>
 
 <style>
-	/* scoped to this post only */
-	article.post:has(.pixel-post-scope) {
-		position: relative;
-	}
+     article.post:has(.pixel-post-scope) > .pixel-heliocentric {
+       --system-size: clamp(280px, 62vw, 520px);
 
-	article.post:has(.pixel-post-scope) > .pixel-heliocentric {
-		--system-size: clamp(280px, 62vw, 520px);
-		--orbit-line: rgb(from var(--gray) r g b / 0.28);
-		--glow: rgb(from var(--accent) r g b / 0.22);
-		--sun-core: color-mix(in oklch, var(--accent) 65%, var(--bg-color));
-		--sun-halo: color-mix(in oklch, var(--accent) 25%, transparent);
-		--sun-rays: color-mix(in oklch, var(--accent) 40%, transparent);
-		--planet-1: color-mix(in oklch, var(--accent) 85%, var(--black));
-		--planet-2: color-mix(in oklch, var(--accent-dark) 90%, var(--black));
-		--planet-3: color-mix(in oklch, var(--gray-dark) 85%, var(--accent));
-		--planet-4: color-mix(in oklch, var(--gray) 70%, var(--accent));
+       --orbit-line: rgb(37 99 235 / 0.45);
+       --orbit-glow: rgb(37 99 235 / 0.18);
 
-		position: absolute;
-		width: var(--system-size);
-		height: var(--system-size);
-		left: 50%;
-		top: 0;
-		transform: translate(-50%, 20px);
-		pointer-events: none;
-		z-index: 0;
-	}
+       --sun-core: #f97316;
+       --sun-edge: #facc15;
+       --sun-glow: rgb(249 115 22 / 0.35);
 
-	@media (prefers-color-scheme: dark) {
-		article.post:has(.pixel-post-scope) > .pixel-heliocentric {
-			--planet-1: color-mix(in oklch, var(--accent) 55%, #ffffff);
-			--planet-2: color-mix(in oklch, var(--accent-dark) 55%, #ffffff);
-			--planet-3: color-mix(in oklch, var(--gray-dark) 20%, #ffffff);
-			--planet-4: color-mix(in oklch, var(--gray) 20%, #ffffff);
-		}
-	}
+       --planet-1: #2563eb;
+       --planet-2: #dc2626;
+       --planet-3: #16a34a;
+       --planet-4: #9333ea;
 
-	article.post:has(.pixel-post-scope) .post__title {
-		position: relative;
-		z-index: 1;
-		text-shadow:
-			0 1px 0 rgb(from var(--bg-color) r g b / 0.5),
-			0 0 24px rgb(from var(--bg-color) r g b / 0.85);
-	}
+       position: absolute;
+       width: var(--system-size);
+       height: var(--system-size);
+       left: 50%;
+       top: 0;
+       transform: translate(-50%, 20px);
+       pointer-events: none;
+       z-index: 0;
+     }
 
-	.pixel-heliocentric__sun {
-		position: absolute;
-		left: 50%;
-		top: 50%;
-		width: 34px;
-		height: 34px;
-		transform: translate(-50%, -50%);
-		border-radius: 999px;
-		background: radial-gradient(circle, var(--sun-core), var(--sun-halo));
-		box-shadow:
-			0 0 0 8px rgb(from var(--accent) r g b / 0.06),
-			0 0 0 20px rgb(from var(--accent) r g b / 0.04),
-			0 12px 30px var(--glow);
-		filter: saturate(1.1);
-	}
+  @media (prefers-color-scheme: dark) {
+    article.post:has(.pixel-post-scope) > .pixel-heliocentric {
+      --orbit-line: rgb(147 197 253 / 0.5);
+      --orbit-glow: rgb(147 197 253 / 0.22);
 
-	.pixel-heliocentric__sun::before,
-	.pixel-heliocentric__sun::after {
-		content: '';
-		position: absolute;
-		left: 50%;
-		top: 50%;
-		transform: translate(-50%, -50%);
-		border-radius: 999px;
-		pointer-events: none;
-	}
+      --sun-core: #facc15;
+      --sun-edge: #fb923c;
+      --sun-glow: rgb(250 204 21 / 0.45);
 
-	/* мягкие “лучи” */
-	.pixel-heliocentric__sun::before {
-		width: 76px;
-		height: 76px;
-		background:
-			conic-gradient(
-				from 0deg,
-				rgb(from var(--sun-rays) r g b / 0.0) 0deg,
-				rgb(from var(--sun-rays) r g b / 0.28) 18deg,
-				rgb(from var(--sun-rays) r g b / 0.0) 42deg,
-				rgb(from var(--sun-rays) r g b / 0.22) 68deg,
-				rgb(from var(--sun-rays) r g b / 0.0) 92deg,
-				rgb(from var(--sun-rays) r g b / 0.26) 120deg,
-				rgb(from var(--sun-rays) r g b / 0.0) 150deg,
-				rgb(from var(--sun-rays) r g b / 0.2) 176deg,
-				rgb(from var(--sun-rays) r g b / 0.0) 210deg,
-				rgb(from var(--sun-rays) r g b / 0.24) 240deg,
-				rgb(from var(--sun-rays) r g b / 0.0) 270deg,
-				rgb(from var(--sun-rays) r g b / 0.22) 302deg,
-				rgb(from var(--sun-rays) r g b / 0.0) 360deg
-			);
-		filter: blur(1.2px);
-		opacity: 0.85;
-	}
+      --planet-1: #60a5fa;
+      --planet-2: #f87171;
+      --planet-3: #4ade80;
+      --planet-4: #c084fc;
+    }
+  }
 
-	/* дополнительное гало */
-	.pixel-heliocentric__sun::after {
-		width: 96px;
-		height: 96px;
-		background: radial-gradient(circle, rgb(from var(--accent) r g b / 0.12), transparent 70%);
-		filter: blur(1px);
-	}
+  .pixel-heliocentric__sun {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 42px;
+    height: 42px;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    background: radial-gradient(circle, var(--sun-core) 0 45%, var(--sun-edge) 70%);
+    box-shadow:
+      0 0 0 10px rgb(249 115 22 / 0.12),
+      0 0 34px 12px var(--sun-glow);
+  }
 
-	.pixel-heliocentric__orbit {
-		position: absolute;
-		left: 50%;
-		top: 50%;
-		transform: translate(-50%, -50%);
-		border-radius: 999px;
-		border: 1px solid var(--orbit-line);
-		box-shadow: 0 0 0 1px rgb(from var(--bg-color) r g b / 0.12) inset;
-		animation: pixel-heliocentric-spin var(--duration) linear infinite;
-	}
+  .pixel-heliocentric__sun::before,
+  .pixel-heliocentric__sun::after {
+    content: none;
+  }
 
-	.pixel-heliocentric__orbit::after {
-		content: '';
-		position: absolute;
-		inset: -2px;
-		border-radius: inherit;
-		box-shadow: 0 0 18px rgb(from var(--accent) r g b / 0.08);
-	}
+  .pixel-heliocentric__orbit {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    border: 2px solid var(--orbit-line);
+    box-shadow:
+      0 0 0 1px rgb(255 255 255 / 0.18) inset,
+      0 0 18px var(--orbit-glow);
+    animation: pixel-heliocentric-spin var(--duration) linear infinite;
+  }
 
-	.pixel-heliocentric__planet {
-		position: absolute;
-		left: 50%;
-		top: 0;
-		transform: translate(-50%, -50%);
-		border-radius: 999px;
-		box-shadow:
-			0 0 0 2px rgb(from var(--bg-color) r g b / 0.8),
-			0 10px 22px rgb(from var(--black) r g b / 0.16);
-	}
+  .pixel-heliocentric__orbit::after {
+    content: none;
+  }
 
-	.pixel-heliocentric__orbit--1 {
-		--duration: 8.5s;
-		width: clamp(150px, 38vw, 240px);
-		height: clamp(150px, 38vw, 240px);
-	}
-	.pixel-heliocentric__planet--1 {
-		width: 10px;
-		height: 10px;
-		background: var(--planet-1);
-	}
+  .pixel-heliocentric__planet {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    border: 2px solid rgb(255 255 255 / 0.9);
+    box-shadow:
+      0 0 0 2px rgb(0 0 0 / 0.18),
+      0 0 16px currentColor;
+  }
 
-	.pixel-heliocentric__orbit--2 {
-		--duration: 13s;
-		width: clamp(200px, 48vw, 320px);
-		height: clamp(200px, 48vw, 320px);
-		animation-direction: reverse;
-	}
-	.pixel-heliocentric__planet--2 {
-		width: 12px;
-		height: 12px;
-		background: var(--planet-2);
-	}
+  .pixel-heliocentric__orbit--1 {
+    --duration: 8.5s;
+    width: clamp(150px, 38vw, 240px);
+    height: clamp(150px, 38vw, 240px);
+  }
 
-	.pixel-heliocentric__orbit--3 {
-		--duration: 19s;
-		width: clamp(250px, 58vw, 400px);
-		height: clamp(250px, 58vw, 400px);
-	}
-	.pixel-heliocentric__planet--3 {
-		width: 9px;
-		height: 9px;
-		background: var(--planet-3);
-		opacity: 0.95;
-	}
+  .pixel-heliocentric__planet--1 {
+    width: 18px;
+    height: 18px;
+    color: var(--planet-1);
+    background: var(--planet-1);
+  }
 
-	.pixel-heliocentric__orbit--4 {
-		--duration: 27s;
-		width: clamp(300px, 68vw, 480px);
-		height: clamp(300px, 68vw, 480px);
-		animation-direction: reverse;
-		border-style: dashed;
-		border-color: rgb(from var(--gray) r g b / 0.22);
-	}
-	.pixel-heliocentric__planet--4 {
-		width: 7px;
-		height: 7px;
-		background: var(--planet-4);
-		opacity: 0.85;
-	}
+  .pixel-heliocentric__orbit--2 {
+    --duration: 13s;
+    width: clamp(200px, 48vw, 320px);
+    height: clamp(200px, 48vw, 320px);
+    animation-direction: reverse;
+  }
 
-	@keyframes pixel-heliocentric-spin {
+  .pixel-heliocentric__planet--2 {
+    width: 22px;
+    height: 22px;
+    color: var(--planet-2);
+    background: var(--planet-2);
+  }
+
+  .pixel-heliocentric__orbit--3 {
+    --duration: 19s;
+    width: clamp(250px, 58vw, 400px);
+    height: clamp(250px, 58vw, 400px);
+  }
+
+  .pixel-heliocentric__planet--3 {
+    width: 16px;
+    height: 16px;
+    color: var(--planet-3);
+    background: var(--planet-3);
+  }
+
+  .pixel-heliocentric__orbit--4 {
+    --duration: 27s;
+    width: clamp(300px, 68vw, 480px);
+    height: clamp(300px, 68vw, 480px);
+    animation-direction: reverse;
+  }
+
+  .pixel-heliocentric__planet--4 {
+    width: 14px;
+    height: 14px;
+    color: var(--planet-4);
+    background: var(--planet-4);
+  }
+
+ @keyframes pixel-heliocentric-spin {
 		from {
 			transform: translate(-50%, -50%) rotate(0deg);
 		}
