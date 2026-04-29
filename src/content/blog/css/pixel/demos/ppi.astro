@@ -1,0 +1,121 @@
+<figure class="pixel-density-demo">
+  <div class="pixel-density-demo__phones">
+    <div class="pixel-density-demo__item">
+      <div class="pixel-density-demo__phone pixel-density-demo__phone--standard">
+        <div class="pixel-density-demo__speaker"></div>
+        <div class="pixel-density-demo__screen"></div>
+        <div class="pixel-density-demo__button"></div>
+      </div>
+      <figcaption>
+        Обычный дисплей<br>
+        320×480 · 163 PPI
+      </figcaption>
+    </div>
+
+    <div class="pixel-density-demo__item">
+      <div class="pixel-density-demo__phone pixel-density-demo__phone--retina">
+        <div class="pixel-density-demo__speaker"></div>
+        <div class="pixel-density-demo__screen"></div>
+        <div class="pixel-density-demo__button"></div>
+      </div>
+      <figcaption>
+        Retina-дисплей<br>
+        640×960 · 326 PPI
+      </figcaption>
+    </div>
+  </div>
+</figure>
+
+<style>
+  .pixel-density-demo {
+    margin: 32px 0;
+  }
+
+  .pixel-density-demo__phones {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+    justify-content: center;
+  }
+
+  .pixel-density-demo__item {
+    text-align: center;
+  }
+
+  .pixel-density-demo__phone {
+    width: 160px;
+    height: 240px;
+    padding: 18px 12px 22px;
+    border: 4px solid #222;
+    border-radius: 24px;
+    background: #f4f4f5;
+    box-shadow: 0 12px 30px rgb(0 0 0 / 0.18);
+  }
+
+  .pixel-density-demo__speaker {
+    width: 42px;
+    height: 5px;
+    margin: 0 auto 12px;
+    border-radius: 999px;
+    background: #222;
+  }
+
+  .pixel-density-demo__screen {
+    height: 172px;
+    border: 2px solid #222;
+    border-radius: 8px;
+    background-color: #fff;
+    background-image:
+      linear-gradient(to right, rgb(59 130 246 / 0.55) 1px, transparent 1px),
+      linear-gradient(to bottom, rgb(59 130 246 / 0.55) 1px, transparent 1px);
+  }
+
+  .pixel-density-demo__phone--standard .pixel-density-demo__screen {
+    background-size: 20px 20px;
+  }
+
+  .pixel-density-demo__phone--retina .pixel-density-demo__screen {
+    background-size: 10px 10px;
+  }
+
+  .pixel-density-demo__button {
+    width: 18px;
+    height: 18px;
+    margin: 10px auto 0;
+    border: 2px solid #222;
+    border-radius: 50%;
+  }
+
+  .pixel-density-demo figcaption {
+    margin-top: 12px;
+    font-size: 14px;
+    line-height: 1.4;
+    color: #555;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    .pixel-density-demo__phone {
+      border-color: #e5e7eb;
+      background: #18181b;
+      box-shadow: 0 12px 30px rgb(0 0 0 / 0.45);
+    }
+
+    .pixel-density-demo__speaker,
+    .pixel-density-demo__button {
+      border-color: #e5e7eb;
+      background: #e5e7eb;
+    }
+
+    .pixel-density-demo__screen {
+      border-color: #e5e7eb;
+      background-color: #09090b;
+      background-image:
+        linear-gradient(to right, rgb(96 165 250 / 0.75) 1px, transparent 1px),
+        linear-gradient(to bottom, rgb(96 165 250 / 0.75) 1px, transparent 1px);
+    }
+
+    .pixel-density-demo figcaption {
+      color: #d4d4d8;
+    }
+  }
+</style>

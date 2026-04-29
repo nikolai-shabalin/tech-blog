@@ -1,0 +1,145 @@
+<figure class="perception-demo">
+  <div class="perception-demo__wrapper">
+
+    <!-- маленькое устройство -->
+    <div class="perception-demo__device perception-demo__device--small">
+      <div class="perception-demo__screen">
+        <button class="perception-demo__button">120×40 px</button>
+      </div>
+      <figcaption>
+        Маленький экран<br>
+        меньше физических пикселей
+      </figcaption>
+    </div>
+
+    <!-- большое устройство -->
+    <div class="perception-demo__device perception-demo__device--large">
+      <div class="perception-demo__screen">
+        <button class="perception-demo__button">120×40 px</button>
+      </div>
+      <figcaption>
+        Большой экран<br>
+        больше физических пикселей
+      </figcaption>
+    </div>
+
+  </div>
+</figure>
+
+<style>
+  .perception-demo {
+    margin: 32px 0;
+  }
+
+  .perception-demo__wrapper {
+    display: flex;
+    gap: 32px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .perception-demo__device {
+    text-align: center;
+  }
+
+  .perception-demo__screen {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 3px solid #222;
+    border-radius: 16px;
+    background: #f4f4f5;
+    margin-bottom: 12px;
+  }
+
+  /* разные физические размеры экранов */
+  .perception-demo__device--small .perception-demo__screen {
+    width: 180px;
+    height: 260px;
+  }
+
+  .perception-demo__device--large .perception-demo__screen {
+    width: 260px;
+    height: 360px;
+  }
+
+  /* одинаковая кнопка в CSS-пикселях */
+  .perception-demo__button {
+    width: 120px;
+    height: 40px;
+    border-radius: 8px;
+    border: 2px solid #222;
+    background: #3b82f6;
+    color: #fff;
+    font-size: 14px;
+    font-family: inherit;
+  }
+
+  .perception-demo figcaption {
+    font-size: 14px;
+    color: #555;
+    line-height: 1.4;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    .perception-demo__screen {
+      border-color: #e5e7eb;
+      background: #09090b;
+    }
+
+    .perception-demo__button {
+      border-color: #e5e7eb;
+      background: #2563eb;
+    }
+
+    .perception-demo figcaption {
+      color: #d4d4d8;
+    }
+  }
+  @media (max-width: 640px) {
+    .perception-demo__wrapper {
+      gap: 24px;
+    }
+
+    .perception-demo__screen {
+      border-width: 2px;
+      border-radius: 14px;
+    }
+
+    .perception-demo__device--small .perception-demo__screen {
+      width: 150px;
+      height: 220px;
+    }
+
+    .perception-demo__device--large .perception-demo__screen {
+      width: 190px;
+      height: 260px;
+    }
+
+    .perception-demo__button {
+      width: 110px;
+      height: 38px;
+      font-size: 13px;
+    }
+  }
+
+  @media (max-width: 420px) {
+    .perception-demo__wrapper {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .perception-demo__device--small .perception-demo__screen,
+    .perception-demo__device--large .perception-demo__screen {
+      width: min(100%, 220px);
+    }
+
+    .perception-demo__device--small .perception-demo__screen {
+      height: 260px;
+    }
+
+    .perception-demo__device--large .perception-demo__screen {
+      height: 300px;
+    }
+  }
+</style>
