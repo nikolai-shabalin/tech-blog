@@ -12,7 +12,7 @@ type Props = CollectionEntry<'blog'>['data'] & {
   slug?: string;
 };
 
-const {title, description, pubDate, slug = '', mascotMessages = [], isDigest = false} = Astro.props;
+const {title, description, pubDate, updatedDate, slug = '', mascotMessages = [], isDigest = false} = Astro.props;
 ---
 
 <html lang="ru">
@@ -39,10 +39,14 @@ const {title, description, pubDate, slug = '', mascotMessages = [], isDigest = f
       text-align: center;
     }
 
-    .post :global(time) {
-      margin-bottom: var(--space-2xl);
+    .post__dates {
+      display: flex;
+      flex-direction: column;
+      flex-wrap: wrap;
+      align-content: center;
       text-align: center;
-      display: block;
+      gap: var(--space-2xs) var(--space-md);
+      margin-bottom: var(--space-2xl);
       color: var(--gray);
       font-style: italic;
       font-size: var(--text-sm);
@@ -182,7 +186,12 @@ const {title, description, pubDate, slug = '', mascotMessages = [], isDigest = f
   <article class="post">
     <a href="/" class="home-link">На главную</a>
     <h1 class="post__title" transition:name={`title-${slug}`}>{title}</h1>
-    <FormattedDate date={pubDate}/>
+    <p class="post__dates">
+      <span><FormattedDate date={pubDate}/></span>
+      {updatedDate && (
+        <span>Обновлено: <FormattedDate date={updatedDate}/></span>
+      )}
+    </p>
     {isDigest && (
       <p class="digest-note">
         Новые выпуски выходят на

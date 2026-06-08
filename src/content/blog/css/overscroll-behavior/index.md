@@ -2,6 +2,7 @@
 title: "Управляем «протягиванием» прокрутки: разбор overscroll‑behavior"
 description: "Разбираем CSS-свойство overscroll-behavior: предотвращаем scroll chaining, управляем bounce и pull-to-refresh, улучшаем UX."
 pubDate: "Aug 19 2025"
+updatedDate: "June 08 2026"
 ---
 
 Распространённый сценарий: вы прокручиваете модальное окно, доезжаете до конца и… вместо того чтобы остановиться, браузер продолжает тянуть основной документ. Это так называемый «scroll chaining»: событие прокрутки передаётся родительскому контейнеру. На мобильных устройствах этот эффект сопровождается bounce‑анимацией или pull‑to‑refresh. Для некоторых интерфейсов такое поведение отвлекает пользователя и может мешать вашему коду.
@@ -302,6 +303,7 @@ pubDate: "Aug 19 2025"
 overscroll-behavior: auto; /* значение по умолчанию */
 overscroll-behavior: contain;
 overscroll-behavior: none;
+overscroll-behavior: chain;
 
 /* Два значения: для осей X и Y */
 overscroll-behavior: auto contain;
@@ -313,6 +315,7 @@ overscroll-behavior: auto contain;
 | `auto`    | Стандартное поведение: событие прокрутки передаётся родителю, работают bounce‑эффекты.                                       |
 | `contain` | Останавливает scroll chaining: прокрутка ограничена текущим контейнером, но визуальные эффекты (bounce/refresh) сохраняются. |
 | `none`    | Запрещает scroll chaining и отключает bounce и pull‑to‑refresh.                                                              |
+| `chain`   | Разрешает scroll chaining и навигационные действия, но отключает локальные overscroll‑эффекты вроде bounce‑эффекта.          |
 
 Если указать два значения, первое относится к горизонтальной оси, второе — к вертикальной. Для отдельного управления можно использовать составные свойства `overscroll-behavior-x` и `overscroll-behavior-y`, а также логические варианты overscroll-behavior-inline и overscroll-behavior-block для учёта writing-mode.
 
@@ -328,7 +331,7 @@ html {
 }
 ```
 
-Это остановит прокрутку при достижении верхней границы, но bounce‑эффект сохранится. Если нужно полностью отключить «резинку», используйте значение `none`:
+Это остановит прокрутку при достижении верхней границы, но bounce‑эффект сохранится. Если нужно полностью отключить bounce‑эффект, используйте значение `none`:
 ```css
 html {
   overscroll-behavior-y: none;
@@ -336,6 +339,8 @@ html {
 ```
 
 Такой подход пригодится при реализации собственной анимации pull‑to‑refresh либо бесконечной ленты, чтобы визуальный «отскок» не сбивал пользователей.
+
+Недавно появилось значение `chain`, которое уже внедрено в [Chrome 150](https://caniuse.com/mdn-css_properties_overscroll-behavior_chain). Оно работает иначе: браузер может передать прокрутку дальше по цепочке или выполнить навигационное действие, но не должен показывать локальный overscroll‑эффект на самом контейнере. Это полезно, когда важно убрать bounce‑эффект, но не блокировать естественную передачу прокрутки родителю.
 
 ## Примеры использования
 ### Длинная мобильная навигация
@@ -393,5 +398,8 @@ html {
 | `overscroll-behavior-inline` | inline‑ось     | Переключается между `x` и `y` в зависимости от режима письма. |
 | `overscroll-behavior-block`  | блок‑ось       | Аналогично inline‑варианту, только для блокового направления. |
 
+## Changelog
+-  Добавлено про новое значение chain (08.07.2026)
+
 ## Источники
-- [CSS Overscroll Behavior Module Level 1](https://drafts.csswg.org/css-overscroll/)
+- [CSS Overscroll Behavior Module Level 1](https://drafts.csswg.org/css-overscroll/) и  [драфт от 30 апреля](https://drafts.csswg.org/css-overscroll-1/)
