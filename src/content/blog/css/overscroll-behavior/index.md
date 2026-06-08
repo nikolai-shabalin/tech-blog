@@ -2,6 +2,7 @@
 title: "Управляем «протягиванием» прокрутки: разбор overscroll‑behavior"
 description: "Разбираем CSS-свойство overscroll-behavior: предотвращаем scroll chaining, управляем bounce и pull-to-refresh, улучшаем UX."
 pubDate: "Aug 19 2025"
+updatedDate: "June 08 2026"
 ---
 
 Распространённый сценарий: вы прокручиваете модальное окно, доезжаете до конца и… вместо того чтобы остановиться, браузер продолжает тянуть основной документ. Это так называемый «scroll chaining»: событие прокрутки передаётся родительскому контейнеру. На мобильных устройствах этот эффект сопровождается bounce‑анимацией или pull‑to‑refresh. Для некоторых интерфейсов такое поведение отвлекает пользователя и может мешать вашему коду.
@@ -396,6 +397,9 @@ html {
 | `overscroll-behavior-y`      | вертикальная   | Контролирует прокрутку сверху вниз.                           |
 | `overscroll-behavior-inline` | inline‑ось     | Переключается между `x` и `y` в зависимости от режима письма. |
 | `overscroll-behavior-block`  | блок‑ось       | Аналогично inline‑варианту, только для блокового направления. |
+
+## Changelog
+-  Добавлено про новое значение chain (08.07.2026)
 
 ## Источники
 - [CSS Overscroll Behavior Module Level 1](https://drafts.csswg.org/css-overscroll/) и  [драфт от 30 апреля](https://drafts.csswg.org/css-overscroll-1/)
