@@ -1,3 +1,11 @@
+const SVG_EXTENSION = '.svg';
+const URL_QUERY_SEPARATOR = '?';
+
+const isSvg = (src) => {
+	const [pathname] = src.toLowerCase().split(URL_QUERY_SEPARATOR);
+	return pathname.endsWith(SVG_EXTENSION);
+};
+
 /**
  * Помечает оптимизируемые <img> в Markdown/MD (content collections),
  * чтобы патч runtime подставлял <picture> с AVIF/WebP (см. vite-patch-content-picture.mjs).
@@ -13,7 +21,7 @@ export default function rehypeMarkdownPicture(options = {}) {
 		const walk = (node) => {
 			if (node?.type === 'element' && node.tagName === 'img' && typeof node.properties?.src === 'string') {
 				const src = decodeURI(node.properties.src);
-				if (local.includes(src) || remote.includes(src)) {
+				if (!isSvg(src) && (local.includes(src) || remote.includes(src))) {
 					node.properties.formats = formats;
 				}
 			}
