@@ -1,6 +1,6 @@
 allowBuilds:
-  esbuild: set this to true or false
-  sharp: set this to true or false
+  esbuild: true
+  sharp: true
 minimumReleaseAgeExclude:
   - '@oxlint/binding-android-arm-eabi@1.66.0'
   - '@oxlint/binding-android-arm64@1.66.0'
