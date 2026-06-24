@@ -1,12 +1,14 @@
 ---
+/* eslint-disable sort-imports */
 import BaseHead from '../../../components/base-head.astro';
 import Footer from '../../../components/footer.astro';
+import { type CollectionEntry, getCollection } from 'astro:content';
 import Header from '../../../components/header.astro';
 import PostsList from '../../../components/posts-list.astro';
 import { SITE_TITLE } from '../../../consts';
-import { getCollection } from 'astro:content';
+import type { GetStaticPaths } from 'astro';
 
-export const getStaticPaths = () =>
+export const getStaticPaths: GetStaticPaths = () =>
   getCollection('blog').then((allPosts) => {
     const ROOT_SEGMENT_INDEX = 0;
     const uniqueCategories = [...new Set(
@@ -29,7 +31,7 @@ export const getStaticPaths = () =>
   });
 
 const { category } = Astro.params;
-const { posts } = Astro.props;
+const { posts } = Astro.props as { posts: CollectionEntry<'blog'>[] };
 
 const sortedPosts = posts.toSorted(
   (firstPost, secondPost) => secondPost.data.pubDate.valueOf() - firstPost.data.pubDate.valueOf(),

@@ -1,8 +1,8 @@
 ---
 import '../styles/global.css';
 import '../styles/transitions.css';
-import { Font } from 'astro:assets';
 import { ClientRouter } from 'astro:transitions';
+import { Font } from 'astro:assets';
 
 interface Props {
 	title: string;
@@ -21,6 +21,7 @@ const { title, description, image } = Astro.props;
 <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
 <meta name="generator" content={Astro.generator} />
 <script is:inline>
+  /* eslint-disable explicit-function-return-type */
   const updateDayOfYear = () => {
     const JANUARY = 0;
     const FIRST_DAY_OF_MONTH = 1;
@@ -75,6 +76,7 @@ const { title, description, image } = Astro.props;
 
 <!-- Yandex.Metrika counter -->
 <script is:inline type="text/javascript" >
+  /* eslint-disable explicit-function-return-type */
   const YANDEX_METRIKA_ID = 99_027_716;
   const SCRIPT_URL = 'https://mc.yandex.ru/metrika/tag.js';
   const LOCAL_HOSTNAMES = new Set(['127.0.0.1', 'localhost']);

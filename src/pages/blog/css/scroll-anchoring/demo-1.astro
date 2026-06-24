@@ -59,30 +59,34 @@
 	const disableAnchoringCheckbox = document.querySelector('#disable-anchoring');
 	const anchorPoint = document.querySelector('#anchor-point');
 	const status = document.querySelector('#status');
+	const ANCHOR_UNAVAILABLE = Number.NaN;
 
-	function getRelativeAnchorTop() {
+	const getRelativeAnchorTop = (): number => {
 		if (
 			!(feed instanceof HTMLElement) ||
 			!(anchorPoint instanceof HTMLElement)
 		) {
-			return null;
+			return ANCHOR_UNAVAILABLE;
 		}
 
 		const feedRect = feed.getBoundingClientRect();
 		const anchorRect = anchorPoint.getBoundingClientRect();
 		return Math.round(anchorRect.top - feedRect.top);
-	}
+	};
 
-	function setStatus(text: string) {
+	const setStatus = (text: string): void => {
 		if (status instanceof HTMLElement) {
 			status.textContent = text;
 		}
-	}
+	};
 
 	if (disableAnchoringCheckbox instanceof HTMLInputElement && feed instanceof HTMLElement) {
 		disableAnchoringCheckbox.addEventListener('change', () => {
 			feed.classList.toggle('no-anchor', disableAnchoringCheckbox.checked);
-			const mode = disableAnchoringCheckbox.checked ? 'выключено' : 'включено';
+			let mode = 'включено';
+			if (disableAnchoringCheckbox.checked) {
+				mode = 'выключено';
+			}
 			setStatus(`Статус: Scroll Anchoring ${mode}.`);
 		});
 	}
@@ -104,7 +108,7 @@
 
 			requestAnimationFrame(() => {
 				const after = getRelativeAnchorTop();
-				if (before === null || after === null) {
+				if (Number.isNaN(before) || Number.isNaN(after)) {
 					setStatus('Статус: реклама загружена.');
 					return;
 				}

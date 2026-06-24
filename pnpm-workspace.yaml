@@ -23,3 +23,5 @@ minimumReleaseAgeExclude:
   - '@oxlint/binding-win32-x64-msvc@1.66.0'
   - oxlint@1.66.0
   - stylelint@17.13.0
+  - '@astrojs/markdown-satteri@0.3.2'
+  - astro@7.0.2

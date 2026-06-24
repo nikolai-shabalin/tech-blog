@@ -1,9 +1,11 @@
 // @ts-check
+/* eslint-disable sort-imports */
 import { defineConfig, fontProviders } from 'astro/config';
-import mdx from '@astrojs/mdx';
-import sitemap from '@astrojs/sitemap';
-import rehypeMarkdownPicture from './src/plugins/rehype-markdown-picture.mjs';
+import { satteri } from '@astrojs/markdown-satteri';
 import { vitePatchContentMarkdownPicture } from './src/plugins/vite-patch-content-picture.mjs';
+import mdx from '@astrojs/mdx';
+import { satteriMarkdownPicture } from './src/plugins/satteri-markdown-picture.mjs';
+import sitemap from '@astrojs/sitemap';
 
 /** @type {[string, ...string[]]} */
 const LATIN_UNICODE_RANGE = [
@@ -42,50 +44,50 @@ export default defineConfig({
 	base: '',
 	fonts: [
 		{
-			name: 'Inter',
 			cssVariable: '--font-inter',
-			provider: fontProviders.local(),
+			name: 'Inter',
 			options: {
 				variants: [
 					{
-						src: ['./src/assets/fonts/inter-latin-wght-normal.woff2'],
-						weight: '100 900',
-						style: 'normal',
 						display: 'swap',
+						src: ['./src/assets/fonts/inter-latin-wght-normal.woff2'],
+						style: 'normal',
 						unicodeRange: LATIN_UNICODE_RANGE,
+						weight: '100 900',
 					},
 					{
-						src: ['./src/assets/fonts/inter-cyrillic-wght-normal.woff2'],
-						weight: '100 900',
-						style: 'normal',
 						display: 'swap',
+						src: ['./src/assets/fonts/inter-cyrillic-wght-normal.woff2'],
+						style: 'normal',
 						unicodeRange: CYRILLIC_UNICODE_RANGE,
+						weight: '100 900',
 					},
 				]
-			}
+			},
+			provider: fontProviders.local()
 		},
 		{
-			name: 'Montserrat',
 			cssVariable: '--font-montserrat',
-			provider: fontProviders.local(),
+			name: 'Montserrat',
 			options: {
 				variants: [
 					{
-						src: ['./src/assets/fonts/montserrat-latin-wght-normal.woff2'],
-						weight: '100 900',
-						style: 'normal',
 						display: 'swap',
+						src: ['./src/assets/fonts/montserrat-latin-wght-normal.woff2'],
+						style: 'normal',
 						unicodeRange: LATIN_UNICODE_RANGE,
+						weight: '100 900',
 					},
 					{
-						src: ['./src/assets/fonts/montserrat-cyrillic-wght-normal.woff2'],
-						weight: '100 900',
-						style: 'normal',
 						display: 'swap',
+						src: ['./src/assets/fonts/montserrat-cyrillic-wght-normal.woff2'],
+						style: 'normal',
 						unicodeRange: CYRILLIC_UNICODE_RANGE,
+						weight: '100 900',
 					},
 				]
-			}
+			},
+			provider: fontProviders.local()
 		}
 	],
 	image: {
@@ -136,13 +138,9 @@ export default defineConfig({
 		})
 	],
 	markdown: {
-		rehypePlugins: [[rehypeMarkdownPicture, { formats: ['avif', 'webp'] }]],
-		smartypants: {
-			dashes: 'oldschool',
-			openingQuotes: { double: '«', single: '‹' },
-			closingQuotes: { double: '»', single: '›' },
-			ellipses: 'unspaced',
-		},
+		processor: satteri({
+			hastPlugins: [satteriMarkdownPicture({ formats: ['avif', 'webp'] })],
+		}),
 	},
 	site: 'https://shabalin.online',
 	vite: {

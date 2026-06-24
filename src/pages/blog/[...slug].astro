@@ -1,8 +1,9 @@
 ---
 import { type CollectionEntry, getCollection, render } from 'astro:content';
 import BlogPost from '../../layouts/blog-post.astro';
+import type { GetStaticPaths } from 'astro';
 
-export const getStaticPaths = () =>
+export const getStaticPaths: GetStaticPaths = () =>
 	getCollection('blog').then((posts) => posts.map((post) => ({
 		params: { slug: post.id },
 		props: post,

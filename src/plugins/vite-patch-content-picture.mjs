@@ -5,7 +5,11 @@
  *
  * При обновлении Astro проверьте совпадение фрагмента в astro/dist/content/runtime.js.
  */
-export function vitePatchContentMarkdownPicture() {
+// eslint-disable-next-line max-lines-per-function
+const vitePatchContentMarkdownPicture = () => {
+	const FIRST_INDEX = 0;
+	const NOT_FOUND_INDEX = -1;
+
 	const marker = 'const CONTENT_LAYER_IMAGE_REGEX = /__ASTRO_IMAGE_="([^"]+)"/g;\nasync function updateImageReferencesInBody(html, fileName) {';
 
 	const replacement = `const IMG_TAG_WITH_ASTRO_IMAGE_RE = /<img\\b[^>]*__ASTRO_IMAGE_="([^"]+)"[^>]*>/g;
@@ -63,7 +67,7 @@ async function updateImageReferencesInBody(html, fileName) {
     const fullTag = match[0];
     const imagePath = match[1];
     try {
-      const decoded = JSON.parse(imagePath.replaceAll("&#x22;", '"'));
+      const decoded = JSON.parse(imagePath.replaceAll("&#x22;", '"').replaceAll("&quot;", '"'));
       const formats = decoded.formats;
       if (Array.isArray(formats) && formats.length > 0) {
         const { formats: _formats, fallbackFormat, index, ...rest } = decoded;
@@ -111,25 +115,28 @@ async function updateImageReferencesInBody(html, fileName) {
 	const plugin = {
 		enforce: 'pre',
 		name: 'vite-patch-content-markdown-picture',
+		// eslint-disable-next-line max-statements
 		transform(code, id) {
-			if (!id.includes('astro/dist/content/runtime.js')) return null;
+			if (!id.includes('astro/dist/content/runtime.js')) {return;}
 			if (!code.includes(marker)) {
-				console.warn(
-					'[vite-patch-content-markdown-picture] Маркер не найден в runtime.js — патч пропущен (версия Astro?).'
+				this.warn(
+					'[vite-patch-content-markdown-picture] Маркер не найден в runtime.js — патч пропущен (версия Astro?).',
 				);
-				return null;
+				return;
 			}
-			if (!code.includes('function updateImageReferencesInData')) return null;
+			if (!code.includes('function updateImageReferencesInData')) {return;}
 			const endMarker = '\nfunction updateImageReferencesInData';
 			const start = code.indexOf(marker);
 			const end = code.indexOf(endMarker, start);
-			if (start === -1 || end === -1) return null;
+			if (start === NOT_FOUND_INDEX || end === NOT_FOUND_INDEX) {return;}
 			return (
-				code.slice(0, start) +
+				code.slice(FIRST_INDEX, start) +
 				replacement +
 				code.slice(end)
 			);
 		}
 	};
 	return plugin;
-}
+};
+
+export { vitePatchContentMarkdownPicture };
