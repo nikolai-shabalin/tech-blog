@@ -283,3 +283,6 @@ pubDate: "July 04 2026"
   text-fit: shrink 70%;
 }
 </style>
+
+## Источники
+- Спецификация [CSS Text Module Level 5](https://drafts.csswg.org/css-text-5/#text-fit-property)
