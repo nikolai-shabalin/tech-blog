@@ -97,7 +97,7 @@ const { posts } = Astro.props;
     max-width: var(--content-width);
   }
 
-  @supports (animation: linear both post-reveal view()) {
+  @supports (animation-timeline: view()) {
     .posts__list--scroll-reveal .short-post {
       opacity: 0.35;
       transform: translateX(-24px);
