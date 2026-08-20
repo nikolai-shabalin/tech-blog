@@ -52,16 +52,17 @@
 </html>
 
 <script>
-	const feed = document.querySelector('#feed');
-	const ad = document.querySelector('#ad');
-	const loadAdButton = document.querySelector('#load-ad');
-	const resetButton = document.querySelector('#reset-demo');
-	const disableAnchoringCheckbox = document.querySelector('#disable-anchoring');
-	const anchorPoint = document.querySelector('#anchor-point');
-	const status = document.querySelector('#status');
-	const ANCHOR_UNAVAILABLE = Number.NaN;
+	/* eslint-disable sort-vars -- Values in grouped declarations have dependency order. */
+	const feed = document.querySelector('#feed'),
+	 ad = document.querySelector('#ad'),
+	 loadAdButton = document.querySelector('#load-ad'),
+	 resetButton = document.querySelector('#reset-demo'),
+	 disableAnchoringCheckbox = document.querySelector('#disable-anchoring'),
+	 anchorPoint = document.querySelector('#anchor-point'),
+	 status = document.querySelector('#status'),
+	 ANCHOR_UNAVAILABLE = Number.NaN,
 
-	const getRelativeAnchorTop = (): number => {
+	 getRelativeAnchorTop = (): number => {
 		if (
 			!(feed instanceof HTMLElement) ||
 			!(anchorPoint instanceof HTMLElement)
@@ -69,12 +70,12 @@
 			return ANCHOR_UNAVAILABLE;
 		}
 
-		const feedRect = feed.getBoundingClientRect();
-		const anchorRect = anchorPoint.getBoundingClientRect();
+		const feedRect = feed.getBoundingClientRect(),
+		 anchorRect = anchorPoint.getBoundingClientRect();
 		return Math.round(anchorRect.top - feedRect.top);
-	};
+	},
 
-	const setStatus = (text: string): void => {
+	 setStatus = (text: string): void => {
 		if (status instanceof HTMLElement) {
 			status.textContent = text;
 		}

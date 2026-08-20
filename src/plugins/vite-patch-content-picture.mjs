@@ -5,14 +5,14 @@
  *
  * При обновлении Astro проверьте совпадение фрагмента в astro/dist/content/runtime.js.
  */
-// eslint-disable-next-line max-lines-per-function
+/* eslint-disable max-lines-per-function, sort-vars -- The patch mirrors Astro's runtime implementation. */
 const vitePatchContentMarkdownPicture = () => {
-	const FIRST_INDEX = 0;
-	const NOT_FOUND_INDEX = -1;
+	const FIRST_INDEX = 0,
+	 NOT_FOUND_INDEX = -1,
 
-	const marker = 'const CONTENT_LAYER_IMAGE_REGEX = /__ASTRO_IMAGE_="([^"]+)"/g;\nasync function updateImageReferencesInBody(html, fileName) {';
+	 marker = 'const CONTENT_LAYER_IMAGE_REGEX = /__ASTRO_IMAGE_="([^"]+)"/g;\nasync function updateImageReferencesInBody(html, fileName) {',
 
-	const replacement = `const IMG_TAG_WITH_ASTRO_IMAGE_RE = /<img\\b[^>]*__ASTRO_IMAGE_="([^"]+)"[^>]*>/g;
+	 replacement = `const IMG_TAG_WITH_ASTRO_IMAGE_RE = /<img\\b[^>]*__ASTRO_IMAGE_="([^"]+)"[^>]*>/g;
 async function updateImageReferencesInBody(html, fileName) {
   const fallbackFormatFromSrc = (src) => {
     const clean = src.split("?")[0].toLowerCase();
@@ -109,10 +109,10 @@ async function updateImageReferencesInBody(html, fileName) {
     parts.push("</picture>");
     return parts.join("");
   });
-}`;
+}`,
 
 	/** @type {import('vite').Plugin} */
-	const plugin = {
+	 plugin = {
 		enforce: 'pre',
 		name: 'vite-patch-content-markdown-picture',
 		// eslint-disable-next-line max-statements
@@ -125,9 +125,9 @@ async function updateImageReferencesInBody(html, fileName) {
 				return;
 			}
 			if (!code.includes('function updateImageReferencesInData')) {return;}
-			const endMarker = '\nfunction updateImageReferencesInData';
-			const start = code.indexOf(marker);
-			const end = code.indexOf(endMarker, start);
+			const endMarker = '\nfunction updateImageReferencesInData',
+			 start = code.indexOf(marker),
+			 end = code.indexOf(endMarker, start);
 			if (start === NOT_FOUND_INDEX || end === NOT_FOUND_INDEX) {return;}
 			return (
 				code.slice(FIRST_INDEX, start) +

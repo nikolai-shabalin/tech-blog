@@ -1,13 +1,14 @@
-const EMPTY_LENGTH = 0;
-const SVG_EXTENSION = '.svg';
-const URL_QUERY_SEPARATOR = '?';
+/* eslint-disable sort-vars -- Values in grouped declarations have dependency order. */
+const EMPTY_LENGTH = 0,
+ SVG_EXTENSION = '.svg',
+ URL_QUERY_SEPARATOR = '?',
 
-const isSvg = (src) => {
+ isSvg = (src) => {
 	const [pathname] = src.toLowerCase().split(URL_QUERY_SEPARATOR);
 	return pathname.endsWith(SVG_EXTENSION);
-};
+},
 
-const getImagePaths = (astroData) => {
+ getImagePaths = (astroData) => {
 	if (!astroData) {
 		return {
 			localImagePaths: new Set(),
@@ -17,18 +18,18 @@ const getImagePaths = (astroData) => {
 
 	const { localImagePaths, remoteImagePaths } = astroData;
 	return { localImagePaths, remoteImagePaths };
-};
+},
 
-const shouldUsePictureFormats = (src, localImagePaths, remoteImagePaths) => {
+ shouldUsePictureFormats = (src, localImagePaths, remoteImagePaths) => {
 	const hasImages = localImagePaths.size !== EMPTY_LENGTH || remoteImagePaths.size !== EMPTY_LENGTH;
 	return hasImages && !isSvg(src) && (localImagePaths.has(src) || remoteImagePaths.has(src));
-};
+},
 
 /**
  * Помечает оптимизируемые <img> в Markdown/MD (content collections),
  * чтобы патч runtime подставлял <picture> с AVIF/WebP.
  */
-const satteriMarkdownPicture = (options = {}) => {
+ satteriMarkdownPicture = (options = {}) => {
 	const { formats = ['avif', 'webp'] } = options;
 
 	return {
@@ -40,8 +41,9 @@ const satteriMarkdownPicture = (options = {}) => {
 					return;
 				}
 
-				const src = decodeURI(properties.src);
-				const { localImagePaths, remoteImagePaths } = getImagePaths(context.data.astro);
+				/* eslint-disable-next-line one-var -- The type guard must run before decoding the source. */
+				const src = decodeURI(properties.src),
+				 { localImagePaths, remoteImagePaths } = getImagePaths(context.data.astro);
 
 				if (shouldUsePictureFormats(src, localImagePaths, remoteImagePaths)) {
 					context.setProperty(node, 'formats', formats);

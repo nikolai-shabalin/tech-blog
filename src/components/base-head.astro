@@ -10,9 +10,9 @@ interface Props {
 	image?: string;
 }
 
-const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const canonicalURL = new URL(Astro.url.pathname, Astro.site),
 
-const { title, description, image } = Astro.props;
+ { title, description, image } = Astro.props;
 ---
 
 <!-- Global Metadata -->
@@ -21,15 +21,15 @@ const { title, description, image } = Astro.props;
 <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
 <meta name="generator" content={Astro.generator} />
 <script is:inline>
-  /* eslint-disable explicit-function-return-type */
+  /* eslint-disable explicit-function-return-type, sort-vars */
   const updateDayOfYear = () => {
-    const JANUARY = 0;
-    const FIRST_DAY_OF_MONTH = 1;
-    const MILLISECONDS_IN_DAY = 86_400_000;
+    const JANUARY = 0,
+     FIRST_DAY_OF_MONTH = 1,
+     MILLISECONDS_IN_DAY = 86_400_000,
 
-    const now = new Date();
-    const startOfYear = new Date(now.getFullYear(), JANUARY, FIRST_DAY_OF_MONTH);
-    const dayOfYear = Math.floor((now.getTime() - startOfYear.getTime()) / MILLISECONDS_IN_DAY);
+     now = new Date(),
+     startOfYear = new Date(now.getFullYear(), JANUARY, FIRST_DAY_OF_MONTH),
+     dayOfYear = Math.floor((now.getTime() - startOfYear.getTime()) / MILLISECONDS_IN_DAY);
 
     document.documentElement.style.setProperty('--day-of-year', String(dayOfYear));
   };
@@ -76,12 +76,12 @@ const { title, description, image } = Astro.props;
 
 <!-- Yandex.Metrika counter -->
 <script is:inline type="text/javascript" >
-  /* eslint-disable explicit-function-return-type */
-  const YANDEX_METRIKA_ID = 99_027_716;
-  const SCRIPT_URL = 'https://mc.yandex.ru/metrika/tag.js';
-  const LOCAL_HOSTNAMES = new Set(['127.0.0.1', 'localhost']);
+  /* eslint-disable explicit-function-return-type, sort-vars */
+  const YANDEX_METRIKA_ID = 99_027_716,
+   SCRIPT_URL = 'https://mc.yandex.ru/metrika/tag.js',
+   LOCAL_HOSTNAMES = new Set(['127.0.0.1', 'localhost']),
 
-  const hasMetrikaScript = (scriptUrl) => {
+   hasMetrikaScript = (scriptUrl) => {
     for (const scriptElement of document.scripts) {
       if (scriptElement.src === scriptUrl) {
         return true;
@@ -89,18 +89,18 @@ const { title, description, image } = Astro.props;
     }
 
     return false;
-  };
+  },
 
-  const injectMetrikaScript = (scriptUrl) => {
+   injectMetrikaScript = (scriptUrl) => {
     const metrikaScript = document.createElement('script');
     metrikaScript.async = true;
     metrikaScript.src = scriptUrl;
     document.head.append(metrikaScript);
-  };
+  },
 
-  const setupYmQueue = () => {
-    const ymQueueProperty = 'a';
-    const ymLoadTimeProperty = 'l';
+   setupYmQueue = () => {
+    const ymQueueProperty = 'a',
+     ymLoadTimeProperty = 'l';
 
     globalThis.ym = (...arguments_) => {
       const ymQueue = globalThis.ym[ymQueueProperty] ?? [];
@@ -108,9 +108,9 @@ const { title, description, image } = Astro.props;
       globalThis.ym[ymQueueProperty] = ymQueue;
     };
     globalThis.ym[ymLoadTimeProperty] = Date.now();
-  };
+  },
 
-  const initializeYandexMetrika = () => {
+   initializeYandexMetrika = () => {
     if (LOCAL_HOSTNAMES.has(globalThis.location.hostname)) {
       return;
     }

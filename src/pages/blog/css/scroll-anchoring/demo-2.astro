@@ -53,26 +53,28 @@
 </html>
 
 <script>
-	const chat = document.querySelector('#chat');
-	const button = document.querySelector('#load-more');
-	const resetButton = document.querySelector('#reset-demo');
-	const disableAnchoringCheckbox = document.querySelector('#disable-anchoring');
-	const status = document.querySelector('#status');
+	/* eslint-disable sort-vars -- Values in grouped declarations have dependency order. */
+	const chat = document.querySelector('#chat'),
+	 button = document.querySelector('#load-more'),
+	 resetButton = document.querySelector('#reset-demo'),
+	 disableAnchoringCheckbox = document.querySelector('#disable-anchoring'),
+	 status = document.querySelector('#status'),
 
-	const INITIAL_SCROLL_TOP = 160;
-	const INITIAL_SEED = 100;
-	const MESSAGES_TO_LOAD = 3;
-	const STEP = 1;
+	 INITIAL_SCROLL_TOP = 160,
+	 INITIAL_SEED = 100,
+	 MESSAGES_TO_LOAD = 3,
+	 STEP = 1;
 
 	let seed = INITIAL_SEED;
 
+	/* eslint-disable-next-line one-var -- Mutable demo state is initialized before its handlers. */
 	const setStatus = (text: string): void => {
 		if (status instanceof HTMLElement) {
 			status.textContent = text;
 		}
-	};
+	},
 
-	const addOldMessages = (): void => {
+	 addOldMessages = (): void => {
 		if (!(chat instanceof HTMLElement)) {
 			return;
 		}
@@ -86,9 +88,9 @@
 				chat.firstChild.before(oldMsg);
 			}
 		}
-	};
+	},
 
-	const resetChat = (): void => {
+	 resetChat = (): void => {
 		if (!(chat instanceof HTMLElement)) {
 			return;
 		}

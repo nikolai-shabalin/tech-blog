@@ -1,4 +1,5 @@
 // @ts-check
+/* eslint-disable sort-vars -- Values in grouped declarations have dependency order. */
 /* eslint-disable sort-imports */
 import { defineConfig, fontProviders } from 'astro/config';
 import { satteri } from '@astrojs/markdown-satteri';
@@ -28,10 +29,10 @@ const LATIN_UNICODE_RANGE = [
 	'U+2215',
 	'U+FEFF',
 	'U+FFFD',
-];
+],
 
 /** @type {[string, ...string[]]} */
-const CYRILLIC_UNICODE_RANGE = [
+ CYRILLIC_UNICODE_RANGE = [
 	'U+0301',
 	'U+0400-045F',
 	'U+0490-0491',

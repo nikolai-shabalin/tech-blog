@@ -6,8 +6,8 @@ import PostsList from '../../components/posts-list.astro';
 import { SITE_TITLE } from '../../consts';
 import { getCollection } from 'astro:content';
 
-const digestEntries = await getCollection('blog', ({ id: postId }) => postId.startsWith('digest/'));
-const posts = digestEntries.toSorted(
+const digestEntries = await getCollection('blog', ({ id: postId }) => postId.startsWith('digest/')),
+ posts = digestEntries.toSorted(
   (firstPost, secondPost) => secondPost.data.pubDate.valueOf() - firstPost.data.pubDate.valueOf(),
 );
 ---

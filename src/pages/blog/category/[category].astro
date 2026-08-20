@@ -10,8 +10,8 @@ import type { GetStaticPaths } from 'astro';
 
 export const getStaticPaths: GetStaticPaths = () =>
   getCollection('blog').then((allPosts) => {
-    const ROOT_SEGMENT_INDEX = 0;
-    const uniqueCategories = [...new Set(
+    const ROOT_SEGMENT_INDEX = 0,
+     uniqueCategories = [...new Set(
       allPosts.map((post) => {
         const pathSegments = post.id.split('/');
         return pathSegments[ROOT_SEGMENT_INDEX].toLowerCase();
@@ -30,10 +30,11 @@ export const getStaticPaths: GetStaticPaths = () =>
     });
   });
 
-const { category } = Astro.params;
-const { posts } = Astro.props as { posts: CollectionEntry<'blog'>[] };
+/* eslint-disable-next-line one-var -- Route data is initialized after the static-path export. */
+const { category } = Astro.params,
+ { posts } = Astro.props as { posts: CollectionEntry<'blog'>[] },
 
-const sortedPosts = posts.toSorted(
+ sortedPosts = posts.toSorted(
   (firstPost, secondPost) => secondPost.data.pubDate.valueOf() - firstPost.data.pubDate.valueOf(),
 );
 ---

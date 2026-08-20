@@ -1,9 +1,9 @@
 ---
 import { SITE_TITLE } from '../consts';
 
-const { pathname } = Astro.url;
+const { pathname } = Astro.url,
 
-const navItems = [
+ navItems = [
   {
     href: 'https://frontend-weekly.ru/',
     isActive: pathname.startsWith('/digest'),

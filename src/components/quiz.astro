@@ -136,14 +136,14 @@ const { questions } = Astro.props;
 </style>
 
 <script is:inline define:vars={{ questions }}>
-  /* eslint-disable explicit-function-return-type */
-  const STEP = 1;
-  const form = document.querySelector('#quiz-form');
+  /* eslint-disable explicit-function-return-type, sort-vars */
+  const STEP = 1,
+   form = document.querySelector('#quiz-form'),
 
-  const markQuestionResult = (questionIndex, formData) => {
-    const selectedAnswer = Math.trunc(Number(formData.get(`question-${questionIndex}`)));
-    const questionBlock = form.querySelector(`[name="question-${questionIndex}"]`).closest('.question-block');
-    const allOptions = questionBlock.querySelectorAll('.option-label');
+   markQuestionResult = (questionIndex, formData) => {
+    const selectedAnswer = Math.trunc(Number(formData.get(`question-${questionIndex}`))),
+     questionBlock = form.querySelector(`[name="question-${questionIndex}"]`).closest('.question-block'),
+     allOptions = questionBlock.querySelectorAll('.option-label');
 
     for (const option of allOptions) {
       option.classList.remove('correct', 'incorrect');

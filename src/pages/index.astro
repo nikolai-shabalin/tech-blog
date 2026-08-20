@@ -7,11 +7,11 @@ import { getCollection } from 'astro:content';
 import Header from '../components/header.astro';
 import PostsList from '../components/posts-list.astro';
 
-const allPosts = await getCollection('blog');
-const posts = allPosts.toSorted(
+const allPosts = await getCollection('blog'),
+ posts = allPosts.toSorted(
 	(firstPost, secondPost) => {
-		const firstUpdateDate = firstPost.data.updatedDate ?? firstPost.data.pubDate;
-		const secondUpdateDate = secondPost.data.updatedDate ?? secondPost.data.pubDate;
+		const firstUpdateDate = firstPost.data.updatedDate ?? firstPost.data.pubDate,
+		 secondUpdateDate = secondPost.data.updatedDate ?? secondPost.data.pubDate;
 
 		return (
 			secondUpdateDate.valueOf() - firstUpdateDate.valueOf()

@@ -102,7 +102,8 @@ const { posts } = Astro.props;
       opacity: 0.35;
       transform: translateX(-24px);
       animation: post-reveal linear both;
-      animation-timeline: view(block);
+      --post-reveal-timeline: view(block);
+      animation-timeline: var(--post-reveal-timeline);
       animation-range: entry 8% cover 32%;
     }
   }
