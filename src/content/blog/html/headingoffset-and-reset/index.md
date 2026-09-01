@@ -4,7 +4,7 @@ description: "Разбираемся, как headingoffset и headingreset ме�
 pubDate: "Sep 01 2026"
 ---
 
-В спецификацию HTML5 добавили два новых атрибута `headingoffset` и `headingreset` — https://html.spec.whatwg.org/multipage/sections.html#heading-levels-&-offsets. [Issue](https://github.com/whatwg/html/issues/5033). [PR](https://github.com/whatwg/html/pull/11086). Которые на данный момент ещё не реализованы ни одним браузером. Меня же это дополнение заставило задуматься зачем эти атрибуты вообще нужны и я решил разобраться и заодно поделиться с вами своей находкой.
+В спецификацию HTML5 добавили два новых атрибута `headingoffset` и `headingreset` — [Спецификация](https://html.spec.whatwg.org/multipage/sections.html#heading-levels-&-offsets). [Issue](https://github.com/whatwg/html/issues/5033). [PR](https://github.com/whatwg/html/pull/11086). Которые на данный момент ещё не реализованы ни одним браузером. Меня же это дополнение заставило задуматься зачем эти атрибуты вообще нужны и я решил разобраться и заодно поделиться с вами своей находкой.
 
 Коротко:
 
