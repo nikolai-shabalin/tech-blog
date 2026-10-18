@@ -1,0 +1,127 @@
+---
+import BaseHead from '../components/base-head.astro';
+import Footer from '../components/footer.astro';
+import Header from '../components/header.astro';
+import { Image } from 'astro:assets';
+import { SITE_TITLE } from '../consts';
+import portrait from '../assets/about-portrait.webp';
+---
+
+<!doctype html>
+<html lang="ru">
+  <head>
+    <BaseHead
+      title={`Обо мне | ${SITE_TITLE}`}
+      description="История Николая Шабалина: от первого сайта на narod.ru до фронтенда, выступлений и блога о браузерных технологиях."
+    />
+  </head>
+  <body>
+    <Header />
+    <main class="about-page">
+      <article>
+        <div class="about-hero">
+          <div class="about-hero__text">
+            <p class="about-eyebrow">Обо мне</p>
+            <h1>Привет, я Николай Шабалин</h1>
+            <p class="about-lead">Всё началось в 2005 году, когда я опубликовал свой первый сайт на narod.ru. Со временем веб превратился для меня в профессию.</p>
+          </div>
+          <Image
+            src={portrait}
+            alt="Портрет Николая Шабалина"
+            class="about-portrait"
+            widths={[360, 560, 760]}
+            sizes="(max-width: 720px) 100vw, 350px"
+            loading="eager"
+          />
+        </div>
+
+        <div class="about-story">
+          <p>Коммерческой разработкой я занимаюсь с 2012 года. За это время прошёл путь от джуна до тимлида команды из 11 фронтенд-разработчиков. Работал в разных местах — от студии до медтеха. Сейчас тружусь в СберЗдоровье.</p>
+
+          <p>Примерно с 2015 года к работе добавились выступления. Меня можно было увидеть на WSD, PiterJS, PiterALLY и даже PiterCSS. В 2026 году я выступил в Томске на Gorod IT, а ещё — в ГринАтоме.</p>
+
+          <p>Больше всего меня увлекают нативные браузерные технологии. Поэтому здесь я в основном пишу про CSS. HTML и JavaScript тоже появляются в блоге, но реже: на мой взгляд, нового в них происходит гораздо меньше.</p>
+
+          <p>За пределами блога веду <a href="https://t.me/greatAttractorCode">канал @greatAttractorCode</a> и всё думаю, пора ли мне на YouTube. Ещё <a href="https://habr.com/ru/users/nikolayshabalin/">пишу на Хабре</a>. Раньше вёл <a href="https://procode.mave.digital/">подкаст про разработку</a>, а сейчас вхожу в программный комитет <a href="https://podlodka.io/fecrew">Podlodka Frontend AI Crew</a>.</p>
+
+          <p>Чаще всего меня можно встретить в Петербурге, но иногда я выбираюсь в Москву. Если хочется поговорить о вебе, выступлениях или просто познакомиться, <a href="https://t.me/greatAttractorCode">заглядывайте в канал</a>.</p>
+        </div>
+      </article>
+    </main>
+    <Footer />
+  </body>
+</html>
+
+<style>
+  .about-page {
+    padding-top: var(--space-3xl);
+  }
+
+  .about-hero {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(240px, 350px);
+    align-items: center;
+    gap: var(--space-2xl);
+    margin-bottom: var(--space-3xl);
+  }
+
+  .about-eyebrow {
+    margin-bottom: var(--space-md);
+    color: var(--accent);
+    font-size: var(--text-sm);
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  h1 {
+    margin: 0 0 var(--space-xl);
+    font-size: var(--text-4xl);
+  }
+
+  .about-lead {
+    margin: 0;
+    color: var(--gray-dark);
+    font-size: var(--text-xl);
+    line-height: 1.55;
+  }
+
+  .about-portrait {
+    display: block;
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+    border-radius: 12px;
+  }
+
+  .about-story {
+    max-width: 70ch;
+    margin-inline: auto;
+  }
+
+  .about-story p {
+    margin-bottom: var(--space-xl);
+  }
+
+  .about-story a {
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.18em;
+  }
+
+  @media (max-width: 720px) {
+    .about-page {
+      padding-top: var(--space-2xl);
+    }
+
+    .about-hero {
+      grid-template-columns: 1fr;
+      gap: var(--space-xl);
+      margin-bottom: var(--space-2xl);
+    }
+
+    .about-portrait {
+      max-width: 420px;
+    }
+  }
+</style>

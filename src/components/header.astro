@@ -5,6 +5,11 @@ const { pathname } = Astro.url,
 
  navItems = [
   {
+    href: '/about',
+    isActive: pathname === '/about' || pathname === '/about/',
+    label: 'Обо мне'
+  },
+  {
     href: 'https://frontend-weekly.ru/',
     isActive: pathname.startsWith('/digest'),
     label: 'Дайджесты'
@@ -36,7 +41,7 @@ const { pathname } = Astro.url,
       <ul class="nav-list">
         {navItems.map(item => (
           <li class="nav-item">
-            <a href={item.href} class={`nav-link ${item.isActive ? 'nav-link--active' : ''} ${item.isButton ? 'nav-link--button' : ''}`}>
+            <a href={item.href} aria-current={item.isActive ? 'page' : undefined} class={`nav-link ${item.isActive ? 'nav-link--active' : ''} ${item.isButton ? 'nav-link--button' : ''}`}>
               {item.label}
             </a>
           </li>
