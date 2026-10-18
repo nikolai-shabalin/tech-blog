@@ -17,7 +17,15 @@ const {title, description, pubDate, updatedDate, slug = '', mascotMessages = [],
 
 <html lang="ru">
 <head>
-  <BaseHead title={title} description={description}/>
+  <BaseHead
+    title={title}
+    description={description}
+    image={`/og/${slug}.png`}
+    imageAlt={title}
+    type="article"
+    publishedDate={pubDate}
+    updatedDate={updatedDate}
+  />
   <style>
     .home-link {
       display: inline-block;
